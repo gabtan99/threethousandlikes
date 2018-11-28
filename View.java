@@ -80,14 +80,12 @@ public class View extends Application {
 
 
         //Welcome Page
-
         welcomePage.setStyle("-fx-background-color: #E6E7E7");
-
         ImageView zaloraGIF = new ImageView(zaloralogo);
         welcomePage.getChildren().add(zaloraGIF);
 
-        Button cont = new Button ("Continue");
-        cont.setOnMousePressed(e -> {
+        Button continueIMG = new Button ("continue");
+        continueIMG.setOnMousePressed(e -> {
           primaryStage.setScene(mainScene);
 
           // centers the stage to the mid of the screen
@@ -97,11 +95,11 @@ public class View extends Application {
 
 
         });
-        welcomePage.getChildren().add(cont);
-
-
+        welcomePage.getChildren().add(continueIMG);
 
         //Main Screen
+        HBox topBar = new HBox ();
+        mainPage.setTop(topBar);
 
 
 
@@ -111,6 +109,7 @@ public class View extends Application {
 
 
         primaryStage.setScene(welcomeScene);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }
