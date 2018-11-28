@@ -108,7 +108,7 @@ public class View extends Application {
         });
 
         welcomePage.getChildren().add(continueIMG);
-
+        /////
         //Main Screen
 
 
