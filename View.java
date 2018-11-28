@@ -96,7 +96,7 @@ public class View extends Application {
 
         });
         welcomePage.getChildren().add(continueIMG);
-
+        /////
         //Main Screen
         HBox topBar = new HBox ();
         mainPage.setTop(topBar);
