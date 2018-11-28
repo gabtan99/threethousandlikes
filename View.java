@@ -58,6 +58,8 @@ import javafx.stage.Screen;
 public class View extends Application {
 
   Image zaloralogo = new Image("images/zaloraGIF.gif");
+  Image continueP = new Image ("images/Continue.png");
+  Image continuep = new Image ("images/ContinueHover.png");
 
 
     public static void main(String[] args) {
@@ -72,10 +74,13 @@ public class View extends Application {
         primaryStage.setTitle("Welcome to Zalora!");
 
         StackPane welcomePage = new StackPane();
-        BorderPane mainPage = new BorderPane();
+        StackPane overlap = new StackPane();
+        AnchorPane mainPage = new AnchorPane();
+
+        overlap.getChildren().add(mainPage);
 
         Scene welcomeScene = new Scene(welcomePage, 1024, 768);
-        Scene mainScene = new Scene (mainPage, 1280, 720);
+        Scene mainScene = new Scene (overlap, 1280, 720);
 
 
 
@@ -84,8 +89,8 @@ public class View extends Application {
         ImageView zaloraGIF = new ImageView(zaloralogo);
         welcomePage.getChildren().add(zaloraGIF);
 
-        Button continueIMG = new Button ("continue");
-        continueIMG.setOnMousePressed(e -> {
+        ImageView continueIMG = new ImageView (continuep);
+        continueIMG.setOnMouseClicked(e -> {
           primaryStage.setScene(mainScene);
 
           // centers the stage to the mid of the screen
@@ -95,11 +100,17 @@ public class View extends Application {
 
 
         });
+        continueIMG.setOnMouseEntered(e -> {
+          continueIMG.setImage(continueP);
+        });
+        continueIMG.setOnMouseExited(e -> {
+          continueIMG.setImage(continuep);
+        });
+
         welcomePage.getChildren().add(continueIMG);
 
         //Main Screen
-        HBox topBar = new HBox ();
-        mainPage.setTop(topBar);
+
 
 
 
