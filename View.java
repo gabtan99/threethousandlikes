@@ -60,6 +60,7 @@ public class View extends Application {
   Image zaloralogo = new Image("images/zaloraGIF.gif");
   Image continueP = new Image ("images/Continue.png");
   Image continuep = new Image ("images/ContinueHover.png");
+  Image Base = new Image ("images/2_Base.png");
 
 
     public static void main(String[] args) {
@@ -88,6 +89,9 @@ public class View extends Application {
         welcomePage.setStyle("-fx-background-color: #E6E7E7");
         ImageView zaloraGIF = new ImageView(zaloralogo);
         welcomePage.getChildren().add(zaloraGIF);
+		
+		ImageView main_scene = new ImageView(Base);
+		overlap.getChildren().add(main_scene);
 
         ImageView continueIMG = new ImageView (continuep);
         continueIMG.setOnMouseClicked(e -> {
