@@ -28,6 +28,7 @@ public class TheConnection  {
       System.out.println("Connected to database : " + db);
       Statement stmt = conn.createStatement();
 
+      /*
       Scanner sc = new Scanner(System.in);
 
       System.out.print("Username: ");
@@ -50,6 +51,7 @@ public class TheConnection  {
       for (int i = 0; i < brands.size(); i++) {
         System.out.println(brands.get(i));
       }
+      */
 
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
