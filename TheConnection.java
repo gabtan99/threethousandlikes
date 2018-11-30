@@ -1,10 +1,8 @@
 
-
-
 import java.sql.*;
 import java.util.*;
 
-public class TheConnection  {
+public class TheConnection {
 
   private static int currentUserID = 0;
 
@@ -17,7 +15,7 @@ public class TheConnection  {
     String db = "zaloradb";
     String url = "jdbc:mysql://localhost/" + db;
     String user = "root";
-    String pass = "denzeljerickirareb";
+    String pass = "password";
 
     //QUERY STATEMENTS
 
