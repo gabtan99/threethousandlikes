@@ -1,12 +1,10 @@
 
-/*
-java -cp "mysql-connector-java-5.1.47-bin.jar:." TheConnection
-*/
+
 
 import java.sql.*;
 import java.util.*;
 
-public class TheConnection {
+public class TheConnection  {
 
   private static int currentUserID = 0;
 
