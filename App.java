@@ -3,7 +3,7 @@ import javafx.stage.Stage;
 
 public class App extends Application {
   @Override
-  public void start(Stage primaryStage) {
+  public void start(Stage primaryStage) throws ClassNotFoundException {
     TheConnection mainModel = new TheConnection();
     Controller mainController = new Controller(mainModel, primaryStage);
   }
