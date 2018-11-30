@@ -13,11 +13,9 @@ public class TheConnection {
     // SQL DETAILS
     String driver = "com.mysql.jdbc.Driver";
     String db = "zaloradb";
-    String url = "jdbc:mysql://localhost/" + db;
+    String url = "jdbc:mysql://localhost/" + db + "?useSSL=false";
     String user = "root";
     String pass = "password";
-
-    //QUERY STATEMENTS
 
     // GETTING CONNECTED
     try {
@@ -26,31 +24,31 @@ public class TheConnection {
       System.out.println("Connected to database : " + db);
       Statement stmt = conn.createStatement();
 
+      ArrayList<String> products = new ArrayList<String>();
+      products = getAllProducts(stmt);
+      for (int i = 0; i < products.size(); i++) {
+        System.out.println(products.get(i));
+      }
       /*
       Scanner sc = new Scanner(System.in);
-
       System.out.print("Username: ");
       String email = sc.nextLine();
       System.out.print("Password: ");
       String password = sc.nextLine();
-
       if (validateUserDetails(stmt, email, password)) {
         System.out.println("Success");
       } else
         System.out.println("Fail");
-
       System.out.print("Search: ");
       String keyword = sc.nextLine();
       sc.close();
 
       ArrayList<String> brands = new ArrayList<String>();
       brands = getProductsWithKeyword(stmt, keyword);
-
       for (int i = 0; i < brands.size(); i++) {
         System.out.println(brands.get(i));
       }
       */
-
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
@@ -77,8 +75,7 @@ public class TheConnection {
   */
 
   public static boolean validateUserDetails(Statement stmt, String xemail, String xpassword) {
-
-    String returnUserDetails = "SELECT email, password, first_name, last_name FROM useraccounts";
+    String returnUserDetails = "SELECT user_id, email, password, first_name, last_name FROM useraccounts";
 
     try {
       ResultSet rs = stmt.executeQuery(returnUserDetails);
@@ -88,7 +85,6 @@ public class TheConnection {
           return true;
         }
       }
-
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
@@ -123,5 +119,23 @@ public class TheConnection {
 
   public static void setCurrentUserID(int id) {
     currentUserID = id;
+  }
+
+  public static ArrayList<String> getAllProducts(Statement stmt) {
+    String returnAllProducts = "SELECT product_name, price, classification FROM products";
+    ArrayList<String> temp = new ArrayList<String>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnAllProducts);
+      while (rs.next()) {
+        temp.add(
+            rs.getString("product_name") + " - PHP " + rs.getString("price") + " " + rs.getString("classification"));
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
   }
 }
