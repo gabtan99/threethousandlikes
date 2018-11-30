@@ -74,6 +74,10 @@ public class View {
   Image orderButton = new Image("images/2_OrderButton.png");
   Image orderHover = new Image("images/2_OrderHover.png");
   Image login = new Image("images/LogIn.png");
+  Image loginButton = new Image("images/LogInButton1.png");
+  Image loginHover = new Image("images/LogInButton2.png");
+  Image registerButton = new Image("images/RegisterButton1.png");
+  Image registerHover = new Image("images/RegisterButton2.png");
 
 
   public View (Controller c, Stage primaryStage) {
@@ -102,7 +106,23 @@ public class View {
 
 		//Log-in Page
 		ImageView log = new ImageView(login);
+		ImageView logIn = new ImageView(loginButton);
+		ImageView register = new ImageView(registerButton);
 		loginPane.getChildren().add(log);
+		loginPane.getChildren().add(logIn);
+		loginPane.getChildren().add(register);
+		logIn.setOnMouseEntered(e->{
+			logIn.setImage(loginHover);
+		});
+		logIn.setOnMouseExited(e->{
+			logIn.setImage(loginButton);
+		});
+		register.setOnMouseEntered(e->{
+			register.setImage(registerHover);
+		});
+		register.setOnMouseExited(e-> {
+			register.setImage(registerButton);
+		});
 
 		//Home Page
 		ImageView main_scene = new ImageView(Base);
