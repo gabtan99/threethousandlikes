@@ -59,6 +59,18 @@ public class View {
   Image zaloralogo = new Image("images/zaloraGIF.gif");
   Image continueP = new Image("images/Continue.png");
   Image continuep = new Image("images/ContinueHover.png");
+  Image Base = new Image("images/2_Base.png");
+  Image zaloraButton = new Image("images/2_ZaloraButton.png");
+  Image zaloraHover = new Image("images/2_ZaloraHover.png");
+  Image searchButton = new Image("images/2_SearchButton.png");
+  Image searchHover = new Image("images/2_SearchHover.png");
+  Image accountButton = new Image("images/2_AccountButton.png");
+  Image accountHover = new Image("images/2_AccountHover.png");
+  Image cartButton = new Image("images/2_CartButton.png");
+  Image cartHover = new Image("images/2_CartHover.png");
+  Image orderButton = new Image("images/2_OrderButton.png");
+  Image orderHover = new Image("images/2_OrderHover.png");
+  Image login = new Image("images/LogIn.png");
 
   public View(Controller c, Stage primaryStage) {
 
@@ -66,26 +78,80 @@ public class View {
 
     StackPane welcomePage = new StackPane();
     StackPane overlap = new StackPane();
+StackPane loginPane = new StackPane();
     AnchorPane mainPage = new AnchorPane();
 
     overlap.getChildren().add(mainPage);
 
     Scene welcomeScene = new Scene(welcomePage, 1024, 768);
-    Scene mainScene = new Scene(overlap, 1280, 720);
+Scene loginScene = new Scene(loginPane, 1024, 768);
+    Scene mainScene = new Scene (overlap, 1280, 720);
+
+
 
     //Welcome Page
     welcomePage.setStyle("-fx-background-color: #E6E7E7");
     ImageView zaloraGIF = new ImageView(zaloralogo);
     welcomePage.getChildren().add(zaloraGIF);
 
-    ImageView continueIMG = new ImageView(continuep);
+//Log-in Page
+ImageView log = new ImageView(login);
+loginPane.getChildren().add(log);
+
+//Home Page
+ImageView main_scene = new ImageView(Base);
+ImageView zaloraButtonV = new ImageView(zaloraButton);
+ImageView search = new ImageView(searchButton);
+ImageView account = new ImageView(accountButton);
+ImageView cart = new ImageView(cartButton);
+ImageView order = new ImageView(orderButton);
+overlap.getChildren().add(main_scene);
+overlap.getChildren().add(zaloraButtonV);
+overlap.getChildren().add(search);
+overlap.getChildren().add(account);
+overlap.getChildren().add(cart);
+overlap.getChildren().add(order);
+zaloraButtonV.setOnMouseEntered(e -> {
+  zaloraButtonV.setImage(zaloraHover);
+});
+zaloraButtonV.setOnMouseExited(e -> {
+  zaloraButtonV.setImage(zaloraButton);
+});
+search.setOnMouseEntered(e -> {
+  search.setImage(searchHover);
+});
+search.setOnMouseExited(e -> {
+  search.setImage(searchButton);
+});
+account.setOnMouseEntered(e->{
+  account.setImage(accountHover);
+});
+account.setOnMouseExited(e->{
+  account.setImage(accountButton);
+});
+cart.setOnMouseEntered(e -> {
+  cart.setImage(cartHover);
+});
+cart.setOnMouseExited(e -> {
+  cart.setImage(cartButton);
+});
+order.setOnMouseEntered(e -> {
+  order.setImage(orderHover);
+});
+order.setOnMouseExited(e-> {
+  order.setImage(orderButton);
+});
+
+
+    ImageView continueIMG = new ImageView (continuep);
     continueIMG.setOnMouseClicked(e -> {
-      primaryStage.setScene(mainScene);
+      primaryStage.setScene(loginScene);
 
       // centers the stage to the mid of the screen
-      Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-      primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-      primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+      //Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+      //primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+     //primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+
 
     });
     continueIMG.setOnMouseEntered(e -> {
@@ -98,6 +164,14 @@ public class View {
     welcomePage.getChildren().add(continueIMG);
     /////
     //Main Screen
+
+
+
+
+
+
+
+
 
     primaryStage.setScene(welcomeScene);
     primaryStage.setResizable(false);
