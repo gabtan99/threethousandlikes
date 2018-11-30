@@ -54,74 +54,54 @@ import javafx.util.Duration;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 
-
-public class View extends Application {
+public class View {
 
   Image zaloralogo = new Image("images/zaloraGIF.gif");
-  Image continueP = new Image ("images/Continue.png");
-  Image continuep = new Image ("images/ContinueHover.png");
+  Image continueP = new Image("images/Continue.png");
+  Image continuep = new Image("images/ContinueHover.png");
 
+  public View(Controller c, Stage primaryStage) {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    primaryStage.setTitle("Welcome to Zalora!");
 
+    StackPane welcomePage = new StackPane();
+    StackPane overlap = new StackPane();
+    AnchorPane mainPage = new AnchorPane();
 
+    overlap.getChildren().add(mainPage);
 
-    @Override
-    public void start(Stage primaryStage) {
+    Scene welcomeScene = new Scene(welcomePage, 1024, 768);
+    Scene mainScene = new Scene(overlap, 1280, 720);
 
-        primaryStage.setTitle("Welcome to Zalora!");
+    //Welcome Page
+    welcomePage.setStyle("-fx-background-color: #E6E7E7");
+    ImageView zaloraGIF = new ImageView(zaloralogo);
+    welcomePage.getChildren().add(zaloraGIF);
 
-        StackPane welcomePage = new StackPane();
-        StackPane overlap = new StackPane();
-        AnchorPane mainPage = new AnchorPane();
+    ImageView continueIMG = new ImageView(continuep);
+    continueIMG.setOnMouseClicked(e -> {
+      primaryStage.setScene(mainScene);
 
-        overlap.getChildren().add(mainPage);
+      // centers the stage to the mid of the screen
+      Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+      primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+      primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
 
-        Scene welcomeScene = new Scene(welcomePage, 1024, 768);
-        Scene mainScene = new Scene (overlap, 1280, 720);
+    });
+    continueIMG.setOnMouseEntered(e -> {
+      continueIMG.setImage(continueP);
+    });
+    continueIMG.setOnMouseExited(e -> {
+      continueIMG.setImage(continuep);
+    });
 
+    welcomePage.getChildren().add(continueIMG);
+    /////
+    //Main Screen
 
+    primaryStage.setScene(welcomeScene);
+    primaryStage.setResizable(false);
+    primaryStage.show();
 
-        //Welcome Page
-        welcomePage.setStyle("-fx-background-color: #E6E7E7");
-        ImageView zaloraGIF = new ImageView(zaloralogo);
-        welcomePage.getChildren().add(zaloraGIF);
-
-        ImageView continueIMG = new ImageView (continuep);
-        continueIMG.setOnMouseClicked(e -> {
-          primaryStage.setScene(mainScene);
-
-          // centers the stage to the mid of the screen
-          Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-          primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-          primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
-
-
-        });
-        continueIMG.setOnMouseEntered(e -> {
-          continueIMG.setImage(continueP);
-        });
-        continueIMG.setOnMouseExited(e -> {
-          continueIMG.setImage(continuep);
-        });
-
-        welcomePage.getChildren().add(continueIMG);
-        /////
-        //Main Screen
-
-
-
-
-
-
-
-
-
-        primaryStage.setScene(welcomeScene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
-
-    }
+  }
 }

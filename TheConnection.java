@@ -1,3 +1,8 @@
+
+/*
+java -cp "mysql-connector-java-5.1.47-bin.jar:." TheConnection
+*/
+
 import java.sql.*;
 import java.util.*;
 
@@ -5,7 +10,7 @@ public class TheConnection {
 
   private static int currentUserID = 0;
 
-  public static void main(String[] args) throws ClassNotFoundException {
+  public TheConnection() throws ClassNotFoundException {
 
     Connection conn = null;
 
@@ -53,7 +58,6 @@ public class TheConnection {
       System.out.println("SQLState: " + e.getSQLState());
       System.out.println("VendorError: " + e.getErrorCode());
     }
-
   }
   /*
   public static void getBrandList(ResultSet rs) {
@@ -122,5 +126,4 @@ public class TheConnection {
   public static void setCurrentUserID(int id) {
     currentUserID = id;
   }
-
 }
