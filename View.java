@@ -63,6 +63,7 @@ public class View {
   Image continueP = new Image("images/Continue.png");
   Image continuep = new Image("images/ContinueHover.png");
   Image Base = new Image("images/2_Base.png");
+  Image Basebar = new Image("images/Basebar.png");
   Image zaloraButton = new Image("images/2_ZaloraButton.png");
   Image zaloraHover = new Image("images/2_ZaloraHover.png");
   Image searchButton = new Image("images/2_SearchButton.png");
@@ -87,7 +88,22 @@ public class View {
   Image sportsIcon = new Image("images/SportsIcon.png");
   Image bagIcon = new Image("images/BagIcon.png");
   Image accIcon = new Image("images/AccessoriesIcon.png");
+  Image apparelbar = new Image("images/ApparelTypeBar.png");
+  Image clothingB = new Image("images/ClothingButton.png");
+  Image shoesB = new Image("images/ShoesButton.png");
+  Image bagsB = new Image("images/BagsButton.png");
+  Image accB = new Image("images/AccessoriesButton.png");
+  Image beautyB = new Image("images/BeautyButton.png");
+  Image sportsB = new Image("images/SportsButton.png");
+  Image clothingH = new Image("images/ClothingHover.png");
+  Image shoesH = new Image("images/ShoeHover.png");
+  Image bagsH = new Image("images/BagsHover.png");
+  Image accH = new Image("images/AccessoriesHover.png");
+  Image beautyH = new Image("images/BeautyHover.png");
+  Image sportsH = new Image("images/SportsHover.png");
 
+  
+  StackPane overlap = new StackPane();
 
   public View (Controller c, Stage primaryStage) {
 
@@ -96,7 +112,6 @@ public class View {
     primaryStage.setTitle("Welcome to Zalora!");
 
     StackPane welcomePage = new StackPane();
-    StackPane overlap = new StackPane();
 	StackPane loginPane = new StackPane();
 	StackPane registerPane = new StackPane();
     AnchorPane mainPage = new AnchorPane();
@@ -187,22 +202,33 @@ public class View {
 
 		//Home Page
 		ImageView main_scene = new ImageView(Base);
+		ImageView barBase = new ImageView(Basebar);
 		ImageView zaloraButtonV = new ImageView(zaloraButton);
 		ImageView search = new ImageView(searchButton);
 		ImageView account = new ImageView(accountButton);
 		ImageView cart = new ImageView(cartButton);
 		ImageView order = new ImageView(orderButton);
+		ImageView apparelType = new ImageView(apparelbar);
+		ImageView clothesV = new ImageView(clothingB);
+		ImageView shoesV = new ImageView(shoesB);
+		ImageView accV = new ImageView(accB);
+		ImageView bagsV = new ImageView(bagsB);
+		ImageView beautyV = new ImageView(beautyB);
+		ImageView sportsV = new ImageView(sportsB);
 		TextField searchText = new TextField();
 		searchText.setMaxWidth(500);
 		searchText.setMaxHeight(45);
 		overlap.setMargin(searchText, new Insets(0, 0, 650, 0));
 		overlap.getChildren().add(main_scene);
+		overlap.getChildren().add(apparelType);
+		overlap.getChildren().add(barBase);
 		overlap.getChildren().add(zaloraButtonV);
 		overlap.getChildren().add(search);
 		overlap.getChildren().add(account);
 		overlap.getChildren().add(cart);
 		overlap.getChildren().add(order);
 		overlap.getChildren().add(searchText);
+		overlap.getChildren().addAll(clothesV, shoesV, bagsV, accV, sportsV, beautyV);
 		zaloraButtonV.setOnMouseEntered(e -> {
 			zaloraButtonV.setImage(zaloraHover);
 		});
@@ -233,62 +259,117 @@ public class View {
 		order.setOnMouseExited(e-> {
 			order.setImage(orderButton);
 		});
+		clothesV.setOnMouseClicked(e -> {
+			ClothesClick();
+		});
+		clothesV.setOnMouseEntered(e->{
+			clothesV.setImage(clothingH);
+		});
+		clothesV.setOnMouseExited(e->{
+			clothesV.setImage(clothingB);
+		});
+		shoesV.setOnMouseClicked(e -> {
+			ShoesClick();
+		})
+		shoesV.setOnMouseEntered(e->{
+			shoesV.setImage(shoesH);
+		});
+		shoesV.setOnMouseExited(e->{
+			shoesV.setImage(shoesB);
+		});
+		accV.setOnMouseClicked(e->{
+			AccessoriesClick();
+		})
+		accV.setOnMouseEntered(e->{
+			accV.setImage(accH);
+		});
+		accV.setOnMouseExited(e->{
+			accV.setImage(accB);
+		});
+		bagsV.setOnMouseEntered(e->{
+			bagsV.setImage(bagsH);
+		});
+		bagsV.setOnMouseExited(e->{
+			bagsV.setImage(bagsB);
+		});
+		beautyV.setOnMouseEntered(e->{
+			beautyV.setImage(beautyH);
+		});
+		beautyV.setOnMouseExited(e->{
+			beautyV.setImage(beautyB);
+		});
+		sportsV.setOnMouseEntered(e->{
+			sportsV.setImage(sportsH);
+		});
+		sportsV.setOnMouseExited(e->{
+			sportsV.setImage(sportsB);
+		});
 		
-		//ClothingIcon
-		ImageView clothing = new ImageView(clothingIcon);
-		//overlap.getChildren().add(clothing);
-		
-		//ShoesIcon
-		ImageView shoes = new ImageView(ShoesIcon);
-		//overlap.getChildren().add(shoes);
-		
-		//AccessoriesIcon
-		ImageView accessories = new ImageView(accIcon);
-		//overlap.getChildren().add(accessories);
-		
-		//BagIcon
-		ImageView bag = new ImageView(bagIcon);
-		//overlap.getChildren().add(bag);
-		
-		//BeautyIcon
-		ImageView beauty = new ImageView(beautyIcon);
-		//overlap.getChildren().add(beauty);
-		
-		//SportsIcon
-		ImageView sports = new ImageView(sportsIcon);
-		//overlap.getChildren().add(sports);
-		
-		
 
+		ImageView continueIMG = new ImageView (continuep);
+		continueIMG.setOnMouseClicked(e -> {
+			primaryStage.setScene(loginScene);
+		});
 
-    ImageView continueIMG = new ImageView (continuep);
-    continueIMG.setOnMouseClicked(e -> {
-		primaryStage.setScene(loginScene);
-    });
+		continueIMG.setOnMouseEntered(e -> {
+			continueIMG.setImage(continueP);
+		});
 
-    continueIMG.setOnMouseEntered(e -> {
-    continueIMG.setImage(continueP);
-    });
+		continueIMG.setOnMouseExited(e -> {
+			continueIMG.setImage(continuep);
+		});
 
-    continueIMG.setOnMouseExited(e -> {
-    continueIMG.setImage(continuep);
-    });
+		welcomePage.getChildren().add(continueIMG);
+		/////
+		//Main Screen
 
-    welcomePage.getChildren().add(continueIMG);
-    /////
-    //Main Screen
-
-
-
-
-
-
-
-
-
-    primaryStage.setScene(welcomeScene);
-    primaryStage.setResizable(false);
-    primaryStage.show();
+		primaryStage.setScene(welcomeScene);
+		primaryStage.setResizable(false);
+		primaryStage.show();
 
     }
+	
+	private void ClothesClick()
+	{
+		//ClothingIcon
+		ImageView clothing = new ImageView(clothingIcon);
+		overlap.getChildren().add(clothing);
+	}
+	
+	private void BagsClick()
+	{
+		//BagIcon
+		ImageView bag = new ImageView(bagIcon);
+		overlap.getChildren().add(bag);
+	}
+	
+	private void ShoesClick()
+	{
+		//ShoesIcon
+		ImageView shoes = new ImageView(ShoesIcon);
+		overlap.getChildren().add(shoes);
+	}
+	
+	private void AccessoriesClick()
+	{
+		//AccessoriesIcon
+		ImageView accessories = new ImageView(accIcon);
+		overlap.getChildren().add(accessories);
+	}
+	
+	private void SportsClick()
+	{
+		//SportsIcon
+		ImageView sports = new ImageView(sportsIcon);
+		overlap.getChildren().add(sports);
+	}
+	
+	private void BeautyClick()
+	{
+		//BeautyIcon
+		ImageView beauty = new ImageView(beautyIcon);
+		overlap.getChildren().add(beauty);
+	}
 }
+
+	
