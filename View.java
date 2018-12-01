@@ -78,6 +78,9 @@ public class View {
   Image loginHover = new Image("images/LogInButton2.png");
   Image registerButton = new Image("images/RegisterButton1.png");
   Image registerHover = new Image("images/RegisterButton2.png");
+  Image register = new Image("images/Register.png");
+  Image signup = new Image("images/SignUp.png");
+  Image signupHover = new Image("images/SignUp2.png");
 
 
   public View (Controller c, Stage primaryStage) {
@@ -88,13 +91,15 @@ public class View {
 
     StackPane welcomePage = new StackPane();
     StackPane overlap = new StackPane();
-		StackPane loginPane = new StackPane();
+	StackPane loginPane = new StackPane();
+	StackPane registerPane = new StackPane();
     AnchorPane mainPage = new AnchorPane();
 
     overlap.getChildren().add(mainPage);
 
     Scene welcomeScene = new Scene(welcomePage, 1024, 768);
-		Scene loginScene = new Scene(loginPane, 1024, 768);
+	Scene loginScene = new Scene(loginPane, 1024, 768);
+	Scene registerScene = new Scene(registerPane, 1024, 768);
     Scene mainScene = new Scene (overlap, 1280, 720);
 
 
@@ -104,25 +109,54 @@ public class View {
     ImageView zaloraGIF = new ImageView(zaloralogo);
     welcomePage.getChildren().add(zaloraGIF);
 
+		//Register Page
+		ImageView reg = new ImageView(register);
+		ImageView sign = new ImageView(signupHover);
+		registerPane.getChildren().add(reg);
+		registerPane.getChildren().add(sign);
+		sign.setOnMouseClicked(e->{
+			primaryStage.setScene(loginScene);
+		});
+		sign.setOnMouseEntered(e -> {
+			sign.setImage(signup);
+		});
+		sign.setOnMouseExited(e->{
+			sign.setImage(signupHover);
+		});
+	
 		//Log-in Page
 		ImageView log = new ImageView(login);
-		ImageView logIn = new ImageView(loginButton);
-		ImageView register = new ImageView(registerButton);
+		ImageView logIn = new ImageView(loginHover);
+		ImageView register = new ImageView(registerHover);
+		TextField username = new TextField();
+		username.setWidth(10);
 		loginPane.getChildren().add(log);
 		loginPane.getChildren().add(logIn);
+		loginPane.getChildren().add(username);
 		loginPane.getChildren().add(register);
-		logIn.setOnMouseEntered(e->{
-			logIn.setImage(loginHover);
+		logIn.setOnMouseClicked(e->{
+			primaryStage.setScene(mainScene);
+			// centers the stage to the mid of the screen
+		Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+		primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+		primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
 		});
-		logIn.setOnMouseExited(e->{
+		logIn.setOnMouseEntered(e->{
 			logIn.setImage(loginButton);
 		});
-		register.setOnMouseEntered(e->{
-			register.setImage(registerHover);
+		logIn.setOnMouseExited(e->{
+			logIn.setImage(loginHover);
 		});
-		register.setOnMouseExited(e-> {
+		register.setOnMouseClicked(e->{
+			primaryStage.setScene(registerScene);
+		});
+		register.setOnMouseEntered(e->{
 			register.setImage(registerButton);
 		});
+		register.setOnMouseExited(e-> {
+			register.setImage(registerHover);
+		});
+		
 
 		//Home Page
 		ImageView main_scene = new ImageView(Base);
@@ -171,11 +205,7 @@ public class View {
 
     ImageView continueIMG = new ImageView (continuep);
     continueIMG.setOnMouseClicked(e -> {
-    primaryStage.setScene(loginScene);
-    // centers the stage to the mid of the screen
-    //Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-    //primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-    //primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+		primaryStage.setScene(loginScene);
     });
 
     continueIMG.setOnMouseEntered(e -> {
