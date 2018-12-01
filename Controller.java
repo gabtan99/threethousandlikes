@@ -8,4 +8,8 @@ public class Controller {
     model = m;
     view = new View(this, primaryStage);
   }
+
+  private void registerUser(String name, String email, String password, int contact_number) {
+
+  }
 }
