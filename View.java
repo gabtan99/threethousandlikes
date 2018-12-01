@@ -53,6 +53,7 @@ import java.net.URL;
 import javafx.util.Duration;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+import javafx.scene.control.ScrollPane;
 
 
 public class View {
@@ -101,8 +102,15 @@ public class View {
   Image accH = new Image("images/AccessoriesHover.png");
   Image beautyH = new Image("images/BeautyHover.png");
   Image sportsH = new Image("images/SportsHover.png");
-
   
+  ImageView clothing = new ImageView(clothingIcon);
+  ImageView bag = new ImageView(bagIcon);
+  ImageView shoes = new ImageView(ShoesIcon);
+  ImageView accessories = new ImageView(accIcon);
+  ImageView beauty = new ImageView(beautyIcon);
+  ImageView sports = new ImageView(sportsIcon);
+
+  ScrollPane scroll = new ScrollPane();
   StackPane overlap = new StackPane();
 
   public View (Controller c, Stage primaryStage) {
@@ -117,11 +125,15 @@ public class View {
     AnchorPane mainPage = new AnchorPane();
 
     overlap.getChildren().add(mainPage);
+	//scroll.setPrefSize(1280, 1280);
+	//scroll.setFitToWidth(false);
+	scroll.setContent(overlap);
+
 
     Scene welcomeScene = new Scene(welcomePage, 1024, 768);
 	Scene loginScene = new Scene(loginPane, 1024, 768);
 	Scene registerScene = new Scene(registerPane, 1024, 768);
-    Scene mainScene = new Scene (overlap, 1280, 720);
+    Scene mainScene = new Scene (scroll, 1280, 720);
 
 
 
@@ -270,7 +282,7 @@ public class View {
 		});
 		shoesV.setOnMouseClicked(e -> {
 			ShoesClick();
-		})
+		});
 		shoesV.setOnMouseEntered(e->{
 			shoesV.setImage(shoesH);
 		});
@@ -279,12 +291,15 @@ public class View {
 		});
 		accV.setOnMouseClicked(e->{
 			AccessoriesClick();
-		})
+		});
 		accV.setOnMouseEntered(e->{
 			accV.setImage(accH);
 		});
 		accV.setOnMouseExited(e->{
 			accV.setImage(accB);
+		});
+		bagsV.setOnMouseClicked(e ->{
+			BagsClick();
 		});
 		bagsV.setOnMouseEntered(e->{
 			bagsV.setImage(bagsH);
@@ -292,11 +307,17 @@ public class View {
 		bagsV.setOnMouseExited(e->{
 			bagsV.setImage(bagsB);
 		});
+		beautyV.setOnMouseClicked(e -> {
+			BeautyClick();
+		});
 		beautyV.setOnMouseEntered(e->{
 			beautyV.setImage(beautyH);
 		});
 		beautyV.setOnMouseExited(e->{
 			beautyV.setImage(beautyB);
+		});
+		sportsV.setOnMouseClicked(e-> {
+			SportsClick();
 		});
 		sportsV.setOnMouseEntered(e->{
 			sportsV.setImage(sportsH);
@@ -332,43 +353,48 @@ public class View {
 	private void ClothesClick()
 	{
 		//ClothingIcon
-		ImageView clothing = new ImageView(clothingIcon);
+		removeClicks();
 		overlap.getChildren().add(clothing);
 	}
 	
 	private void BagsClick()
 	{
 		//BagIcon
-		ImageView bag = new ImageView(bagIcon);
+		removeClicks();
 		overlap.getChildren().add(bag);
 	}
 	
 	private void ShoesClick()
 	{
 		//ShoesIcon
-		ImageView shoes = new ImageView(ShoesIcon);
+		removeClicks();
 		overlap.getChildren().add(shoes);
 	}
 	
 	private void AccessoriesClick()
 	{
 		//AccessoriesIcon
-		ImageView accessories = new ImageView(accIcon);
+		removeClicks();
 		overlap.getChildren().add(accessories);
 	}
 	
 	private void SportsClick()
 	{
 		//SportsIcon
-		ImageView sports = new ImageView(sportsIcon);
+		removeClicks();
 		overlap.getChildren().add(sports);
 	}
 	
 	private void BeautyClick()
 	{
 		//BeautyIcon
-		ImageView beauty = new ImageView(beautyIcon);
+		removeClicks();
 		overlap.getChildren().add(beauty);
+	}
+	
+	private void removeClicks()
+	{
+		overlap.getChildren().removeAll(beauty, sports, accessories, shoes, bag, clothing);
 	}
 }
 
