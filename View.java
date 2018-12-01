@@ -81,6 +81,12 @@ public class View {
   Image register = new Image("images/Register.png");
   Image signup = new Image("images/SignUp.png");
   Image signupHover = new Image("images/SignUp2.png");
+  Image clothingIcon = new Image("images/ClothingIcon.png");
+  Image ShoesIcon = new Image("images/ShoeIcon.png");
+  Image beautyIcon = new Image("images/BeautyIcon.png");
+  Image sportsIcon = new Image("images/SportsIcon.png");
+  Image bagIcon = new Image("images/BagIcon.png");
+  Image accIcon = new Image("images/AccessoriesIcon.png");
 
 
   public View (Controller c, Stage primaryStage) {
@@ -112,8 +118,24 @@ public class View {
 		//Register Page
 		ImageView reg = new ImageView(register);
 		ImageView sign = new ImageView(signupHover);
+		TextField name = new TextField();
+		TextField email = new TextField();
+		TextField password_register = new TextField();
+		TextField contact = new TextField();
+		contact.setMaxWidth(300);
+		email.setMaxWidth(300);
+		password_register.setMaxWidth(300);
+		name.setMaxWidth(300);
+		registerPane.setMargin(name, new Insets( 0, 0, 135, 120));
+		registerPane.setMargin(email, new Insets(0, 0, 41, 120));
+		registerPane.setMargin(password_register, new Insets(57, 0, 0, 120));
+		registerPane.setMargin(contact, new Insets(165, 0, 0, 120));
 		registerPane.getChildren().add(reg);
 		registerPane.getChildren().add(sign);
+		registerPane.getChildren().add(name);
+		registerPane.getChildren().add(email);
+		registerPane.getChildren().add(password_register);
+		registerPane.getChildren().add(contact);
 		sign.setOnMouseClicked(e->{
 			primaryStage.setScene(loginScene);
 		});
@@ -129,10 +151,15 @@ public class View {
 		ImageView logIn = new ImageView(loginHover);
 		ImageView register = new ImageView(registerHover);
 		TextField username = new TextField();
-		username.setWidth(10);
+		TextField password = new TextField();
+		username.setMaxWidth(300);
+		password.setMaxWidth(300);
+		StackPane.setMargin(username, new Insets(0, 0, 115, 100));
+		StackPane.setMargin(password, new Insets( 45, 0, 0, 100));
 		loginPane.getChildren().add(log);
 		loginPane.getChildren().add(logIn);
 		loginPane.getChildren().add(username);
+		loginPane.getChildren().add(password);
 		loginPane.getChildren().add(register);
 		logIn.setOnMouseClicked(e->{
 			primaryStage.setScene(mainScene);
@@ -165,12 +192,17 @@ public class View {
 		ImageView account = new ImageView(accountButton);
 		ImageView cart = new ImageView(cartButton);
 		ImageView order = new ImageView(orderButton);
+		TextField searchText = new TextField();
+		searchText.setMaxWidth(500);
+		searchText.setMaxHeight(45);
+		overlap.setMargin(searchText, new Insets(0, 0, 650, 0));
 		overlap.getChildren().add(main_scene);
 		overlap.getChildren().add(zaloraButtonV);
 		overlap.getChildren().add(search);
 		overlap.getChildren().add(account);
 		overlap.getChildren().add(cart);
 		overlap.getChildren().add(order);
+		overlap.getChildren().add(searchText);
 		zaloraButtonV.setOnMouseEntered(e -> {
 			zaloraButtonV.setImage(zaloraHover);
 		});
@@ -201,6 +233,32 @@ public class View {
 		order.setOnMouseExited(e-> {
 			order.setImage(orderButton);
 		});
+		
+		//ClothingIcon
+		ImageView clothing = new ImageView(clothingIcon);
+		//overlap.getChildren().add(clothing);
+		
+		//ShoesIcon
+		ImageView shoes = new ImageView(ShoesIcon);
+		//overlap.getChildren().add(shoes);
+		
+		//AccessoriesIcon
+		ImageView accessories = new ImageView(accIcon);
+		//overlap.getChildren().add(accessories);
+		
+		//BagIcon
+		ImageView bag = new ImageView(bagIcon);
+		//overlap.getChildren().add(bag);
+		
+		//BeautyIcon
+		ImageView beauty = new ImageView(beautyIcon);
+		//overlap.getChildren().add(beauty);
+		
+		//SportsIcon
+		ImageView sports = new ImageView(sportsIcon);
+		//overlap.getChildren().add(sports);
+		
+		
 
 
     ImageView continueIMG = new ImageView (continuep);
