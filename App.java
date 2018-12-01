@@ -18,6 +18,7 @@ public class App extends Application {
   public void start(Stage primaryStage) throws ClassNotFoundException {
     TheConnection mainModel = new TheConnection();
     Controller mainController = new Controller(mainModel, primaryStage);
+
   }
 
   public static void main(String[] args) {
