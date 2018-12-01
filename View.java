@@ -54,7 +54,7 @@ import javafx.util.Duration;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.scene.control.ScrollPane;
-
+import javafx.scene.control.*;
 
 public class View {
 
@@ -102,6 +102,13 @@ public class View {
   Image accH = new Image("images/AccessoriesHover.png");
   Image beautyH = new Image("images/BeautyHover.png");
   Image sportsH = new Image("images/SportsHover.png");
+  Image male1 = new Image("images/Male.png");
+  Image male2 = new Image("images/male2.png");
+  Image male3 = new Image("images/male3.png");
+  Image female1 = new Image("images/female.png");
+  Image female2 = new Image("images/female2.png");
+  Image female3 = new Image("images/female3.png");
+  
   
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
@@ -109,6 +116,9 @@ public class View {
   ImageView accessories = new ImageView(accIcon);
   ImageView beauty = new ImageView(beautyIcon);
   ImageView sports = new ImageView(sportsIcon);
+  ImageView maleButton = new ImageView(male1);
+  ImageView femaleButton = new ImageView(female1);
+  
 
   ScrollPane scroll = new ScrollPane();
   StackPane overlap = new StackPane();
@@ -145,24 +155,54 @@ public class View {
 		//Register Page
 		ImageView reg = new ImageView(register);
 		ImageView sign = new ImageView(signupHover);
-		TextField name = new TextField();
+		TextField last_name = new TextField();
+		TextField first_name = new TextField();
 		TextField email = new TextField();
 		TextField password_register = new TextField();
 		TextField contact = new TextField();
 		contact.setMaxWidth(300);
 		email.setMaxWidth(300);
 		password_register.setMaxWidth(300);
-		name.setMaxWidth(300);
-		registerPane.setMargin(name, new Insets( 0, 0, 135, 120));
+		last_name.setMaxWidth(150);
+		last_name.setPromptText("Last Name");
+		first_name.setMaxWidth(150);
+		first_name.setPromptText("First Name");
+		registerPane.setMargin(last_name, new Insets( 0, 30, 135, 0));
+		registerPane.setMargin(first_name, new Insets( 0, 0, 135, 270));
 		registerPane.setMargin(email, new Insets(0, 0, 41, 120));
 		registerPane.setMargin(password_register, new Insets(57, 0, 0, 120));
 		registerPane.setMargin(contact, new Insets(165, 0, 0, 120));
 		registerPane.getChildren().add(reg);
 		registerPane.getChildren().add(sign);
-		registerPane.getChildren().add(name);
+		registerPane.getChildren().add(last_name);
+		registerPane.getChildren().add(first_name);
 		registerPane.getChildren().add(email);
 		registerPane.getChildren().add(password_register);
 		registerPane.getChildren().add(contact);
+		registerPane.getChildren().add(maleButton);
+		registerPane.getChildren().add(femaleButton);
+		maleButton.setOnMouseEntered(e->{
+			maleButton.setImage(male2);
+		});
+		maleButton.setOnMouseExited(e-> {
+			maleButton.setImage(male1);
+		});
+		maleButton.setOnMouseClicked(e->{
+			maleButton.setImage(male3);
+			femaleButton.setImage(female1);
+			maleClick();
+		});
+		femaleButton.setOnMouseEntered(e->{
+			femaleButton.setImage(female2);
+		});
+		femaleButton.setOnMouseExited(e-> {
+			femaleButton.setImage(female1);
+		});
+		femaleButton.setOnMouseClicked(e->{
+			maleButton.setImage(male1);
+			femaleButton.setImage(female3);
+			femaleClick();
+		});
 		sign.setOnMouseClicked(e->{
 			primaryStage.setScene(loginScene);
 		});
@@ -228,9 +268,17 @@ public class View {
 		ImageView beautyV = new ImageView(beautyB);
 		ImageView sportsV = new ImageView(sportsB);
 		TextField searchText = new TextField();
+		ComboBox<String> filter = new ComboBox<String>();
+		filter.getItems().addAll("Male", "Female", "All Items");
+		filter.setPromptText("Filter By");
+		filter.setMaxHeight(50);
+		filter.setMaxWidth(300);
+		filter.setStyle("-fx-accent:rgb(0, 0, 0)");
+		filter.setStyle("-fx-font: 20px \"Madeleina Sans Regular\";");
 		searchText.setMaxWidth(500);
 		searchText.setMaxHeight(45);
 		overlap.setMargin(searchText, new Insets(0, 0, 650, 0));
+		overlap.setMargin(filter, new Insets(0, 900, 490, 0));
 		overlap.getChildren().add(main_scene);
 		overlap.getChildren().add(apparelType);
 		overlap.getChildren().add(barBase);
@@ -241,6 +289,7 @@ public class View {
 		overlap.getChildren().add(order);
 		overlap.getChildren().add(searchText);
 		overlap.getChildren().addAll(clothesV, shoesV, bagsV, accV, sportsV, beautyV);
+		overlap.getChildren().add(filter);
 		zaloraButtonV.setOnMouseEntered(e -> {
 			zaloraButtonV.setImage(zaloraHover);
 		});
@@ -349,6 +398,19 @@ public class View {
 		primaryStage.show();
 
     }
+	private void maleClick()
+	{
+		maleButton.setOnMouseExited(e-> {
+			maleButton.setImage(male3);
+		});
+	}
+	
+	private void femaleClick()
+	{
+		femaleButton.setOnMouseExited(e-> {
+			femaleButton.setImage(female3);
+		});
+	}
 	
 	private void ClothesClick()
 	{
