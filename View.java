@@ -108,6 +108,8 @@ public class View {
   Image female1 = new Image("images/female.png");
   Image female2 = new Image("images/female2.png");
   Image female3 = new Image("images/female3.png");
+  Image logout = new Image("images/Logout.png");
+  Image logout2 = new Image("images/Logout2.png");
 
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
@@ -117,6 +119,8 @@ public class View {
   ImageView sports = new ImageView(sportsIcon);
   ImageView maleButton = new ImageView(male1);
   ImageView femaleButton = new ImageView(female1);
+  ImageView out = new ImageView(logout);
+  ImageView account = new ImageView(accountButton);
 
   ScrollPane scroll = new ScrollPane();
   StackPane overlap = new StackPane();
@@ -260,7 +264,6 @@ public class View {
     ImageView barBase = new ImageView(Basebar);
     ImageView zaloraButtonV = new ImageView(zaloraButton);
     ImageView search = new ImageView(searchButton);
-    ImageView account = new ImageView(accountButton);
     ImageView cart = new ImageView(cartButton);
     ImageView order = new ImageView(orderButton);
     ImageView apparelType = new ImageView(apparelbar);
@@ -305,6 +308,9 @@ public class View {
     search.setOnMouseExited(e -> {
       search.setImage(searchButton);
     });
+	account.setOnMouseClicked(e->{
+		AccountClick();
+	});
     account.setOnMouseEntered(e -> {
       account.setImage(accountHover);
     });
@@ -450,6 +456,18 @@ public class View {
   }
 
   private void removeClicks() {
-    overlap.getChildren().removeAll(beauty, sports, accessories, shoes, bag, clothing);
+    overlap.getChildren().removeAll(beauty, sports, accessories, shoes, bag, clothing, out);
+  }
+  
+  private void AccountClick(){
+	removeClicks();
+	overlap.getChildren().add(out);
+	
+	out.setOnMouseEntered(e->{
+	  out.setImage(logout2);
+	});
+	out.setOnMouseExited(e->{
+	  out.setImage(logout);
+	});
   }
 }
