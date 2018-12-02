@@ -28,14 +28,14 @@ public class TheConnection {
     }
   }
 
-  public boolean loginUser(String xemail, String xpassword) {
+  public boolean loginUser(String email, String password) {
     String returnUserDetails = "SELECT * FROM useraccounts";
 
     try {
       ResultSet rs = stmt.executeQuery(returnUserDetails);
 
       while (rs.next()) {
-        if (rs.getString("email").equals(xemail) && rs.getString("password").equals(xpassword)) {
+        if (rs.getString("email").equals(email) && rs.getString("password").equals(password)) {
 
           currentUser.setUser_id(rs.getInt("user_id"));
           currentUser.setFirst_name(rs.getString("first_name"));

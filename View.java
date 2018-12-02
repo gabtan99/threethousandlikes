@@ -120,10 +120,13 @@ public class View {
 
   ScrollPane scroll = new ScrollPane();
   StackPane overlap = new StackPane();
+  String selectedgender = null;
+
 
   public View(Controller c, Stage primaryStage) {
 
     controller = c;
+
 
     primaryStage.setTitle("Welcome to Zalora!");
 
@@ -183,6 +186,7 @@ public class View {
       maleButton.setImage(male1);
     });
     maleButton.setOnMouseClicked(e -> {
+      selectedgender = "M";
       maleButton.setImage(male3);
       femaleButton.setImage(female1);
       maleClick();
@@ -194,13 +198,15 @@ public class View {
       femaleButton.setImage(female1);
     });
     femaleButton.setOnMouseClicked(e -> {
+      selectedgender = "F";
       maleButton.setImage(male1);
       femaleButton.setImage(female3);
       femaleClick();
     });
     sign.setOnMouseClicked(e -> {
       primaryStage.setScene(loginScene);
-      controller.registerUser(email.getText(),  password_register.getText(), last_name.getText(), first_name.getText(), contact.getText().toString());
+      if (selectedgender != null)
+        controller.registerUser(email.getText(),  password_register.getText(), last_name.getText(), first_name.getText(), contact.getText().toString(), selectedgender);
     });
     sign.setOnMouseEntered(e -> {
       sign.setImage(signup);
@@ -230,6 +236,8 @@ public class View {
       Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
       primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
       primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+
+      controller.loginUser(username.getText(), password.getText());
     });
     logIn.setOnMouseEntered(e -> {
       logIn.setImage(loginButton);
