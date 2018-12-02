@@ -3,15 +3,25 @@ import java.sql.*;
 import java.util.*;
 
 public class Controller {
-  TheConnection model;
+  Database model;
   View view;
   Statement stmt;
 
-  public Controller(TheConnection m, Stage primaryStage) {
+  public Controller(Database m, Stage primaryStage) {
     model = m;
     view = new View(this, primaryStage);
 
+    ArrayList<Order> test = new ArrayList<Order>();
 
+    test = model.getOrderHistory();
+
+    /* pang test lang ng orderbreak down
+    for (int i = 0; i < test.size(); i++) {
+      for (int j = 0; j < test.get(i).getOrderBreakdown().size(); j++) {
+        System.out.println(test.get(i).getOrderBreakdown().get(j).getProduct_name());
+      }
+    }
+    */
   }
 
   public boolean registerUser(String email, String password, String last_name, String first_name, String contact_number,
@@ -53,6 +63,5 @@ public class Controller {
   public User getCurrentUser() {
     return model.getCurrentUser();
   }
-
 
 }

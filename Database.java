@@ -1,19 +1,19 @@
 import java.sql.*;
 import java.util.*;
 
-public class TheConnection {
+public class Database {
 
   private static User currentUser = new User();
   private static Statement stmt;
 
-  public TheConnection() {
-    //SQL details
-    String driver = "com.mysql.jdbc.Driver";
-    String db = "zaloradb";
-    String url = "jdbc:mysql://localhost/" + db + "?useSSL=false";
-    String user = "root";
-    String pass = "password";
-    Connection conn = null;
+  private String driver = "com.mysql.jdbc.Driver";
+  private String db = "zaloradb";
+  private String url = "jdbc:mysql://localhost/" + db + "?useSSL=false";
+  private String user = "root";
+  private String pass = "password";
+  private Connection conn = null;
+
+  public Database() {
 
     //Connection attempt
     try {
@@ -174,8 +174,8 @@ public class TheConnection {
     return temp;
   }
 
-  public String getBrandName (int brand_id) {
-    String returnBrandName =  "select brand_name FROM brands WHERE brand_id = " + brand_id;
+  public String getBrandName(int brand_id) {
+    String returnBrandName = "select brand_name FROM brands WHERE brand_id = " + brand_id;
     String brand_name = null;
 
     try {
@@ -191,7 +191,75 @@ public class TheConnection {
 
     return brand_name;
 
+  }
 
+  public float getOrderTotalPrice(int order_id) {
+    String calculateOrderTotalPrice = "select SUM( (carts.quantity * products.price)) as  'total_price' FROM carts INNER JOIN products ON products.product_id = carts.product_id WHERE carts.order_id = 2 GROUP BY carts.order_id";
+    float total = 0;
+
+    try {
+      ResultSet rs = stmt.executeQuery(calculateOrderTotalPrice);
+      while (rs.next()) {
+        total = rs.getFloat("total_price");
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+    return total;
+
+  }
+
+  public ArrayList<Order> getOrderHistory() {
+
+    String returnOrderHistory = "SELECT orderdetails.* FROM orderdetails WHERE user_id = " + currentUser.getUser_id();
+
+    ArrayList<Order> temp = new ArrayList<Order>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnOrderHistory);
+      while (rs.next()) {
+        Order torder = new Order(rs.getInt("order_id"), rs.getString("payment_method"), rs.getString("order_date"),
+            rs.getString("shipping_address"), rs.getString("billing_address"), rs.getFloat("total_amount"),
+            currentUser.getUser_id(), getProductsInOrder(rs.getInt("order_id")));
+        temp.add(torder);
+      }
+
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public ArrayList<Product> getProductsInOrder(int order_id) {
+
+    String returnProductsInOrder = "SELECT products.*, carts.quantity FROM carts INNER JOIN products ON products.product_id = carts.product_id WHERE  carts.user_id = "
+        + currentUser.getUser_id() + " AND carts.order_id =" + order_id;
+
+    ArrayList<Product> temp = new ArrayList<Product>();
+
+    try {
+      Connection conn2 = DriverManager.getConnection(url, user, pass);
+      Statement stmt2 = conn2.createStatement();
+      ResultSet rs = stmt2.executeQuery(returnProductsInOrder);
+
+      while (rs.next()) {
+        Product tproduct = new Product(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("brand_id"),
+            rs.getFloat("price"), rs.getString("classification"), rs.getString("apparel_type"));
+        tproduct.setQuantity(rs.getInt("quantity"));
+        temp.add(tproduct);
+
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
   }
 
   public int getUserCount() {

@@ -5,6 +5,7 @@ public class Product {
   private float price;
   private String classification;
   private String apparel_type;
+  private int quantity;
 
   public Product(int product_id, String product_name, int brand_id, float price, String classification,
       String apparel_type) {
@@ -14,6 +15,11 @@ public class Product {
     this.price = price;
     this.classification = classification;
     this.apparel_type = apparel_type;
+    quantity = 0;
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
   }
 
   /**
@@ -48,6 +54,14 @@ public class Product {
     this.product_name = product_name;
   }
 
+  public String getClassification() {
+    return classification;
+  }
+
+  public void setClassification(String classification) {
+    this.classification = classification;
+  }
+
   /**
   * Returns value of brand_id
   * @return
@@ -76,7 +90,7 @@ public class Product {
   * Sets new value of price
   * @param
   */
-  public void setPrice(int price) {
+  public void setPrice(float price) {
     this.price = price;
   }
 
@@ -95,4 +109,13 @@ public class Product {
   public void setApparel_type(String apparel_type) {
     this.apparel_type = apparel_type;
   }
+
+  /**
+  * Returns value of quantity
+  * @return
+  */
+  public int getQuantity() {
+    return quantity;
+  }
+
 }

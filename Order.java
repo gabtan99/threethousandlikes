@@ -9,7 +9,7 @@ public class Order {
   private String billing_address;
   private float total_amount;
   private int user_id;
-  private ArrayList <Product> orderbreakdown;
+  private ArrayList<Product> orderbreakdown;
 
   public Order(int order_id, String payment_method, String order_date, String shipping_address, String billing_address,
       float total_amount, int user_id, ArrayList<Product> orderbreakdown) {
@@ -21,7 +21,14 @@ public class Order {
     this.total_amount = total_amount;
     this.user_id = user_id;
     this.orderbreakdown = orderbreakdown;
+  }
 
+  public ArrayList<Product> getOrderBreakdown() {
+    return orderbreakdown;
+  }
+
+  public void setOrderBreakdown(ArrayList<Product> orderbreakdown) {
+    this.orderbreakdown = orderbreakdown;
   }
 
   /**
@@ -135,4 +142,5 @@ public class Order {
   public void setUser_id(int user_id) {
     this.user_id = user_id;
   }
+
 }

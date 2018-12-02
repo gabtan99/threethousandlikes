@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 public class App extends Application {
   @Override
   public void start(Stage primaryStage) throws ClassNotFoundException {
-    TheConnection mainModel = new TheConnection();
+    Database mainModel = new Database();
     Controller mainController = new Controller(mainModel, primaryStage);
 
   }
