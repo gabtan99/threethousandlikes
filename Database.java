@@ -262,6 +262,28 @@ public class Database {
     return temp;
   }
 
+  public ArrayList<ProductCart> getCurrentCart() {
+    String returnCurrentCart = "SELECT products.product_id, brands.brand_name, products.product_name, carts.quantity, products.price, (carts.quantity*products.price) as 'subtotal' FROM carts INNER JOIN products ON products.product_id = carts.product_id INNER JOIN brands ON products.brand_id = brands.brand_id WHERE carts.checked_out = 0 AND carts.user_id  = "
+        + currentUser.getUser_id();
+
+    ArrayList<ProductCart> temp = new ArrayList<ProductCart>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnCurrentCart);
+      while (rs.next()) {
+        ProductCart tproduct = new ProductCart(rs.getInt("product_id"), rs.getString("brand_name"),
+            rs.getString("product_name"), rs.getInt("quantity"), rs.getFloat("price"), rs.getFloat("subtotal"));
+        temp.add(tproduct);
+      }
+
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
   public int getUserCount() {
 
     String returnUserCount = "SELECT COUNT(user_id) as 'usercount' FROM useraccounts";

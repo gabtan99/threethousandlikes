@@ -11,11 +11,10 @@ public class Controller {
     model = m;
     view = new View(this, primaryStage);
 
+    /* pang test lang ng orderbreak down
     ArrayList<Order> test = new ArrayList<Order>();
 
     test = model.getOrderHistory();
-
-    /* pang test lang ng orderbreak down
     for (int i = 0; i < test.size(); i++) {
       for (int j = 0; j < test.get(i).getOrderBreakdown().size(); j++) {
         System.out.println(test.get(i).getOrderBreakdown().get(j).getProduct_name());
