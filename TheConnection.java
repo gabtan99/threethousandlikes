@@ -4,12 +4,31 @@ import java.util.*;
 public class TheConnection {
 
   private static User currentUser = new User();
+  private static Statement stmt;
 
   public TheConnection() {
+    //SQL details
+    String driver = "com.mysql.jdbc.Driver";
+    String db = "zaloradb";
+    String url = "jdbc:mysql://localhost/" + db + "?useSSL=false";
+    String user = "root";
+    String pass = "password";
+    Connection conn = null;
 
+    //Connection attempt
+    try {
+      Class.forName(driver);
+      conn = DriverManager.getConnection(url, user, pass);
+      System.out.println("Connected to database : " + db);
+      stmt = conn.createStatement();
+
+    } catch (Exception e) {
+      System.err.println("Got an exception! ");
+      System.err.println(e.getMessage());
+    }
   }
 
-  public static boolean loginUser(Statement stmt, String xemail, String xpassword) {
+  public boolean loginUser(String xemail, String xpassword) {
     String returnUserDetails = "SELECT * FROM useraccounts";
 
     try {
@@ -36,12 +55,13 @@ public class TheConnection {
     return false;
   }
 
-  public static boolean registerUser(Statement stmt, String email, String password, String first_name, String last_name,
+  public boolean registerUser(String email, String password, String first_name, String last_name,
       String contact_number, String gender) {
-    int newusercount = getUserCount(stmt) + 1;
+
+    int newusercount = getUserCount() + 1;
     String addNewUser = "INSERT INTO `zaloradb`.`useraccounts` (`user_id`, `email`, `password`, `first_name`, `last_name`, `contact_number`, `gender`, `register_date`)";
     addNewUser = addNewUser + "VALUES ('" + newusercount + "', '" + email + "', '" + password + "', '" + first_name
-        + "', '" + last_name + "', '" + contact_number + "', '" + gender + "', '" + getDate(stmt) + "')";
+        + "', '" + last_name + "', '" + contact_number + "', '" + gender + "', '" + getDate() + "')";
 
     try {
 
@@ -57,7 +77,7 @@ public class TheConnection {
     return true;
   }
 
-  public static void logoutUser() {
+  public void logoutUser() {
     currentUser.setUser_id(0);
     currentUser.setPassword(null);
     currentUser.setFirst_name(null);
@@ -68,7 +88,7 @@ public class TheConnection {
     currentUser.setEmail(null);
   }
 
-  public static ArrayList<Product> getProductsWithKeyword(Statement stmt, String keyword) {
+  public ArrayList<Product> getProductsWithKeyword(String keyword) {
 
     String returnProductsWithKeyword = "SELECT products.* FROM products INNER JOIN brands ON brands.brand_id = products.brand_id WHERE brands.brand_name = '"
         + keyword + "' OR products.product_name LIKE '%" + keyword + "%'";
@@ -93,7 +113,7 @@ public class TheConnection {
     return temp;
   }
 
-  public ArrayList<Product> getAllProducts(Statement stmt) {
+  public ArrayList<Product> getAllProducts() {
     String returnAllProducts = "SELECT * FROM products";
     ArrayList<Product> temp = new ArrayList<Product>();
 
@@ -114,7 +134,7 @@ public class TheConnection {
     return temp;
   }
 
-  public static ArrayList<Product> getProductsUnderAType(Statement stmt, String AType) {
+  public ArrayList<Product> getProductsUnderAType(String AType) {
     String returnProductsUnderAType = "SELECT * FROM products WHERE apparel_type = '" + AType + "'";
     ArrayList<Product> temp = new ArrayList<Product>();
 
@@ -134,7 +154,7 @@ public class TheConnection {
     return temp;
   }
 
-  public static ArrayList<Product> getProductsUnderGender(Statement stmt, String classification) {
+  public ArrayList<Product> getProductsUnderGender(String classification) {
     String returnProductsUnderAType = "SELECT * FROM products WHERE classification = '" + classification + "'";
     ArrayList<Product> temp = new ArrayList<Product>();
 
@@ -154,7 +174,7 @@ public class TheConnection {
     return temp;
   }
 
-  public static int getUserCount(Statement stmt) {
+  public int getUserCount() {
 
     String returnUserCount = "SELECT COUNT(user_id) as 'usercount' FROM useraccounts";
 
@@ -175,11 +195,11 @@ public class TheConnection {
     return count;
   }
 
-  public static User getCurrentUser() {
+  public User getCurrentUser() {
     return currentUser;
   }
 
-  public static String getDate(Statement stmt) {
+  public String getDate() {
     String returnDate = "SELECT NOW()";
 
     String date = null;

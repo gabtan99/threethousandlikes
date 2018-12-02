@@ -200,6 +200,7 @@ public class View {
     });
     sign.setOnMouseClicked(e -> {
       primaryStage.setScene(loginScene);
+      controller.registerUser(email.getText(),  password_register.getText(), last_name.getText(), first_name.getText(), contact.getText().toString());
     });
     sign.setOnMouseEntered(e -> {
       sign.setImage(signup);
