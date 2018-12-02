@@ -11,6 +11,7 @@ public class Controller {
     model = m;
     view = new View(this, primaryStage);
 
+
   }
 
   public boolean registerUser(String email, String password, String last_name, String first_name, String contact_number,
@@ -53,8 +54,5 @@ public class Controller {
     return model.getCurrentUser();
   }
 
-  public ArrayList<Order> getOrderHistory() {
-    return model.getOrderHistory();
-  }
 
 }

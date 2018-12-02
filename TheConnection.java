@@ -174,26 +174,24 @@ public class TheConnection {
     return temp;
   }
 
-  public ArrayList<Order> getOrderHistory() {
-    String returnOrderHistory = "SELECT * FROM useraccounts WHERE user_id = " + currentUser.getUser_id();
-    ArrayList<Order> temp = new ArrayList<Order>();
+  public String getBrandName (int brand_id) {
+    String returnBrandName =  "select brand_name FROM brands WHERE brand_id = " + brand_id;
+    String brand_name = null;
 
     try {
-      ResultSet rs = stmt.executeQuery(returnOrderHistory);
-
+      ResultSet rs = stmt.executeQuery(returnBrandName);
       while (rs.next()) {
-        Order torder = new Order(rs.getInt("order_id"), rs.getString("payment_method"), rs.getString("order_date"),
-            rs.getString("shipping_address"), rs.getString("billing_address"), rs.getFloat("total_amount"),
-            rs.getInt("user_id"));
-        temp.add(torder);
+        brand_name = rs.getString("brand_name");
       }
-
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
       System.out.println("VendorError: " + e.getErrorCode());
     }
-    return temp;
+
+    return brand_name;
+
+
   }
 
   public int getUserCount() {

@@ -1,62 +1,50 @@
 public class Cart {
 
-  private int session_id;
-  private int user_id;
-  private int product_id;
+  private String brand_name;
+  private String product_name;
   private int quantity;
-  private int checked_out;
-  private int order_id;
+  private float price;
 
-  public Cart() {
-    
+  public Cart(String brand_name, String product_name, int quantity, float price) {
+    this.brand_name=brand_name;
+    this.product_name = product_name;
+    this.quantity=quantity;
+    this.price = price;
   }
 
+
+
+
 	/**
-	* Returns value of session_id
+	* Returns value of brand_name
 	* @return
 	*/
-	public int getSession_id() {
-		return session_id;
+	public String getBrand_name() {
+		return brand_name;
 	}
 
 	/**
-	* Sets new value of session_id
+	* Sets new value of brand_name
 	* @param
 	*/
-	public void setSession_id(int session_id) {
-		this.session_id = session_id;
+	public void setBrand_name(String brand_name) {
+		this.brand_name = brand_name;
 	}
 
 	/**
-	* Returns value of user_id
+	* Returns value of product_name
 	* @return
 	*/
-	public int getUser_id() {
-		return user_id;
+	public String getProduct_name() {
+		return product_name;
 	}
 
 	/**
-	* Sets new value of user_id
+	* Sets new value of product_name
 	* @param
 	*/
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
-
-	/**
-	* Returns value of product_id
-	* @return
-	*/
-	public int getProduct_id() {
-		return product_id;
-	}
-
-	/**
-	* Sets new value of product_id
-	* @param
-	*/
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
 
 	/**
@@ -76,34 +64,18 @@ public class Cart {
 	}
 
 	/**
-	* Returns value of checked_out
+	* Returns value of price
 	* @return
 	*/
-	public int getChecked_out() {
-		return checked_out;
+	public float getPrice() {
+		return price;
 	}
 
 	/**
-	* Sets new value of checked_out
+	* Sets new value of price
 	* @param
 	*/
-	public void setChecked_out(int checked_out) {
-		this.checked_out = checked_out;
-	}
-
-	/**
-	* Returns value of order_id
-	* @return
-	*/
-	public int getOrder_id() {
-		return order_id;
-	}
-
-	/**
-	* Sets new value of order_id
-	* @param
-	*/
-	public void setOrder_id(int order_id) {
-		this.order_id = order_id;
+	public void setPrice(float price) {
+		this.price = price;
 	}
 }
