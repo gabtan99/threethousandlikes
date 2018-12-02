@@ -2,11 +2,11 @@ public class Product {
   private int product_id;
   private String product_name;
   private int brand_id;
-  private int price;
+  private float price;
   private String classification;
   private String apparel_type;
 
-  public Product(int product_id, String product_name, int brand_id, int price, String classification,
+  public Product(int product_id, String product_name, int brand_id, float price, String classification,
       String apparel_type) {
     this.product_id = product_id;
     this.product_name = product_name;
@@ -68,7 +68,7 @@ public class Product {
   * Returns value of price
   * @return
   */
-  public int getPrice() {
+  public float getPrice() {
     return price;
   }
 

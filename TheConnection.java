@@ -55,8 +55,8 @@ public class TheConnection {
     return false;
   }
 
-  public boolean registerUser(String email, String password, String first_name, String last_name,
-      String contact_number, String gender) {
+  public boolean registerUser(String email, String password, String first_name, String last_name, String contact_number,
+      String gender) {
 
     int newusercount = getUserCount() + 1;
     String addNewUser = "INSERT INTO `zaloradb`.`useraccounts` (`user_id`, `email`, `password`, `first_name`, `last_name`, `contact_number`, `gender`, `register_date`)";
@@ -101,7 +101,7 @@ public class TheConnection {
 
       while (rs.next()) {
         Product tproduct = new Product(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("brand_id"),
-            rs.getInt("price"), rs.getString("classification"), rs.getString("apparel_type"));
+            rs.getFloat("price"), rs.getString("classification"), rs.getString("apparel_type"));
         temp.add(tproduct);
       }
     } catch (SQLException e) {
@@ -123,7 +123,7 @@ public class TheConnection {
 
       while (rs.next()) {
         Product tproduct = new Product(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("brand_id"),
-            rs.getInt("price"), rs.getString("classification"), rs.getString("apparel_type"));
+            rs.getFloat("price"), rs.getString("classification"), rs.getString("apparel_type"));
         temp.add(tproduct);
       }
     } catch (SQLException e) {
@@ -143,7 +143,7 @@ public class TheConnection {
 
       while (rs.next()) {
         Product tproduct = new Product(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("brand_id"),
-            rs.getInt("price"), rs.getString("classification"), rs.getString("apparel_type"));
+            rs.getFloat("price"), rs.getString("classification"), rs.getString("apparel_type"));
         temp.add(tproduct);
       }
     } catch (SQLException e) {
@@ -163,9 +163,31 @@ public class TheConnection {
 
       while (rs.next()) {
         Product tproduct = new Product(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("brand_id"),
-            rs.getInt("price"), rs.getString("classification"), rs.getString("apparel_type"));
+            rs.getFloat("price"), rs.getString("classification"), rs.getString("apparel_type"));
         temp.add(tproduct);
       }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public ArrayList<Order> getOrderHistory() {
+    String returnOrderHistory = "SELECT * FROM useraccounts WHERE user_id = " + currentUser.getUser_id();
+    ArrayList<Order> temp = new ArrayList<Order>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnOrderHistory);
+
+      while (rs.next()) {
+        Order torder = new Order(rs.getInt("order_id"), rs.getString("payment_method"), rs.getString("order_date"),
+            rs.getString("shipping_address"), rs.getString("billing_address"), rs.getFloat("total_amount"),
+            rs.getInt("user_id"));
+        temp.add(torder);
+      }
+
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
