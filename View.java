@@ -110,6 +110,15 @@ public class View {
   Image female3 = new Image("images/female3.png");
   Image logout = new Image("images/Logout.png");
   Image logout2 = new Image("images/Logout2.png");
+  Image clothingSet = new Image("images/ClothingSet.png");
+  Image shoeSet = new Image("images/ShoeSet.png");
+  Image sportSet = new Image("images/SportSet.png");
+  Image beautySet = new Image("images/BeautySet.png");
+  Image bagSet = new Image("images/BagSet.png");
+  Image accSet = new Image("images/AccessoriesSet.png");
+  Image bars = new Image("images/Bars.png");
+  Image checkout = new Image("images/CheckOut.png");
+  Image checkout2 = new Image("images/CheckOut2.png");
 
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
@@ -121,7 +130,25 @@ public class View {
   ImageView femaleButton = new ImageView(female1);
   ImageView out = new ImageView(logout);
   ImageView account = new ImageView(accountButton);
+  ImageView setClothing = new ImageView(clothingSet);
+  ImageView setClothing2 = new ImageView(clothingSet);
+  ImageView setBeauty = new ImageView(beautySet);
+  ImageView setBeauty2 = new ImageView(beautySet);
+  ImageView setBag = new ImageView(bagSet);
+  ImageView setBag2 = new ImageView(bagSet);
+  ImageView setShoes = new ImageView(shoeSet);
+  ImageView setShoes2 = new ImageView(shoeSet);
+  ImageView setAcc = new ImageView(accSet);
+  ImageView setAcc2 = new ImageView(accSet);
+  ImageView setSport = new ImageView(sportSet);
+  ImageView setSport2 = new ImageView(sportSet);
+  ImageView barsV = new ImageView(bars);
+  ImageView barsV2 = new ImageView(bars);
+  ImageView ViewBase = new ImageView(Base);
+  ImageView checkOutV = new ImageView(checkout);
 
+  VBox vertical = new VBox();
+  StackPane menu = new StackPane();
   ScrollPane scroll = new ScrollPane();
   StackPane overlap = new StackPane();
   String selectedgender = null;
@@ -139,10 +166,17 @@ public class View {
     StackPane registerPane = new StackPane();
     AnchorPane mainPage = new AnchorPane();
 
-    overlap.getChildren().add(mainPage);
+	menu.setStyle("-fx-background-color: #E6E7E7");
+	menu.getChildren().add(barsV);
+	vertical.setStyle("-fx-background-color: #E6E7E7");
+	vertical.getChildren().add(menu);
+	vertical.getChildren().add(overlap);
+	vertical.setMargin(overlap, new Insets(0,0,200,0));
     //scroll.setPrefSize(1280, 1280);
     //scroll.setFitToWidth(false);
-    scroll.setContent(overlap);
+	scroll.setStyle("-fx-background-color: #E6E7E7");
+    scroll.setContent(vertical);
+	overlap.getChildren().add(ViewBase);
 
     Scene welcomeScene = new Scene(welcomePage, 1024, 768);
     Scene loginScene = new Scene(loginPane, 1024, 768);
@@ -260,7 +294,6 @@ public class View {
     });
 
     //Home Page
-    ImageView main_scene = new ImageView(Base);
     ImageView barBase = new ImageView(Basebar);
     ImageView zaloraButtonV = new ImageView(zaloraButton);
     ImageView search = new ImageView(searchButton);
@@ -283,19 +316,17 @@ public class View {
     filter.setStyle("-fx-font: 20px \"Madeleina Sans Regular\";");
     searchText.setMaxWidth(500);
     searchText.setMaxHeight(45);
-    overlap.setMargin(searchText, new Insets(0, 0, 650, 0));
-    overlap.setMargin(filter, new Insets(0, 900, 490, 0));
-    overlap.getChildren().add(main_scene);
-    overlap.getChildren().add(apparelType);
-    overlap.getChildren().add(barBase);
-    overlap.getChildren().add(zaloraButtonV);
-    overlap.getChildren().add(search);
-    overlap.getChildren().add(account);
-    overlap.getChildren().add(cart);
-    overlap.getChildren().add(order);
-    overlap.getChildren().add(searchText);
-    overlap.getChildren().addAll(clothesV, shoesV, bagsV, accV, sportsV, beautyV);
-    overlap.getChildren().add(filter);
+    menu.setMargin(searchText, new Insets(0, 0, 70, 0));
+    //menu.setMargin(filter, new Insets(0, 900, 490, 0));
+    //menu.getChildren().add(apparelType);
+    menu.getChildren().add(zaloraButtonV);
+    menu.getChildren().add(search);
+    menu.getChildren().add(account);
+    menu.getChildren().add(cart);
+    menu.getChildren().add(order);
+    menu.getChildren().add(searchText);
+    menu.getChildren().addAll(clothesV, shoesV, bagsV, beautyV, accV, sportsV);
+    //menu.getChildren().add(filter);
     zaloraButtonV.setOnMouseEntered(e -> {
       zaloraButtonV.setImage(zaloraHover);
     });
@@ -317,6 +348,9 @@ public class View {
     account.setOnMouseExited(e -> {
       account.setImage(accountButton);
     });
+	cart.setOnMouseClicked(e->{
+		CartClick();
+	});
     cart.setOnMouseEntered(e -> {
       cart.setImage(cartHover);
     });
@@ -422,41 +456,53 @@ public class View {
   private void ClothesClick() {
     //ClothingIcon
     removeClicks();
-    overlap.getChildren().add(clothing);
+    overlap.getChildren().add(setClothing);
+    overlap.getChildren().add(setClothing2);
+	overlap.setMargin(setClothing2, new Insets(0, 0, 700, 0));
   }
 
   private void BagsClick() {
     //BagIcon
     removeClicks();
-    overlap.getChildren().add(bag);
+    overlap.getChildren().add(setBag);
+	overlap.getChildren().add(setBag2);
+	overlap.setMargin(setBag2, new Insets(0, 0, 700, 0));
   }
 
   private void ShoesClick() {
     //ShoesIcon
     removeClicks();
-    overlap.getChildren().add(shoes);
+    overlap.getChildren().add(setShoes);
+	overlap.getChildren().add(setShoes2);
+	overlap.setMargin(setShoes2, new Insets(0, 0, 700, 0));
   }
 
   private void AccessoriesClick() {
     //AccessoriesIcon
     removeClicks();
-    overlap.getChildren().add(accessories);
+    overlap.getChildren().add(setAcc);
+	overlap.getChildren().add(setAcc2);
+	overlap.setMargin(setAcc2, new Insets(0, 0, 700, 0));
   }
 
   private void SportsClick() {
     //SportsIcon
     removeClicks();
-    overlap.getChildren().add(sports);
+    overlap.getChildren().add(setSport);
+	overlap.getChildren().add(setSport2);
+	overlap.setMargin(setSport2, new Insets(0, 0, 700, 0));
   }
 
   private void BeautyClick() {
     //BeautyIcon
     removeClicks();
-    overlap.getChildren().add(beauty);
+    overlap.getChildren().add(setBeauty);
+	overlap.getChildren().add(setBeauty2);
+	overlap.setMargin(setBeauty2, new Insets(0, 0, 700, 0));
   }
 
   private void removeClicks() {
-    overlap.getChildren().removeAll(beauty, sports, accessories, shoes, bag, clothing, out);
+    overlap.getChildren().removeAll(setClothing, setBag, setAcc, setBeauty, setShoes, setSport, out, setClothing2, setShoes2, setBag2, setAcc2, setSport2, setBeauty2);
   }
   
   private void AccountClick(){
@@ -469,5 +515,16 @@ public class View {
 	out.setOnMouseExited(e->{
 	  out.setImage(logout);
 	});
+  }
+  
+  private void CartClick(){
+	  removeClicks();
+	  checkOutV.setOnMouseEntered(e ->{
+		  checkOutV.setImage(checkout2);
+	  });
+	  checkOutV.setOnMouseExited(e->{
+		 checkOutV.setImage(checkout); 
+	  });
+	  overlap.getChildren().add(checkOutV);
   }
 }
