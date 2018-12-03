@@ -262,17 +262,20 @@ public class Database {
     return temp;
   }
 
-  public ArrayList<ProductCart> getCurrentCart() {
-    String returnCurrentCart = "SELECT products.product_id, brands.brand_name, products.product_name, carts.quantity, products.price, (carts.quantity*products.price) as 'subtotal' FROM carts INNER JOIN products ON products.product_id = carts.product_id INNER JOIN brands ON products.brand_id = brands.brand_id WHERE carts.checked_out = 0 AND carts.user_id  = "
+  public ArrayList<Product> getCurrentCart() {
+    String returnCurrentCart = "SELECT products.*, carts.session_id, carts.quantity FROM carts INNER JOIN products ON products.product_id = carts.product_id WHERE carts.checked_out = 0 AND carts.user_id ="
         + currentUser.getUser_id();
 
-    ArrayList<ProductCart> temp = new ArrayList<ProductCart>();
+    ArrayList<Product> temp = new ArrayList<Product>();
 
     try {
       ResultSet rs = stmt.executeQuery(returnCurrentCart);
+
       while (rs.next()) {
-        ProductCart tproduct = new ProductCart(rs.getInt("product_id"), rs.getString("brand_name"),
-            rs.getString("product_name"), rs.getInt("quantity"), rs.getFloat("price"), rs.getFloat("subtotal"));
+        Product tproduct = new Product(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("brand_id"),
+            rs.getFloat("price"), rs.getString("classification"), rs.getString("apparel_type"));
+        tproduct.setQuantity(rs.getInt("quantity"));
+        tproduct.setSession_ID(rs.getInt("session_id"));
         temp.add(tproduct);
       }
 

@@ -1,4 +1,5 @@
 public class Product {
+
   private int product_id;
   private String product_name;
   private int brand_id;
@@ -6,6 +7,7 @@ public class Product {
   private String classification;
   private String apparel_type;
   private int quantity;
+  private int session_id;
 
   public Product(int product_id, String product_name, int brand_id, float price, String classification,
       String apparel_type) {
@@ -16,6 +18,15 @@ public class Product {
     this.classification = classification;
     this.apparel_type = apparel_type;
     quantity = 0;
+    session_id = 0;
+  }
+
+  public int getSession_ID() {
+    return session_id;
+  }
+
+  public void setSession_ID(int session_id) {
+    this.session_id = session_id;
   }
 
   public void setQuantity(int quantity) {
