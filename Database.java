@@ -287,6 +287,47 @@ public class Database {
     return temp;
   }
 
+  public boolean addToCart(int product_id, int quantity) {
+    currentUser.setUser_id(1);
+
+    String addProductToCart = "INSERT INTO `zaloradb`.`carts` (`session_id`, `user_id`, `product_id`, `quantity`, `checked_out`) VALUES ('"
+        + getNewSessionID() + "', '" + currentUser.getUser_id() + "', '" + product_id + "', '" + quantity + "', '0')";
+
+    try {
+      stmt.executeUpdate(addProductToCart);
+
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      return false;
+    }
+
+    return true;
+
+  }
+
+  public int getNewSessionID() {
+    String returnMaxSessionID = "SELECT MAX(session_id) as 'max' FROM carts";
+    int newID = 0;
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnMaxSessionID);
+
+      while (rs.next()) {
+        newID = rs.getInt("max");
+        newID++;
+      }
+
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+    return newID;
+  }
+
   public int getUserCount() {
 
     String returnUserCount = "SELECT COUNT(user_id) as 'usercount' FROM useraccounts";
