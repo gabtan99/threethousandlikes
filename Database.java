@@ -193,25 +193,6 @@ public class Database {
 
   }
 
-  public float getOrderTotalPrice(int order_id) {
-    String calculateOrderTotalPrice = "select SUM( (carts.quantity * products.price)) as  'total_price' FROM carts INNER JOIN products ON products.product_id = carts.product_id WHERE carts.order_id = 2 GROUP BY carts.order_id";
-    float total = 0;
-
-    try {
-      ResultSet rs = stmt.executeQuery(calculateOrderTotalPrice);
-      while (rs.next()) {
-        total = rs.getFloat("total_price");
-      }
-    } catch (SQLException e) {
-      System.out.println("SQLException: " + e.getMessage());
-      System.out.println("SQLState: " + e.getSQLState());
-      System.out.println("VendorError: " + e.getErrorCode());
-    }
-
-    return total;
-
-  }
-
   public ArrayList<Order> getOrderHistory() {
 
     String returnOrderHistory = "SELECT orderdetails.* FROM orderdetails WHERE user_id = " + currentUser.getUser_id();
@@ -263,7 +244,6 @@ public class Database {
   }
 
   public ArrayList<Product> getCurrentCart() {
-
     String returnCurrentCart = "SELECT products.*, carts.session_id, carts.quantity FROM carts INNER JOIN products ON products.product_id = carts.product_id WHERE carts.checked_out = 0 AND carts.user_id ="
         + currentUser.getUser_id();
 
@@ -322,12 +302,111 @@ public class Database {
 
   }
 
+  public boolean checkoutCart(String payment_method, String shipping_address, String billing_address) {
+
+    int orderid = getNewOrderID();
+
+    //adds new order details
+
+    String updateOrderDetails = "INSERT INTO `zaloradb`.`orderdetails` (`order_id`, `payment_method`, `order_date`, `shipping_address`, `billing_address`) VALUES ('"
+        + orderid + "', '" + payment_method + "', '" + getDate() + "', '" + shipping_address + "', '" + billing_address
+        + "')";
+
+    try {
+      stmt.executeUpdate(updateOrderDetails);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      return false;
+    }
+
+    //makes checkout to 1 and assigns new order_id
+
+    ArrayList<Product> currentcart = new ArrayList<Product>();
+
+    currentcart = getCurrentCart();
+
+    for (int i = 0; i < currentcart.size(); i++) {
+      String checkoutCart = "UPDATE `zaloradb`.`carts` SET `checked_out` = '1', `order_id` = '" + orderid
+          + "' WHERE (`session_id` = '" + currentcart.get(i).getSession_ID() + "')";
+
+      try {
+        stmt.executeUpdate(checkoutCart);
+      } catch (SQLException e) {
+        System.out.println("SQLException: " + e.getMessage());
+        System.out.println("SQLState: " + e.getSQLState());
+        System.out.println("VendorError: " + e.getErrorCode());
+        return false;
+      }
+    }
+
+    // updates totalprice and add user ID
+    String updateTotalPrice = "UPDATE `zaloradb`.`orderdetails` SET `total_amount` = '" + getTotalOrderPrice(orderid)
+        + "', `user_id` = '" + currentUser.getUser_id() + "' WHERE (`order_id` = '" + orderid + "')";
+
+    try {
+      stmt.executeUpdate(updateTotalPrice);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      return false;
+    }
+
+    return true;
+
+  }
+
+  public float getTotalOrderPrice(int order_id) {
+    String returnTotalOrderPrice = "SELECT SUM(products.price) as 'total' FROM products INNER JOIN carts ON products.product_id = carts.product_id WHERE carts.user_id = "
+        + currentUser.getUser_id() + " AND carts.order_id = " + order_id;
+
+    float total = 0;
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnTotalOrderPrice);
+
+      while (rs.next()) {
+        total = rs.getFloat("total");
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return total;
+  }
+
   public int getNewSessionID() {
     String returnMaxSessionID = "SELECT MAX(session_id) as 'max' FROM carts";
     int newID = 0;
 
     try {
       ResultSet rs = stmt.executeQuery(returnMaxSessionID);
+
+      while (rs.next()) {
+        newID = rs.getInt("max");
+        newID++;
+      }
+
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+    return newID;
+  }
+
+  public int getNewOrderID() {
+    String returnMaxOrderID = "SELECT MAX(order_id) as 'max' FROM carts";
+
+    int newID = 0;
+
+    try {
+
+      ResultSet rs = stmt.executeQuery(returnMaxOrderID);
 
       while (rs.next()) {
         newID = rs.getInt("max");
