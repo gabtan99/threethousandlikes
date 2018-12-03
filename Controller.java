@@ -11,6 +11,7 @@ public class Controller {
     model = m;
     view = new View(this, primaryStage);
 
+    model.removeFromCart(17);
     /* pang test lang ng orderbreak down
     ArrayList<Order> test = new ArrayList<Order>();
 

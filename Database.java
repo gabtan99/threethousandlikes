@@ -263,6 +263,7 @@ public class Database {
   }
 
   public ArrayList<Product> getCurrentCart() {
+
     String returnCurrentCart = "SELECT products.*, carts.session_id, carts.quantity FROM carts INNER JOIN products ON products.product_id = carts.product_id WHERE carts.checked_out = 0 AND carts.user_id ="
         + currentUser.getUser_id();
 
@@ -287,8 +288,22 @@ public class Database {
     return temp;
   }
 
+  public boolean removeFromCart(int session_id) {
+    String removeProductFromCart = "DELETE FROM `zaloradb`.`carts` WHERE (`session_id` = '" + session_id + "')";
+
+    try {
+      stmt.executeUpdate(removeProductFromCart);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      return false;
+    }
+
+    return true;
+  }
+
   public boolean addToCart(int product_id, int quantity) {
-    currentUser.setUser_id(1);
 
     String addProductToCart = "INSERT INTO `zaloradb`.`carts` (`session_id`, `user_id`, `product_id`, `quantity`, `checked_out`) VALUES ('"
         + getNewSessionID() + "', '" + currentUser.getUser_id() + "', '" + product_id + "', '" + quantity + "', '0')";
