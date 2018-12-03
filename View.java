@@ -499,6 +499,20 @@ public class View {
     overlap.getChildren().add(setBeauty);
 	overlap.getChildren().add(setBeauty2);
 	overlap.setMargin(setBeauty2, new Insets(0, 0, 700, 0));
+	
+	Label text[] = new Label[5];
+	int i;
+	for(i=0; i<5; i++)
+	{
+		text[i] = new Label(controller.getProductsUnderAType("Beauty").get(i).getProduct_name());
+		text[i].setFont(Font.font("Madeleina Sans", 30));
+		overlap.getChildren().add(text[i]);
+	}
+	text[3].setWrapText(true);
+	overlap.setMargin(text[0], new Insets(0, 638, 400, 0));
+	overlap.setMargin(text[1], new Insets(0, 0, 400, 0));
+	overlap.setMargin(text[2], new Insets(0, 0, 400, 640));
+	overlap.setMargin(text[3], new Insets(300, 640, 0, 0));
   }
 
   private void removeClicks() {
