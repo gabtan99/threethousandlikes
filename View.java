@@ -85,11 +85,11 @@ public class View {
   Image signup = new Image("images/SignUp.png");
   Image signupHover = new Image("images/SignUp2.png");
   Image clothingIcon = new Image("images/ClothesIcon.png");
-  Image ShoesIcon = new Image("images/ShoeIcon.png");
-  Image beautyIcon = new Image("images/BeautyIcon.png");
-  Image sportsIcon = new Image("images/SportsIcon.png");
-  Image bagIcon = new Image("images/BagIcon.png");
-  Image accIcon = new Image("images/AccessoriesIcon.png");
+  Image ShoesIcon = new Image("images/ShoesIcon.png");
+  Image beautyIcon = new Image("images/BeautIcon.png");
+  Image sportsIcon = new Image("images/SportIcon.png");
+  Image bagIcon = new Image("images/BagsIcon.png");
+  Image accIcon = new Image("images/AccIcon.png");
   Image apparelbar = new Image("images/ApparelTypeBar.png");
   Image clothingB = new Image("images/ClothingButton.png");
   Image shoesB = new Image("images/ShoesButton.png");
@@ -174,19 +174,22 @@ public class View {
   StackPane welcomePage = new StackPane();
   StackPane loginPane = new StackPane();
   AnchorPane accountPage = new AnchorPane();
-  ScrollPane allProductsPane = new ScrollPane();
+  ScrollPane scrollpane = new ScrollPane();
   StackPane registerPane = new StackPane();
   StackPane menu = new StackPane();
   String selectedgender = null;
-  ImageView[] products;
+  ImageView[] productpic;
   AnchorPane[] productpane;
+  Text[] productname;
+  TextFlow[] producttextflow;
+  TextField[] productquantity;
+  Button[] productaddbutton;
 
   public View(Controller c, Stage primaryStage) {
 
     controller = c;
     primaryStage.setTitle("Welcome to Zalora!");
 
-    vertical.setStyle("-fx-background-color: #E6E7E7");
     vertical.getChildren().add(menu);
 
     Scene welcomeScene = new Scene(welcomePage, 1024, 768);
@@ -290,6 +293,7 @@ public class View {
     registerPane.getChildren().add(backV);
 
     ///////////////// HOME PAGE ////////////////////
+
 
     TextField searchText = new TextField();
     searchText.setMaxWidth(500);
@@ -542,24 +546,69 @@ public class View {
   }
 
   private void ViewAllProductsPage() {
+
     TilePane grid = new TilePane();
+
+    grid.setStyle("-fx-border-color: #E6E7E7");
+    grid.setPrefColumns(3);
+    grid.setHgap(20);
+    grid.setVgap(50);
+
     int count = controller.getAllProducts().size();
 
     productpane = new AnchorPane[count];
-    products = new ImageView[count];
+    productpic = new ImageView[count];
+    producttextflow = new TextFlow[count];
+    productname = new Text[count];
+    productquantity = new TextField[count];
+    productaddbutton = new Button[count];
+
     for (int i = 0; i < count; i++) {
 
-      products[i] = new ImageView(clothingIcon);
-      products[i].setFitWidth(150);
-      products[i].setFitHeight(150);
+      productname[i] = new Text(controller.getAllProducts().get(i).getProduct_name());
 
+      producttextflow[i] = new TextFlow(productname[i]);
+      producttextflow[i].setPrefWidth(190);
+
+      if (controller.getAllProducts().get(i).getApparel_type().equals("Clothing"))
+        productpic[i] = new ImageView(clothingIcon);
+      else if (controller.getAllProducts().get(i).getApparel_type().equals("Shoes"))
+        productpic[i] = new ImageView(ShoesIcon);
+      else if (controller.getAllProducts().get(i).getApparel_type().equals("Bags"))
+        productpic[i] = new ImageView(bagIcon);
+      else if (controller.getAllProducts().get(i).getApparel_type().equals("accessories"))
+        productpic[i] = new ImageView(accIcon);
+      else if (controller.getAllProducts().get(i).getApparel_type().equals("Sports"))
+        productpic[i] = new ImageView(sportsIcon);
+      else
+        productpic[i] = new ImageView(beautyIcon);
+
+      productpic[i].setFitWidth(200);
+      productpic[i].setFitHeight(200);
+
+      productquantity[i] = new TextField();
+      productquantity[i].setPrefWidth(40);
+
+      productaddbutton[i] = new Button("Add to Cart");
       productpane[i] = new AnchorPane();
-      productpane[i].getChildren().add(products[i]);
+
+      productpane[i].getChildren().add(productquantity[i]);
+      productpane[i].getChildren().add(productpic[i]);
+      productpane[i].getChildren().add(producttextflow[i]);
+      productpane[i].getChildren().add(productaddbutton[i]);
+
+      AnchorPane.setTopAnchor(producttextflow[i], 210.0);
+      AnchorPane.setTopAnchor(productquantity[i], 245.0);
+      AnchorPane.setRightAnchor(productquantity[i], 95.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 245.0);
+      AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
+
       grid.getChildren().add(productpane[i]);
     }
 
-    allProductsPane.setContent(grid);
-    vertical.getChildren().add(allProductsPane);
+    scrollpane.setContent(grid);
+    vertical.getChildren().add(scrollpane);
+    VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
   }
 
 }
