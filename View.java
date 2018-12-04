@@ -321,11 +321,12 @@ public class View {
 
     zaloraButtonV.setOnMouseClicked(e -> {
       clearPage();
-      ViewAllProductsPage();
+      viewAllProductsPage();
     });
 
     search.setOnMouseClicked(e -> {
-
+      clearPage();
+      viewProductsWithKeyword(searchText.getText());
     });
 
     account.setOnMouseClicked(e -> {
@@ -544,7 +545,7 @@ public class View {
     vertical.getChildren().add(accountPage);
   }
 
-  private void ViewAllProductsPage() {
+  private void viewAllProductsPage() {
 
     TilePane grid = new TilePane();
 
@@ -565,6 +566,7 @@ public class View {
     for (int i = 0; i < count; i++) {
 
       productname[i] = new Text(controller.getAllProducts().get(i).getProduct_name());
+      productname[i].setFont(Font.font("Madeleina Sans", 20));
 
       producttextflow[i] = new TextFlow(productname[i]);
       producttextflow[i].setPrefWidth(190);
@@ -589,6 +591,8 @@ public class View {
       productquantity[i].setPrefWidth(40);
 
       productaddbutton[i] = new Button("Add to Cart");
+      productaddbutton[i].setFont(Font.font("Madeleina Sans", 14));
+      productaddbutton[i].setStyle("-fx-background-color: #59938B");
 
       int n = i;
       productaddbutton[i].setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -608,9 +612,87 @@ public class View {
       productpane[i].getChildren().add(productaddbutton[i]);
 
       AnchorPane.setTopAnchor(producttextflow[i], 210.0);
-      AnchorPane.setTopAnchor(productquantity[i], 245.0);
+      AnchorPane.setTopAnchor(productquantity[i], 253.0);
       AnchorPane.setRightAnchor(productquantity[i], 95.0);
-      AnchorPane.setTopAnchor(productaddbutton[i], 245.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 253.0);
+      AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
+
+      grid.getChildren().add(productpane[i]);
+    }
+
+    scrollpane.setContent(grid);
+    vertical.getChildren().add(scrollpane);
+    VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
+  }
+
+  private void viewProductsWithKeyword(String keyword) {
+    TilePane grid = new TilePane();
+
+    grid.setStyle("-fx-border-color: #E6E7E7");
+    grid.setPrefColumns(3);
+    grid.setHgap(20);
+    grid.setVgap(50);
+
+    int count = controller.getProductsWithKeyword(keyword).size();
+
+    productpane = new AnchorPane[count];
+    productpic = new ImageView[count];
+    producttextflow = new TextFlow[count];
+    productname = new Text[count];
+    productquantity = new TextField[count];
+    productaddbutton = new Button[count];
+
+    for (int i = 0; i < count; i++) {
+
+      productname[i] = new Text(controller.getProductsWithKeyword(keyword).get(i).getProduct_name());
+      productname[i].setFont(Font.font("Madeleina Sans", 20));
+
+      producttextflow[i] = new TextFlow(productname[i]);
+      producttextflow[i].setPrefWidth(190);
+
+      if (controller.getProductsWithKeyword(keyword).get(i).getApparel_type().equals("Clothing"))
+        productpic[i] = new ImageView(clothingIcon);
+      else if (controller.getProductsWithKeyword(keyword).get(i).getApparel_type().equals("Shoes"))
+        productpic[i] = new ImageView(ShoesIcon);
+      else if (controller.getProductsWithKeyword(keyword).get(i).getApparel_type().equals("Bags"))
+        productpic[i] = new ImageView(bagIcon);
+      else if (controller.getProductsWithKeyword(keyword).get(i).getApparel_type().equals("Accessories"))
+        productpic[i] = new ImageView(accIcon);
+      else if (controller.getProductsWithKeyword(keyword).get(i).getApparel_type().equals("Sports"))
+        productpic[i] = new ImageView(sportsIcon);
+      else
+        productpic[i] = new ImageView(beautyIcon);
+
+      productpic[i].setFitWidth(200);
+      productpic[i].setFitHeight(200);
+
+      productquantity[i] = new TextField();
+      productquantity[i].setPrefWidth(40);
+
+      productaddbutton[i] = new Button("Add to Cart");
+      productaddbutton[i].setFont(Font.font("Madeleina Sans", 14));
+      productaddbutton[i].setStyle("-fx-background-color: #59938B");
+
+      int n = i;
+      productaddbutton[i].setOnMousePressed(new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent e) {
+          int q = Integer.parseInt(productquantity[n].getText());
+          if (controller.addToCart(controller.getProductsWithKeyword(keyword).get(n).getProduct_id(), q))
+            System.out.print("Added");
+        }
+      });
+
+      productpane[i] = new AnchorPane();
+
+      productpane[i].getChildren().add(productquantity[i]);
+      productpane[i].getChildren().add(productpic[i]);
+      productpane[i].getChildren().add(producttextflow[i]);
+      productpane[i].getChildren().add(productaddbutton[i]);
+
+      AnchorPane.setTopAnchor(producttextflow[i], 210.0);
+      AnchorPane.setTopAnchor(productquantity[i], 253.0);
+      AnchorPane.setRightAnchor(productquantity[i], 95.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 253.0);
       AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
 
       grid.getChildren().add(productpane[i]);
