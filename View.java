@@ -123,6 +123,7 @@ public class View {
   Image back = new Image("images/backButton.png");
   Image back2 = new Image("images/backHover.png");
 
+  ImageView outLog = new ImageView(logout);
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
   ImageView shoes = new ImageView(ShoesIcon);
@@ -131,7 +132,6 @@ public class View {
   ImageView sports = new ImageView(sportsIcon);
   ImageView maleButton = new ImageView(male1);
   ImageView femaleButton = new ImageView(female1);
-  ImageView out = new ImageView(logout);
   ImageView account = new ImageView(accountButton);
   ImageView setClothing = new ImageView(clothingSet);
   ImageView setClothing2 = new ImageView(clothingSet);
@@ -550,6 +550,8 @@ public class View {
 
   private void viewAccountPage() {
 	  
+	
+	System.out.println("Account");
 	Text name_text = new Text(40, 50, "Name: ");
 	Text register_text = new Text(10, 50, "Register Date: ");
 	Text contact_text = new Text(10, 50, "Contact Number: ");
@@ -567,13 +569,13 @@ public class View {
     Label userDetails = new Label(getUserDetails);
 	userDetails.setFont(new Font("Madeleina Sans", 40));
 
-    accountPage.getChildren().add(userDetails);
+	//accountPage.getChildren().add(outLog);
+	accountPage.getChildren().add(userDetails);
 	accountPage.getChildren().add(name_text);
 	accountPage.getChildren().add(register_text);
 	accountPage.getChildren().add(contact_text);
 	accountPage.getChildren().add(sex_text);
-	accountPage.getChildren().add(out);
-	AnchorPane.setTopAnchor(out, 300.0);
+	//AnchorPane.setTopAnchor(out, 300.0);
 	AnchorPane.setTopAnchor(name_text, 147.0);
 	AnchorPane.setTopAnchor(register_text, 197.0);
 	AnchorPane.setTopAnchor(contact_text, 247.0);
@@ -825,6 +827,7 @@ public class View {
   private void viewMyCart() {
 
     TilePane grid = new TilePane();
+	AnchorPane cartPane = new AnchorPane();
 
     grid.setStyle("-fx-border-color: #E6E7E7");
     grid.setPrefColumns(3);
@@ -899,8 +902,19 @@ public class View {
 
       grid.getChildren().add(productpane[i]);
     }
+	checkOutV.setOnMouseEntered(e->{
+		checkOutV.setImage(checkout2);
+	});
+	checkOutV.setOnMouseExited(e->{
+		checkOutV.setImage(checkout);
+	});
+	
 
-    scrollpane.setContent(grid);
+	cartPane.getChildren().add(grid);
+	  if (controller.getCurrentCart().size() > 1)
+		  cartPane.getChildren().add(checkOutV);
+	AnchorPane.setLeftAnchor(checkOutV, 170.0);
+    scrollpane.setContent(cartPane);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
   }
