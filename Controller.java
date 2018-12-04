@@ -10,17 +10,6 @@ public class Controller {
   public Controller(Database m, Stage primaryStage) {
     model = m;
     view = new View(this, primaryStage);
-
-    /* pang test lang ng orderbreak down
-    ArrayList<Order> test = new ArrayList<Order>();
-
-    test = model.getOrderHistory();
-    for (int i = 0; i < test.size(); i++) {
-      for (int j = 0; j < test.get(i).getOrderBreakdown().size(); j++) {
-        System.out.println(test.get(i).getOrderBreakdown().get(j).getProduct_name());
-      }
-    }
-    */
   }
 
   public boolean registerUser(String email, String password, String last_name, String first_name, String contact_number,
@@ -61,6 +50,26 @@ public class Controller {
 
   public User getCurrentUser() {
     return model.getCurrentUser();
+  }
+
+  public ArrayList<Order> getOrderHistory() {
+    return model.getOrderHistory();
+  }
+
+  public ArrayList<Product> getCurrentCart() {
+    return model.getCurrentCart();
+  }
+
+  public boolean removeFromCart(int session_id) {
+    return model.removeFromCart(session_id);
+  }
+
+  public boolean addToCart(int product_id, int quantity) {
+    return model.addToCart(product_id, quantity);
+  }
+
+  public boolean checkoutCart(String payment_method, String shipping_address, String billing_address) {
+    return model.checkoutCart(payment_method, shipping_address, billing_address);
   }
 
 }
