@@ -201,7 +201,7 @@ public class Database {
       while (rs.next()) {
         Order torder = new Order(rs.getInt("order_id"), rs.getString("payment_method"), rs.getString("order_date"),
             rs.getString("shipping_address"), rs.getString("billing_address"), rs.getFloat("total_amount"),
-            currentUser.getUser_id(), getProductsInOrder(rs.getInt("order_id")));
+            currentUser.getUser_id());
         temp.add(torder);
       }
 
@@ -221,9 +221,7 @@ public class Database {
     ArrayList<Product> temp = new ArrayList<Product>();
 
     try {
-      Connection conn2 = DriverManager.getConnection(url, user, pass);
-      Statement stmt2 = conn2.createStatement();
-      ResultSet rs = stmt2.executeQuery(returnProductsInOrder);
+      ResultSet rs = stmt.executeQuery(returnProductsInOrder);
 
       while (rs.next()) {
         Product tproduct = new Product(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("brand_id"),

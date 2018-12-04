@@ -72,4 +72,8 @@ public class Controller {
     return model.checkoutCart(payment_method, shipping_address, billing_address);
   }
 
+  public ArrayList<Product> getProductsInOrder(int order_id) {
+    return model.getProductsInOrder(order_id);
+  }
+
 }

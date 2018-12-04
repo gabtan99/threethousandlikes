@@ -56,6 +56,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.*;
+import java.util.*;
 
 public class View {
 
@@ -553,41 +554,42 @@ public class View {
   }
 
   private void viewAccountPage() {
-	  
-	Text name_text = new Text(40, 50, "Name: ");
-	Text register_text = new Text(10, 50, "Register Date: ");
-	Text contact_text = new Text(10, 50, "Contact Number: ");
-	Text sex_text = new Text(10, 50, "Sex: ");
-	name_text.setFont(Font.font("Madeleina Sans", 40));
-	register_text.setFont(Font.font("Madeleina Sans", 40));
-	contact_text.setFont(Font.font("Madeleina Sans", 40));
-	sex_text.setFont(Font.font("Madeleina Sans", 40));
-	
-    String getUserDetails = controller.getCurrentUser().getFirst_name() + " " + controller.getCurrentUser().getLast_name();
+
+    Text name_text = new Text(40, 50, "Name: ");
+    Text register_text = new Text(10, 50, "Register Date: ");
+    Text contact_text = new Text(10, 50, "Contact Number: ");
+    Text sex_text = new Text(10, 50, "Sex: ");
+    name_text.setFont(Font.font("Madeleina Sans", 40));
+    register_text.setFont(Font.font("Madeleina Sans", 40));
+    contact_text.setFont(Font.font("Madeleina Sans", 40));
+    sex_text.setFont(Font.font("Madeleina Sans", 40));
+
+    String getUserDetails = controller.getCurrentUser().getFirst_name() + " "
+        + controller.getCurrentUser().getLast_name();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getRegister_date();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getContact_number();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getGender();
 
     Label userDetails = new Label(getUserDetails);
-	userDetails.setFont(new Font("Madeleina Sans", 40));
+    userDetails.setFont(new Font("Madeleina Sans", 40));
 
     accountPage.getChildren().add(userDetails);
-	accountPage.getChildren().add(name_text);
-	accountPage.getChildren().add(register_text);
-	accountPage.getChildren().add(contact_text);
-	accountPage.getChildren().add(sex_text);
-	accountPage.getChildren().add(out);
-	AnchorPane.setTopAnchor(out, 300.0);
-	AnchorPane.setTopAnchor(name_text, 147.0);
-	AnchorPane.setTopAnchor(register_text, 197.0);
-	AnchorPane.setTopAnchor(contact_text, 247.0);
-	AnchorPane.setTopAnchor(sex_text, 297.0);
-	AnchorPane.setTopAnchor(userDetails, 150.0);
-	AnchorPane.setLeftAnchor(userDetails, 600.0);
-	AnchorPane.setLeftAnchor(name_text, 452.0);
-	AnchorPane.setLeftAnchor(register_text, 349.0);
-	AnchorPane.setLeftAnchor(contact_text, 300.0);
-	AnchorPane.setLeftAnchor(sex_text, 483.0);
+    accountPage.getChildren().add(name_text);
+    accountPage.getChildren().add(register_text);
+    accountPage.getChildren().add(contact_text);
+    accountPage.getChildren().add(sex_text);
+    accountPage.getChildren().add(out);
+    AnchorPane.setTopAnchor(out, 300.0);
+    AnchorPane.setTopAnchor(name_text, 147.0);
+    AnchorPane.setTopAnchor(register_text, 197.0);
+    AnchorPane.setTopAnchor(contact_text, 247.0);
+    AnchorPane.setTopAnchor(sex_text, 297.0);
+    AnchorPane.setTopAnchor(userDetails, 150.0);
+    AnchorPane.setLeftAnchor(userDetails, 600.0);
+    AnchorPane.setLeftAnchor(name_text, 452.0);
+    AnchorPane.setLeftAnchor(register_text, 349.0);
+    AnchorPane.setLeftAnchor(contact_text, 300.0);
+    AnchorPane.setLeftAnchor(sex_text, 483.0);
     vertical.getChildren().add(accountPage);
   }
 
@@ -835,6 +837,7 @@ public class View {
     int n = controller.getOrderHistory().size();
 
     orderdetails = new Text[n];
+
     productgrid = new TilePane[n];
 
     for (int i = 0; i < n; i++) {
@@ -860,8 +863,13 @@ public class View {
       productgrid[i].setHgap(20);
       productgrid[i].setVgap(50);
 
-      int count = controller.getOrderHistory().get(i).getOrderBreakdown().size();
-      System.out.println(count);
+      ArrayList<Product> prod = new ArrayList<Product>();
+
+      int order_id = controller.getOrderHistory().get(i).getOrder_id();
+
+      prod = controller.getProductsInOrder(order_id);
+
+      int count = prod.size();
 
       productpane = new AnchorPane[count];
       productpic = new ImageView[count];
@@ -871,7 +879,7 @@ public class View {
 
       for (int j = 0; j < count; j++) {
 
-        productname[j] = new Text(controller.getOrderHistory().get(i).getOrderBreakdown().get(j).getProduct_name());
+        productname[j] = new Text(prod.get(j).getProduct_name());
         productname[j].setFont(Font.font("Madeleina Sans", 20));
 
         producttextflow[j] = new TextFlow(productname[j]);
@@ -883,7 +891,7 @@ public class View {
         productpic[j].setFitHeight(200);
 
         String q = "Qty: ";
-        //q = q + Integer.toString(controller.getOrderHistory().get(i).getOrderBreakdown().get(j).getQuantity());
+        q = q + Integer.toString(prod.get(j).getQuantity());
         productorderquantity[j] = new Text(q);
 
         productpane[j] = new AnchorPane();
