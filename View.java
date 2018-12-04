@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
@@ -203,7 +204,7 @@ public class View {
     TextField last_name = new TextField();
     TextField first_name = new TextField();
     TextField email = new TextField();
-    TextField password_register = new TextField();
+    PasswordField password_register = new PasswordField();
     TextField contact = new TextField();
     contact.setMaxWidth(300);
     email.setMaxWidth(300);
@@ -267,7 +268,7 @@ public class View {
     ImageView logIn = new ImageView(loginHover);
     ImageView register = new ImageView(registerHover);
     TextField username = new TextField();
-    TextField password = new TextField();
+    PasswordField password = new PasswordField();
     username.setMaxWidth(300);
     password.setMaxWidth(300);
     StackPane.setMargin(username, new Insets(0, 0, 115, 100));
@@ -278,13 +279,18 @@ public class View {
     loginPane.getChildren().add(password);
     loginPane.getChildren().add(register);
     logIn.setOnMouseClicked(e -> {
-      primaryStage.setScene(mainScene);
-      // centers the stage to the mid of the screen
-      Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-      primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-      primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
 
-      controller.loginUser(username.getText(), password.getText());
+
+      if (controller.loginUser(username.getText(), password.getText())) {
+        primaryStage.setScene(mainScene);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+      }
+
+
+      // centers the stage to the mid of the screen
+
     });
     logIn.setOnMouseEntered(e -> {
       logIn.setImage(loginButton);
