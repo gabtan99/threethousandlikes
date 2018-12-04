@@ -900,7 +900,18 @@ public class View {
         producttextflow[j] = new TextFlow(productname[j]);
         producttextflow[j].setPrefWidth(190);
 
-        productpic[j] = new ImageView(beautyIcon);
+        if (prod.get(j).getApparel_type().equals("Clothing"))
+          productpic[j] = new ImageView(clothingIcon);
+        else if (prod.get(j).getApparel_type().equals("Shoes"))
+          productpic[j] = new ImageView(ShoesIcon);
+        else if (prod.get(j).getApparel_type().equals("Bags"))
+          productpic[j] = new ImageView(bagIcon);
+        else if (prod.get(j).getApparel_type().equals("Accessories"))
+          productpic[j] = new ImageView(accIcon);
+        else if (prod.get(j).getApparel_type().equals("Sports"))
+          productpic[j] = new ImageView(sportsIcon);
+        else
+          productpic[j] = new ImageView(beautyIcon);
 
         productpic[j].setFitWidth(200);
         productpic[j].setFitHeight(200);
@@ -934,6 +945,7 @@ public class View {
   private void viewMyCart() {
 
     TilePane grid = new TilePane();
+    AnchorPane cartPane = new AnchorPane();
 
     grid.setStyle("-fx-border-color: #E6E7E7");
     grid.setPrefColumns(3);
@@ -1009,7 +1021,25 @@ public class View {
       grid.getChildren().add(productpane[i]);
     }
 
-    scrollpane.setContent(grid);
+    checkOutV.setOnMouseEntered(e -> {
+      checkOutV.setImage(checkout2);
+    });
+    checkOutV.setOnMouseExited(e -> {
+      checkOutV.setImage(checkout);
+    });
+
+    checkOutV.setOnMouseClicked(e -> {
+      if (controller.checkoutCart("Cash On Delivery", "Malate", "Makati")) {
+        clearPage();
+        viewMyCart();
+      }
+    });
+
+    cartPane.getChildren().add(grid);
+    if (controller.getCurrentCart().size() > 1)
+      cartPane.getChildren().add(checkOutV);
+    AnchorPane.setLeftAnchor(checkOutV, 170.0);
+    scrollpane.setContent(cartPane);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
   }
