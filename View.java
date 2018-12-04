@@ -190,8 +190,12 @@ public class View {
   Button[] productremovebutton;
   Text[] orderdetails;
   TilePane[] productgrid;
+  Scene loginScene;
+  Stage primaryStage;
 
   public View(Controller c, Stage primaryStage) {
+
+    this.primaryStage = primaryStage;
 
     controller = c;
     primaryStage.setTitle("Welcome to Zalora!");
@@ -199,7 +203,7 @@ public class View {
     vertical.getChildren().add(menu);
 
     Scene welcomeScene = new Scene(welcomePage, 1024, 768);
-    Scene loginScene = new Scene(loginPane, 1024, 768);
+    loginScene = new Scene(loginPane, 1024, 768);
     Scene registerScene = new Scene(registerPane, 1024, 768);
     Scene mainScene = new Scene(vertical, 1280, 720);
 
@@ -555,6 +559,10 @@ public class View {
 
   private void viewAccountPage() {
 
+    if (accountPage.getChildren().size() != 0) {
+      accountPage.getChildren().clear();
+    }
+
     Text name_text = new Text(40, 50, "Name: ");
     Text register_text = new Text(10, 50, "Register Date: ");
     Text contact_text = new Text(10, 50, "Contact Number: ");
@@ -572,6 +580,13 @@ public class View {
 
     Label userDetails = new Label(getUserDetails);
     userDetails.setFont(new Font("Madeleina Sans", 40));
+
+    out.setOnMousePressed(new EventHandler<MouseEvent>() {
+      public void handle(MouseEvent e) {
+        controller.logoutUser();
+        primaryStage.setScene(loginScene);
+      }
+    });
 
     accountPage.getChildren().add(userDetails);
     accountPage.getChildren().add(name_text);
