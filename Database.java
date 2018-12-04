@@ -64,7 +64,6 @@ public class Database {
         + "', '" + last_name + "', '" + contact_number + "', '" + gender + "', '" + getDate() + "')";
 
     try {
-
       stmt.executeUpdate(addNewUser);
 
     } catch (SQLException e) {
@@ -96,7 +95,6 @@ public class Database {
     ArrayList<Product> temp = new ArrayList<Product>();
 
     try {
-
       ResultSet rs = stmt.executeQuery(returnProductsWithKeyword);
 
       while (rs.next()) {
@@ -118,7 +116,6 @@ public class Database {
     ArrayList<Product> temp = new ArrayList<Product>();
 
     try {
-
       ResultSet rs = stmt.executeQuery(returnAllProducts);
 
       while (rs.next()) {
@@ -241,6 +238,7 @@ public class Database {
       System.out.println("VendorError: " + e.getErrorCode());
     }
     return temp;
+
   }
 
   public ArrayList<Product> getCurrentCart() {
@@ -405,7 +403,6 @@ public class Database {
     int newID = 0;
 
     try {
-
       ResultSet rs = stmt.executeQuery(returnMaxOrderID);
 
       while (rs.next()) {
@@ -429,7 +426,6 @@ public class Database {
     int count = 0;
 
     try {
-
       ResultSet rs = stmt.executeQuery(returnUserCount);
       while (rs.next()) {
         count = rs.getInt("usercount");
