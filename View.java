@@ -56,6 +56,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.*;
+import java.util.*;
 
 public class View {
 
@@ -123,7 +124,6 @@ public class View {
   Image back = new Image("images/backButton.png");
   Image back2 = new Image("images/backHover.png");
 
-  ImageView outLog = new ImageView(logout);
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
   ImageView shoes = new ImageView(ShoesIcon);
@@ -132,6 +132,7 @@ public class View {
   ImageView sports = new ImageView(sportsIcon);
   ImageView maleButton = new ImageView(male1);
   ImageView femaleButton = new ImageView(female1);
+  ImageView out = new ImageView(logout);
   ImageView account = new ImageView(accountButton);
   ImageView setClothing = new ImageView(clothingSet);
   ImageView setClothing2 = new ImageView(clothingSet);
@@ -189,8 +190,12 @@ public class View {
   Button[] productremovebutton;
   Text[] orderdetails;
   TilePane[] productgrid;
+  Scene loginScene;
+  Stage primaryStage;
 
   public View(Controller c, Stage primaryStage) {
+
+    this.primaryStage = primaryStage;
 
     controller = c;
     primaryStage.setTitle("Welcome to Zalora!");
@@ -198,7 +203,7 @@ public class View {
     vertical.getChildren().add(menu);
 
     Scene welcomeScene = new Scene(welcomePage, 1024, 768);
-    Scene loginScene = new Scene(loginPane, 1024, 768);
+    loginScene = new Scene(loginPane, 1024, 768);
     Scene registerScene = new Scene(registerPane, 1024, 768);
     Scene mainScene = new Scene(vertical, 1280, 720);
 
@@ -553,43 +558,53 @@ public class View {
   }
 
   private void viewAccountPage() {
-	  
-	
-	System.out.println("Account");
-	Text name_text = new Text(40, 50, "Name: ");
-	Text register_text = new Text(10, 50, "Register Date: ");
-	Text contact_text = new Text(10, 50, "Contact Number: ");
-	Text sex_text = new Text(10, 50, "Sex: ");
-	name_text.setFont(Font.font("Madeleina Sans", 40));
-	register_text.setFont(Font.font("Madeleina Sans", 40));
-	contact_text.setFont(Font.font("Madeleina Sans", 40));
-	sex_text.setFont(Font.font("Madeleina Sans", 40));
-	
-    String getUserDetails = controller.getCurrentUser().getFirst_name() + " " + controller.getCurrentUser().getLast_name();
+
+    if (accountPage.getChildren().size() != 0) {
+      accountPage.getChildren().clear();
+    }
+
+    Text name_text = new Text(40, 50, "Name: ");
+    Text register_text = new Text(10, 50, "Register Date: ");
+    Text contact_text = new Text(10, 50, "Contact Number: ");
+    Text sex_text = new Text(10, 50, "Sex: ");
+    name_text.setFont(Font.font("Madeleina Sans", 40));
+    register_text.setFont(Font.font("Madeleina Sans", 40));
+    contact_text.setFont(Font.font("Madeleina Sans", 40));
+    sex_text.setFont(Font.font("Madeleina Sans", 40));
+
+    String getUserDetails = controller.getCurrentUser().getFirst_name() + " "
+        + controller.getCurrentUser().getLast_name();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getRegister_date();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getContact_number();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getGender();
 
     Label userDetails = new Label(getUserDetails);
-	userDetails.setFont(new Font("Madeleina Sans", 40));
+    userDetails.setFont(new Font("Madeleina Sans", 40));
 
-	//accountPage.getChildren().add(outLog);
-	accountPage.getChildren().add(userDetails);
-	accountPage.getChildren().add(name_text);
-	accountPage.getChildren().add(register_text);
-	accountPage.getChildren().add(contact_text);
-	accountPage.getChildren().add(sex_text);
-	//AnchorPane.setTopAnchor(out, 300.0);
-	AnchorPane.setTopAnchor(name_text, 147.0);
-	AnchorPane.setTopAnchor(register_text, 197.0);
-	AnchorPane.setTopAnchor(contact_text, 247.0);
-	AnchorPane.setTopAnchor(sex_text, 297.0);
-	AnchorPane.setTopAnchor(userDetails, 150.0);
-	AnchorPane.setLeftAnchor(userDetails, 600.0);
-	AnchorPane.setLeftAnchor(name_text, 452.0);
-	AnchorPane.setLeftAnchor(register_text, 349.0);
-	AnchorPane.setLeftAnchor(contact_text, 300.0);
-	AnchorPane.setLeftAnchor(sex_text, 483.0);
+    out.setOnMousePressed(new EventHandler<MouseEvent>() {
+      public void handle(MouseEvent e) {
+        controller.logoutUser();
+        primaryStage.setScene(loginScene);
+      }
+    });
+
+    accountPage.getChildren().add(userDetails);
+    accountPage.getChildren().add(name_text);
+    accountPage.getChildren().add(register_text);
+    accountPage.getChildren().add(contact_text);
+    accountPage.getChildren().add(sex_text);
+    accountPage.getChildren().add(out);
+    AnchorPane.setTopAnchor(out, 300.0);
+    AnchorPane.setTopAnchor(name_text, 147.0);
+    AnchorPane.setTopAnchor(register_text, 197.0);
+    AnchorPane.setTopAnchor(contact_text, 247.0);
+    AnchorPane.setTopAnchor(sex_text, 297.0);
+    AnchorPane.setTopAnchor(userDetails, 150.0);
+    AnchorPane.setLeftAnchor(userDetails, 600.0);
+    AnchorPane.setLeftAnchor(name_text, 452.0);
+    AnchorPane.setLeftAnchor(register_text, 349.0);
+    AnchorPane.setLeftAnchor(contact_text, 300.0);
+    AnchorPane.setLeftAnchor(sex_text, 483.0);
     vertical.getChildren().add(accountPage);
   }
 
@@ -837,6 +852,7 @@ public class View {
     int n = controller.getOrderHistory().size();
 
     orderdetails = new Text[n];
+
     productgrid = new TilePane[n];
 
     for (int i = 0; i < n; i++) {
@@ -862,8 +878,13 @@ public class View {
       productgrid[i].setHgap(20);
       productgrid[i].setVgap(50);
 
-      int count = controller.getOrderHistory().get(i).getOrderBreakdown().size();
-      System.out.println(count);
+      ArrayList<Product> prod = new ArrayList<Product>();
+
+      int order_id = controller.getOrderHistory().get(i).getOrder_id();
+
+      prod = controller.getProductsInOrder(order_id);
+
+      int count = prod.size();
 
       productpane = new AnchorPane[count];
       productpic = new ImageView[count];
@@ -873,19 +894,30 @@ public class View {
 
       for (int j = 0; j < count; j++) {
 
-        productname[j] = new Text(controller.getOrderHistory().get(i).getOrderBreakdown().get(j).getProduct_name());
+        productname[j] = new Text(prod.get(j).getProduct_name());
         productname[j].setFont(Font.font("Madeleina Sans", 20));
 
         producttextflow[j] = new TextFlow(productname[j]);
         producttextflow[j].setPrefWidth(190);
 
-        productpic[j] = new ImageView(beautyIcon);
+        if (prod.get(j).getApparel_type().equals("Clothing"))
+          productpic[j] = new ImageView(clothingIcon);
+        else if (prod.get(j).getApparel_type().equals("Shoes"))
+          productpic[j] = new ImageView(ShoesIcon);
+        else if (prod.get(j).getApparel_type().equals("Bags"))
+          productpic[j] = new ImageView(bagIcon);
+        else if (prod.get(j).getApparel_type().equals("Accessories"))
+          productpic[j] = new ImageView(accIcon);
+        else if (prod.get(j).getApparel_type().equals("Sports"))
+          productpic[j] = new ImageView(sportsIcon);
+        else
+          productpic[j] = new ImageView(beautyIcon);
 
         productpic[j].setFitWidth(200);
         productpic[j].setFitHeight(200);
 
         String q = "Qty: ";
-        //q = q + Integer.toString(controller.getOrderHistory().get(i).getOrderBreakdown().get(j).getQuantity());
+        q = q + Integer.toString(prod.get(j).getQuantity());
         productorderquantity[j] = new Text(q);
 
         productpane[j] = new AnchorPane();
@@ -904,15 +936,16 @@ public class View {
       orderHistoryPage.getChildren().add(productgrid[i]);
       /////////////////////////////////////
     }
+
     scrollpane.setContent(orderHistoryPage);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
-    vertical.getChildren().add(orderHistoryPage);
+    vertical.getChildren().add(scrollpane);
   }
 
   private void viewMyCart() {
 
     TilePane grid = new TilePane();
-	AnchorPane cartPane = new AnchorPane();
+    AnchorPane cartPane = new AnchorPane();
 
     grid.setStyle("-fx-border-color: #E6E7E7");
     grid.setPrefColumns(3);
@@ -987,18 +1020,25 @@ public class View {
 
       grid.getChildren().add(productpane[i]);
     }
-	checkOutV.setOnMouseEntered(e->{
-		checkOutV.setImage(checkout2);
-	});
-	checkOutV.setOnMouseExited(e->{
-		checkOutV.setImage(checkout);
-	});
-	
 
-	cartPane.getChildren().add(grid);
-	  if (controller.getCurrentCart().size() > 1)
-		  cartPane.getChildren().add(checkOutV);
-	AnchorPane.setLeftAnchor(checkOutV, 170.0);
+    checkOutV.setOnMouseEntered(e -> {
+      checkOutV.setImage(checkout2);
+    });
+    checkOutV.setOnMouseExited(e -> {
+      checkOutV.setImage(checkout);
+    });
+
+    checkOutV.setOnMouseClicked(e -> {
+      if (controller.checkoutCart("Cash On Delivery", "Malate", "Makati")) {
+        clearPage();
+        viewMyCart();
+      }
+    });
+
+    cartPane.getChildren().add(grid);
+    if (controller.getCurrentCart().size() > 1)
+      cartPane.getChildren().add(checkOutV);
+    AnchorPane.setLeftAnchor(checkOutV, 170.0);
     scrollpane.setContent(cartPane);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
