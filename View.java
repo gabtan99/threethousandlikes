@@ -151,11 +151,7 @@ public class View {
   ImageView backV = new ImageView(back);
 
   VBox vertical = new VBox();
-  VBox vertical_2 = new VBox();
-  ScrollPane scroll_screen = new ScrollPane();
   StackPane menu = new StackPane();
-  StackPane scroll = new StackPane();
-  StackPane overlap = new StackPane();
   String selectedgender = null;
 
 
@@ -171,29 +167,15 @@ public class View {
     StackPane registerPane = new StackPane();
     AnchorPane mainPage = new AnchorPane();
 
-	vertical_2.getChildren().add(overlap);
-	vertical_2.setStyle("-fx-background-color: #E6E7E7");
-	scroll_screen.setContent(vertical_2);
-	scroll_screen.setMaxSize(1280, 708);
-  scroll_screen.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-	//scroll_screen.setFitToWidth(true);
-	scroll_screen.setStyle("-fx-background-color: #E6E7E7");
 	menu.setStyle("-fx-background-color: #E6E7E7");
 	menu.getChildren().add(barsV);
 	vertical.setStyle("-fx-background-color: #E6E7E7");
 	vertical.getChildren().add(menu);
-	vertical.getChildren().add(scroll_screen);
-	vertical.setMargin(overlap, new Insets(0,0,200,0));
-    //scroll.setPrefSize(1280, 1280);
-    //scroll.setFitToWidth(false);
-	scroll.setStyle("-fx-background-color: #E6E7E7");
-    scroll.getChildren().add(vertical);
-	overlap.getChildren().add(ViewBase);
 
     Scene welcomeScene = new Scene(welcomePage, 1024, 768);
     Scene loginScene = new Scene(loginPane, 1024, 768);
     Scene registerScene = new Scene(registerPane, 1024, 768);
-    Scene mainScene = new Scene(scroll, 1280, 720);
+    Scene mainScene = new Scene(vertical, 1280, 720);
 
     //Welcome Page
     welcomePage.setStyle("-fx-background-color: #E6E7E7");
@@ -362,7 +344,6 @@ public class View {
       search.setImage(searchButton);
     });
 	account.setOnMouseClicked(e->{
-		AccountClick();
 	});
     account.setOnMouseEntered(e -> {
       account.setImage(accountHover);
@@ -371,7 +352,6 @@ public class View {
       account.setImage(accountButton);
     });
 	cart.setOnMouseClicked(e->{
-		CartClick();
 	});
     cart.setOnMouseEntered(e -> {
       cart.setImage(cartHover);
@@ -386,7 +366,6 @@ public class View {
       order.setImage(orderButton);
     });
     clothesV.setOnMouseClicked(e -> {
-      ClothesClick();
     });
     clothesV.setOnMouseEntered(e -> {
       clothesV.setImage(clothingH);
@@ -395,7 +374,7 @@ public class View {
       clothesV.setImage(clothingB);
     });
     shoesV.setOnMouseClicked(e -> {
-      ShoesClick();
+ 
     });
     shoesV.setOnMouseEntered(e -> {
       shoesV.setImage(shoesH);
@@ -404,7 +383,7 @@ public class View {
       shoesV.setImage(shoesB);
     });
     accV.setOnMouseClicked(e -> {
-      AccessoriesClick();
+
     });
     accV.setOnMouseEntered(e -> {
       accV.setImage(accH);
@@ -413,7 +392,6 @@ public class View {
       accV.setImage(accB);
     });
     bagsV.setOnMouseClicked(e -> {
-      BagsClick();
     });
     bagsV.setOnMouseEntered(e -> {
       bagsV.setImage(bagsH);
@@ -422,7 +400,6 @@ public class View {
       bagsV.setImage(bagsB);
     });
     beautyV.setOnMouseClicked(e -> {
-      BeautyClick();
     });
     beautyV.setOnMouseEntered(e -> {
       beautyV.setImage(beautyH);
@@ -431,7 +408,6 @@ public class View {
       beautyV.setImage(beautyB);
     });
     sportsV.setOnMouseClicked(e -> {
-      SportsClick();
     });
     sportsV.setOnMouseEntered(e -> {
       sportsV.setImage(sportsH);
@@ -475,92 +451,5 @@ public class View {
     });
   }
 
-  private void ClothesClick() {
-    //ClothingIcon
-    removeClicks();
-    overlap.getChildren().add(setClothing);
-    overlap.getChildren().add(setClothing2);
-	overlap.setMargin(setClothing2, new Insets(0, 0, 700, 0));
-  }
-
-  private void BagsClick() {
-    //BagIcon
-    removeClicks();
-    overlap.getChildren().add(setBag);
-	overlap.getChildren().add(setBag2);
-	overlap.setMargin(setBag2, new Insets(0, 0, 700, 0));
-  }
-
-  private void ShoesClick() {
-    //ShoesIcon
-    removeClicks();
-    overlap.getChildren().add(setShoes);
-	overlap.getChildren().add(setShoes2);
-	overlap.setMargin(setShoes2, new Insets(0, 0, 700, 0));
-  }
-
-  private void AccessoriesClick() {
-    //AccessoriesIcon
-    removeClicks();
-    overlap.getChildren().add(setAcc);
-	overlap.getChildren().add(setAcc2);
-	overlap.setMargin(setAcc2, new Insets(0, 0, 700, 0));
-  }
-
-  private void SportsClick() {
-    //SportsIcon
-    removeClicks();
-    overlap.getChildren().add(setSport);
-	overlap.getChildren().add(setSport2);
-	overlap.setMargin(setSport2, new Insets(0, 0, 700, 0));
-  }
-
-  private void BeautyClick() {
-    //BeautyIcon
-    removeClicks();
-    overlap.getChildren().add(setBeauty);
-	overlap.getChildren().add(setBeauty2);
-	overlap.setMargin(setBeauty2, new Insets(0, 0, 700, 0));
-
-	Label text[] = new Label[5];
-	int i;
-	for(i=0; i<5; i++)
-	{
-		text[i] = new Label(controller.getProductsUnderAType("Beauty").get(i).getProduct_name());
-		text[i].setFont(Font.font("Madeleina Sans", 30));
-		overlap.getChildren().add(text[i]);
-	}
-	text[3].setWrapText(true);
-	overlap.setMargin(text[0], new Insets(0, 638, 400, 0));
-	overlap.setMargin(text[1], new Insets(0, 0, 400, 0));
-	overlap.setMargin(text[2], new Insets(0, 0, 400, 640));
-	overlap.setMargin(text[3], new Insets(300, 640, 0, 0));
-  }
-
-  private void removeClicks() {
-    overlap.getChildren().removeAll(setClothing, setBag, setAcc, setBeauty, setShoes, setSport, out, setClothing2, setShoes2, setBag2, setAcc2, setSport2, setBeauty2);
-  }
-
-  private void AccountClick(){
-	removeClicks();
-	overlap.getChildren().add(out);
-
-	out.setOnMouseEntered(e->{
-	  out.setImage(logout2);
-	});
-	out.setOnMouseExited(e->{
-	  out.setImage(logout);
-	});
-  }
-
-  private void CartClick(){
-	  removeClicks();
-	  checkOutV.setOnMouseEntered(e ->{
-		  checkOutV.setImage(checkout2);
-	  });
-	  checkOutV.setOnMouseExited(e->{
-		 checkOutV.setImage(checkout);
-	  });
-	  overlap.getChildren().add(checkOutV);
-  }
+  
 }
