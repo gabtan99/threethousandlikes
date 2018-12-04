@@ -250,9 +250,9 @@ public class View {
       femaleClick();
     });
     sign.setOnMouseClicked(e -> {
-      primaryStage.setScene(loginScene);
-      if (selectedgender != null)
-        controller.registerUser(email.getText(),  password_register.getText(), last_name.getText(), first_name.getText(), contact.getText().toString(), selectedgender);
+      if (controller.registerUser(email.getText(),  password_register.getText(), last_name.getText(), first_name.getText(), contact.getText().toString(), selectedgender))
+        primaryStage.setScene(loginScene);
+      
     });
     sign.setOnMouseEntered(e -> {
       sign.setImage(signup);
@@ -507,7 +507,7 @@ public class View {
     overlap.getChildren().add(setBeauty);
 	overlap.getChildren().add(setBeauty2);
 	overlap.setMargin(setBeauty2, new Insets(0, 0, 700, 0));
-	
+
 	Label text[] = new Label[5];
 	int i;
 	for(i=0; i<5; i++)
@@ -526,11 +526,11 @@ public class View {
   private void removeClicks() {
     overlap.getChildren().removeAll(setClothing, setBag, setAcc, setBeauty, setShoes, setSport, out, setClothing2, setShoes2, setBag2, setAcc2, setSport2, setBeauty2);
   }
-  
+
   private void AccountClick(){
 	removeClicks();
 	overlap.getChildren().add(out);
-	
+
 	out.setOnMouseEntered(e->{
 	  out.setImage(logout2);
 	});
@@ -538,14 +538,14 @@ public class View {
 	  out.setImage(logout);
 	});
   }
-  
+
   private void CartClick(){
 	  removeClicks();
 	  checkOutV.setOnMouseEntered(e ->{
 		  checkOutV.setImage(checkout2);
 	  });
 	  checkOutV.setOnMouseExited(e->{
-		 checkOutV.setImage(checkout); 
+		 checkOutV.setImage(checkout);
 	  });
 	  overlap.getChildren().add(checkOutV);
   }
