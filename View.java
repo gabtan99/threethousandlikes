@@ -174,6 +174,7 @@ public class View {
   StackPane welcomePage = new StackPane();
   StackPane loginPane = new StackPane();
   AnchorPane accountPage = new AnchorPane();
+  VBox orderHistoryPage = new VBox();
   ScrollPane scrollpane = new ScrollPane();
   StackPane registerPane = new StackPane();
   StackPane menu = new StackPane();
@@ -186,6 +187,8 @@ public class View {
   TextField[] productquantity;
   Button[] productaddbutton;
   Button[] productremovebutton;
+  Text[] orderdetails;
+  TilePane[] productgrid;
 
   public View(Controller c, Stage primaryStage) {
 
@@ -345,7 +348,8 @@ public class View {
     });
 
     order.setOnMouseClicked(e -> {
-
+      clearPage();
+      viewOrderHistory();
     });
 
     clothesV.setOnMouseClicked(e -> {
@@ -794,6 +798,87 @@ public class View {
     scrollpane.setContent(grid);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
+  }
+
+  private void viewOrderHistory() {
+
+    if (orderHistoryPage.getChildren().size() != 0) {
+      orderHistoryPage.getChildren().clear();
+    }
+
+    int n = controller.getOrderHistory().size();
+
+    orderdetails = new Text[n];
+    productgrid = new TilePane[n];
+
+    for (int i = 0; i < n; i++) {
+      String getOrderHistory = "Order ID: " + controller.getOrderHistory().get(i).getOrder_id();
+      getOrderHistory = getOrderHistory + "\nPayment Method: "
+          + controller.getOrderHistory().get(i).getPayment_method();
+      getOrderHistory = getOrderHistory + "\nShipping Address: "
+          + controller.getOrderHistory().get(i).getShipping_address();
+      getOrderHistory = getOrderHistory + "\nBilling Address: "
+          + controller.getOrderHistory().get(i).getBilling_address();
+      getOrderHistory = getOrderHistory + "\nOrder Date: " + controller.getOrderHistory().get(i).getOrder_date();
+      getOrderHistory = getOrderHistory + "\nTotal: " + controller.getOrderHistory().get(i).getTotal_amount();
+
+      orderdetails[i] = new Text(getOrderHistory);
+      orderHistoryPage.getChildren().add(orderdetails[i]);
+
+      ////////////////////////////////
+
+      productgrid[i] = new TilePane();
+
+      productgrid[i].setStyle("-fx-border-color: #E6E7E7");
+      productgrid[i].setPrefColumns(3);
+      productgrid[i].setHgap(20);
+      productgrid[i].setVgap(50);
+
+      int count = controller.getOrderHistory().get(i).getOrderBreakdown().size();
+      System.out.println(count);
+
+      productpane = new AnchorPane[count];
+      productpic = new ImageView[count];
+      producttextflow = new TextFlow[count];
+      productname = new Text[count];
+      productorderquantity = new Text[count];
+
+      for (int j = 0; j < count; j++) {
+
+        productname[j] = new Text(controller.getOrderHistory().get(i).getOrderBreakdown().get(j).getProduct_name());
+        productname[j].setFont(Font.font("Madeleina Sans", 20));
+
+        producttextflow[j] = new TextFlow(productname[j]);
+        producttextflow[j].setPrefWidth(190);
+
+        productpic[j] = new ImageView(beautyIcon);
+
+        productpic[j].setFitWidth(200);
+        productpic[j].setFitHeight(200);
+
+        String q = "Qty: ";
+        //q = q + Integer.toString(controller.getOrderHistory().get(i).getOrderBreakdown().get(j).getQuantity());
+        productorderquantity[j] = new Text(q);
+
+        productpane[j] = new AnchorPane();
+
+        productpane[j].getChildren().add(productpic[j]);
+        productpane[j].getChildren().add(producttextflow[j]);
+        productpane[j].getChildren().add(productorderquantity[j]);
+
+        AnchorPane.setTopAnchor(producttextflow[j], 210.0);
+        AnchorPane.setTopAnchor(productorderquantity[j], 255.0);
+        AnchorPane.setRightAnchor(productorderquantity[j], 70.0);
+
+        productgrid[i].getChildren().add(productpane[j]);
+      }
+
+      orderHistoryPage.getChildren().add(productgrid[i]);
+      /////////////////////////////////////
+    }
+    scrollpane.setContent(orderHistoryPage);
+    VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
+    vertical.getChildren().add(orderHistoryPage);
   }
 
   private void viewMyCart() {
