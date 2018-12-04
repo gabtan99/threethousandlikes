@@ -533,15 +533,41 @@ public class View {
   }
 
   private void viewAccountPage() {
-    String getUserDetails = "Name: " + controller.getCurrentUser().getFirst_name() + " "
-        + controller.getCurrentUser().getLast_name();
-    getUserDetails = getUserDetails + "\nRegister Date: " + controller.getCurrentUser().getRegister_date();
-    getUserDetails = getUserDetails + "\nContact Number: " + controller.getCurrentUser().getContact_number();
-    getUserDetails = getUserDetails + "\nSex: " + controller.getCurrentUser().getGender();
+	  
+	Text name_text = new Text(40, 50, "Name: ");
+	Text register_text = new Text(10, 50, "Register Date: ");
+	Text contact_text = new Text(10, 50, "Contact Number: ");
+	Text sex_text = new Text(10, 50, "Sex: ");
+	name_text.setFont(Font.font("Madeleina Sans", 40));
+	register_text.setFont(Font.font("Madeleina Sans", 40));
+	contact_text.setFont(Font.font("Madeleina Sans", 40));
+	sex_text.setFont(Font.font("Madeleina Sans", 40));
+	
+    String getUserDetails = controller.getCurrentUser().getFirst_name() + " " + controller.getCurrentUser().getLast_name();
+    getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getRegister_date();
+    getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getContact_number();
+    getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getGender();
 
     Label userDetails = new Label(getUserDetails);
+	userDetails.setFont(new Font("Madeleina Sans", 40));
 
     accountPage.getChildren().add(userDetails);
+	accountPage.getChildren().add(name_text);
+	accountPage.getChildren().add(register_text);
+	accountPage.getChildren().add(contact_text);
+	accountPage.getChildren().add(sex_text);
+	accountPage.getChildren().add(out);
+	AnchorPane.setTopAnchor(out, 300.0);
+	AnchorPane.setTopAnchor(name_text, 147.0);
+	AnchorPane.setTopAnchor(register_text, 197.0);
+	AnchorPane.setTopAnchor(contact_text, 247.0);
+	AnchorPane.setTopAnchor(sex_text, 297.0);
+	AnchorPane.setTopAnchor(userDetails, 150.0);
+	AnchorPane.setLeftAnchor(userDetails, 600.0);
+	AnchorPane.setLeftAnchor(name_text, 452.0);
+	AnchorPane.setLeftAnchor(register_text, 349.0);
+	AnchorPane.setLeftAnchor(contact_text, 300.0);
+	AnchorPane.setLeftAnchor(sex_text, 483.0);
     vertical.getChildren().add(accountPage);
   }
 
