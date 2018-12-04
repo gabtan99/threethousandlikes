@@ -294,7 +294,6 @@ public class View {
 
     ///////////////// HOME PAGE ////////////////////
 
-
     TextField searchText = new TextField();
     searchText.setMaxWidth(500);
     searchText.setMaxHeight(45);
@@ -339,7 +338,7 @@ public class View {
     });
 
     order.setOnMouseClicked(e -> {
-		
+
     });
 
     clothesV.setOnMouseClicked(e -> {
@@ -576,7 +575,7 @@ public class View {
         productpic[i] = new ImageView(ShoesIcon);
       else if (controller.getAllProducts().get(i).getApparel_type().equals("Bags"))
         productpic[i] = new ImageView(bagIcon);
-      else if (controller.getAllProducts().get(i).getApparel_type().equals("accessories"))
+      else if (controller.getAllProducts().get(i).getApparel_type().equals("Accessories"))
         productpic[i] = new ImageView(accIcon);
       else if (controller.getAllProducts().get(i).getApparel_type().equals("Sports"))
         productpic[i] = new ImageView(sportsIcon);
@@ -590,6 +589,17 @@ public class View {
       productquantity[i].setPrefWidth(40);
 
       productaddbutton[i] = new Button("Add to Cart");
+
+      int n = i;
+      productaddbutton[i].setOnMousePressed(new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent e) {
+          int q = Integer.parseInt(productquantity[n].getText());
+          if (controller.addToCart(controller.getAllProducts().get(n).getProduct_id(), q))
+            System.out.print("Added");
+
+        }
+      });
+
       productpane[i] = new AnchorPane();
 
       productpane[i].getChildren().add(productquantity[i]);
