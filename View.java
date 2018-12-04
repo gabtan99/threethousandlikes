@@ -84,7 +84,7 @@ public class View {
   Image register = new Image("images/Register.png");
   Image signup = new Image("images/SignUp.png");
   Image signupHover = new Image("images/SignUp2.png");
-  Image clothingIcon = new Image("images/ClothingIcon.png");
+  Image clothingIcon = new Image("images/ClothesIcon.png");
   Image ShoesIcon = new Image("images/ShoeIcon.png");
   Image beautyIcon = new Image("images/BeautyIcon.png");
   Image sportsIcon = new Image("images/SportsIcon.png");
@@ -174,9 +174,11 @@ public class View {
   StackPane welcomePage = new StackPane();
   StackPane loginPane = new StackPane();
   AnchorPane accountPage = new AnchorPane();
+  ScrollPane allProductsPane = new ScrollPane();
   StackPane registerPane = new StackPane();
   StackPane menu = new StackPane();
   String selectedgender = null;
+  ImageView[] products;
 
   public View(Controller c, Stage primaryStage) {
 
@@ -314,7 +316,8 @@ public class View {
     //////////////// BUTTONS ////////////////////
 
     zaloraButtonV.setOnMouseClicked(e -> {
-
+      clearPage();
+      ViewAllProductsPage();
     });
 
     search.setOnMouseClicked(e -> {
@@ -327,6 +330,7 @@ public class View {
     });
 
     cart.setOnMouseClicked(e -> {
+      clearPage();
     });
 
     order.setOnMouseClicked(e -> {
@@ -524,16 +528,30 @@ public class View {
   }
 
   private void viewAccountPage() {
-
-    //Generates Account Page
-
     String getUserDetails = "Name: " + controller.getCurrentUser().getFirst_name() + " "
         + controller.getCurrentUser().getLast_name();
+    getUserDetails = getUserDetails + "\nRegister Date: " + controller.getCurrentUser().getRegister_date();
+    getUserDetails = getUserDetails + "\nContact Number: " + controller.getCurrentUser().getContact_number();
+    getUserDetails = getUserDetails + "\nSex: " + controller.getCurrentUser().getGender();
 
     Label userDetails = new Label(getUserDetails);
 
     accountPage.getChildren().add(userDetails);
     vertical.getChildren().add(accountPage);
-  };
+  }
+
+  private void ViewAllProductsPage() {
+    TilePane grid = new TilePane();
+    int count = controller.getAllProducts().size();
+
+    products = new ImageView[count];
+    for (int i = 0; i < count; i++) {
+      products[i] = new ImageView(clothingIcon);
+      grid.getChildren().add(products[i]);
+    }
+
+    allProductsPane.setContent(grid);
+    vertical.getChildren().add(allProductsPane);
+  }
 
 }
