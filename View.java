@@ -170,12 +170,13 @@ public class View {
     StackPane loginPane = new StackPane();
     StackPane registerPane = new StackPane();
     AnchorPane mainPage = new AnchorPane();
-	
+
 	vertical_2.getChildren().add(overlap);
 	vertical_2.setStyle("-fx-background-color: #E6E7E7");
 	scroll_screen.setContent(vertical_2);
-	scroll_screen.setPrefSize(1000,720);
-	scroll_screen.setFitToWidth(false);
+	scroll_screen.setMaxSize(1280, 708);
+  scroll_screen.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+	//scroll_screen.setFitToWidth(true);
 	scroll_screen.setStyle("-fx-background-color: #E6E7E7");
 	menu.setStyle("-fx-background-color: #E6E7E7");
 	menu.getChildren().add(barsV);
@@ -265,7 +266,7 @@ public class View {
     sign.setOnMouseClicked(e -> {
       if (controller.registerUser(email.getText(),  password_register.getText(), last_name.getText(), first_name.getText(), contact.getText().toString(), selectedgender))
         primaryStage.setScene(loginScene);
-      
+
     });
     sign.setOnMouseEntered(e -> {
       sign.setImage(signup);
