@@ -148,8 +148,10 @@ public class View {
   ImageView checkOutV = new ImageView(checkout);
 
   VBox vertical = new VBox();
+  VBox vertical_2 = new VBox();
+  ScrollPane scroll_screen = new ScrollPane();
   StackPane menu = new StackPane();
-  ScrollPane scroll = new ScrollPane();
+  StackPane scroll = new StackPane();
   StackPane overlap = new StackPane();
   String selectedgender = null;
 
@@ -165,17 +167,23 @@ public class View {
     StackPane loginPane = new StackPane();
     StackPane registerPane = new StackPane();
     AnchorPane mainPage = new AnchorPane();
-
+	
+	vertical_2.getChildren().add(overlap);
+	vertical_2.setStyle("-fx-background-color: #E6E7E7");
+	scroll_screen.setContent(vertical_2);
+	scroll_screen.setPrefSize(1000,720);
+	scroll_screen.setFitToWidth(false);
+	scroll_screen.setStyle("-fx-background-color: #E6E7E7");
 	menu.setStyle("-fx-background-color: #E6E7E7");
 	menu.getChildren().add(barsV);
 	vertical.setStyle("-fx-background-color: #E6E7E7");
 	vertical.getChildren().add(menu);
-	vertical.getChildren().add(overlap);
+	vertical.getChildren().add(scroll_screen);
 	vertical.setMargin(overlap, new Insets(0,0,200,0));
     //scroll.setPrefSize(1280, 1280);
     //scroll.setFitToWidth(false);
 	scroll.setStyle("-fx-background-color: #E6E7E7");
-    scroll.setContent(vertical);
+    scroll.getChildren().add(vertical);
 	overlap.getChildren().add(ViewBase);
 
     Scene welcomeScene = new Scene(welcomePage, 1024, 768);
