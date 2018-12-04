@@ -120,6 +120,8 @@ public class View {
   Image bars = new Image("images/Bars.png");
   Image checkout = new Image("images/CheckOut.png");
   Image checkout2 = new Image("images/CheckOut2.png");
+  Image back = new Image("images/backButton.png");
+  Image back2 = new Image("images/backHover.png");
 
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
@@ -147,6 +149,7 @@ public class View {
   ImageView barsV2 = new ImageView(bars);
   ImageView ViewBase = new ImageView(Base);
   ImageView checkOutV = new ImageView(checkout);
+  ImageView backV = new ImageView(back);
 
   VBox vertical = new VBox();
   VBox vertical_2 = new VBox();
@@ -227,6 +230,16 @@ public class View {
     registerPane.getChildren().add(contact);
     registerPane.getChildren().add(maleButton);
     registerPane.getChildren().add(femaleButton);
+	registerPane.getChildren().add(backV);
+	backV.setOnMouseEntered(e->{
+		backV.setImage(back2);
+	});
+	backV.setOnMouseExited(e->{
+		backV.setImage(back);
+	});
+	backV.setOnMouseClicked(e->{
+		primaryStage.setScene(loginScene);
+	});
     maleButton.setOnMouseEntered(e -> {
       maleButton.setImage(male2);
     });
