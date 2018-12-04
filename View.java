@@ -179,6 +179,7 @@ public class View {
   StackPane menu = new StackPane();
   String selectedgender = null;
   ImageView[] products;
+  AnchorPane[] productpane;
 
   public View(Controller c, Stage primaryStage) {
 
@@ -544,10 +545,17 @@ public class View {
     TilePane grid = new TilePane();
     int count = controller.getAllProducts().size();
 
+    productpane = new AnchorPane[count];
     products = new ImageView[count];
     for (int i = 0; i < count; i++) {
+
       products[i] = new ImageView(clothingIcon);
-      grid.getChildren().add(products[i]);
+      products[i].setFitWidth(150);
+      products[i].setFitHeight(150);
+
+      productpane[i] = new AnchorPane();
+      productpane[i].getChildren().add(products[i]);
+      grid.getChildren().add(productpane[i]);
     }
 
     allProductsPane.setContent(grid);
