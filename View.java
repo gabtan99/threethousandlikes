@@ -910,9 +910,10 @@ public class View {
       orderHistoryPage.getChildren().add(productgrid[i]);
       /////////////////////////////////////
     }
+
     scrollpane.setContent(orderHistoryPage);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
-    vertical.getChildren().add(orderHistoryPage);
+    vertical.getChildren().add(scrollpane);
   }
 
   private void viewMyCart() {
