@@ -173,18 +173,18 @@ public class View {
   VBox vertical = new VBox();
   StackPane welcomePage = new StackPane();
   StackPane loginPane = new StackPane();
+  AnchorPane accountPage = new AnchorPane();
   StackPane registerPane = new StackPane();
   StackPane menu = new StackPane();
   String selectedgender = null;
-
 
   public View(Controller c, Stage primaryStage) {
 
     controller = c;
     primaryStage.setTitle("Welcome to Zalora!");
 
-  	vertical.setStyle("-fx-background-color: #E6E7E7");
-  	vertical.getChildren().add(menu);
+    vertical.setStyle("-fx-background-color: #E6E7E7");
+    vertical.getChildren().add(menu);
 
     Scene welcomeScene = new Scene(welcomePage, 1024, 768);
     Scene loginScene = new Scene(loginPane, 1024, 768);
@@ -198,13 +198,6 @@ public class View {
       primaryStage.setScene(loginScene);
     });
 
-    continueIMG.setOnMouseEntered(e -> {
-      continueIMG.setImage(continueP);
-    });
-
-    continueIMG.setOnMouseExited(e -> {
-      continueIMG.setImage(continuep);
-    });
     welcomePage.getChildren().add(zaloraGIF);
     welcomePage.getChildren().add(continueIMG);
 
@@ -217,6 +210,7 @@ public class View {
 
     logInV.setOnMouseClicked(e -> {
       if (controller.loginUser(username.getText(), password.getText())) {
+
         primaryStage.setScene(mainScene);
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
@@ -224,24 +218,8 @@ public class View {
       }
     });
 
-    logInV.setOnMouseEntered(e -> {
-      logInV.setImage(loginButton);
-    });
-
-    logInV.setOnMouseExited(e -> {
-      logInV.setImage(loginHover);
-    });
-
     registerV.setOnMouseClicked(e -> {
       primaryStage.setScene(registerScene);
-    });
-
-    registerV.setOnMouseEntered(e -> {
-      registerV.setImage(registerButton);
-    });
-
-    registerV.setOnMouseExited(e -> {
-      registerV.setImage(registerHover);
     });
 
     StackPane.setMargin(username, new Insets(0, 0, 115, 100));
@@ -268,24 +246,8 @@ public class View {
     first_name.setMaxWidth(150);
     first_name.setPromptText("First Name");
 
-    backV.setOnMouseEntered(e->{
-  		backV.setImage(back2);
-  	});
-
-  	backV.setOnMouseExited(e->{
-  		backV.setImage(back);
-  	});
-
-  	backV.setOnMouseClicked(e->{
-  		primaryStage.setScene(loginScene);
-  	});
-
-    maleButton.setOnMouseEntered(e -> {
-      maleButton.setImage(male2);
-    });
-
-    maleButton.setOnMouseExited(e -> {
-      maleButton.setImage(male1);
+    backV.setOnMouseClicked(e -> {
+      primaryStage.setScene(loginScene);
     });
 
     maleButton.setOnMouseClicked(e -> {
@@ -293,14 +255,6 @@ public class View {
       maleButton.setImage(male3);
       femaleButton.setImage(female1);
       maleClick();
-    });
-
-    femaleButton.setOnMouseEntered(e -> {
-      femaleButton.setImage(female2);
-    });
-
-    femaleButton.setOnMouseExited(e -> {
-      femaleButton.setImage(female1);
     });
 
     femaleButton.setOnMouseClicked(e -> {
@@ -311,16 +265,9 @@ public class View {
     });
 
     sign.setOnMouseClicked(e -> {
-      if (controller.registerUser(email.getText(),  password_register.getText(), last_name.getText(), first_name.getText(), contact.getText().toString(), selectedgender))
+      if (controller.registerUser(email.getText(), password_register.getText(), last_name.getText(),
+          first_name.getText(), contact.getText().toString(), selectedgender))
         primaryStage.setScene(loginScene);
-    });
-
-    sign.setOnMouseEntered(e -> {
-      sign.setImage(signup);
-    });
-
-    sign.setOnMouseExited(e -> {
-      sign.setImage(signupHover);
     });
 
     StackPane.setMargin(last_name, new Insets(0, 30, 135, 0));
@@ -337,7 +284,7 @@ public class View {
     registerPane.getChildren().add(contact);
     registerPane.getChildren().add(maleButton);
     registerPane.getChildren().add(femaleButton);
-  	registerPane.getChildren().add(backV);
+    registerPane.getChildren().add(backV);
 
     ///////////////// HOME PAGE ////////////////////
 
@@ -355,7 +302,7 @@ public class View {
     filter.setStyle("-fx-font: 20px \"Madeleina Sans Regular\";");
 
     menu.setStyle("-fx-background-color: #E6E7E7");
-  	menu.getChildren().add(barsV);
+    menu.getChildren().add(barsV);
     menu.getChildren().add(zaloraButtonV);
     menu.getChildren().add(search);
     menu.getChildren().add(account);
@@ -364,98 +311,56 @@ public class View {
     menu.getChildren().add(searchText);
     menu.getChildren().addAll(clothesV, shoesV, bagsV, beautyV, accV, sportsV);
 
+    //////////////// BUTTONS ////////////////////
 
-    zaloraButtonV.setOnMouseEntered(e -> {
-      zaloraButtonV.setImage(zaloraHover);
+    zaloraButtonV.setOnMouseClicked(e -> {
+
     });
 
-    zaloraButtonV.setOnMouseExited(e -> {
-      zaloraButtonV.setImage(zaloraButton);
+    search.setOnMouseClicked(e -> {
+
     });
 
-    search.setOnMouseEntered(e -> {
-      search.setImage(searchHover);
+    account.setOnMouseClicked(e -> {
+      clearPage();
+      viewAccountPage();
     });
 
-    search.setOnMouseExited(e -> {
-      search.setImage(searchButton);
+    cart.setOnMouseClicked(e -> {
     });
 
-  	account.setOnMouseClicked(e->{
-  	});
+    order.setOnMouseClicked(e -> {
 
-    account.setOnMouseEntered(e -> {
-      account.setImage(accountHover);
-    });
-
-    account.setOnMouseExited(e -> {
-      account.setImage(accountButton);
-    });
-
-  	cart.setOnMouseClicked(e->{
-  	});
-
-    cart.setOnMouseEntered(e -> {
-      cart.setImage(cartHover);
-    });
-
-    cart.setOnMouseExited(e -> {
-      cart.setImage(cartButton);
-    });
-
-    order.setOnMouseEntered(e -> {
-      order.setImage(orderHover);
-    });
-
-    order.setOnMouseExited(e -> {
-      order.setImage(orderButton);
     });
 
     clothesV.setOnMouseClicked(e -> {
     });
 
-    clothesV.setOnMouseEntered(e -> {
-      clothesV.setImage(clothingH);
-    });
-
-    clothesV.setOnMouseExited(e -> {
-      clothesV.setImage(clothingB);
-    });
-
     shoesV.setOnMouseClicked(e -> {
 
-    });
-    shoesV.setOnMouseEntered(e -> {
-      shoesV.setImage(shoesH);
-    });
-    shoesV.setOnMouseExited(e -> {
-      shoesV.setImage(shoesB);
     });
 
     accV.setOnMouseClicked(e -> {
 
     });
 
-    accV.setOnMouseEntered(e -> {
-      accV.setImage(accH);
-    });
-
-    accV.setOnMouseExited(e -> {
-      accV.setImage(accB);
-    });
-
     bagsV.setOnMouseClicked(e -> {
     });
 
-    bagsV.setOnMouseEntered(e -> {
-      bagsV.setImage(bagsH);
-    });
-
-    bagsV.setOnMouseExited(e -> {
-      bagsV.setImage(bagsB);
-    });
-
     beautyV.setOnMouseClicked(e -> {
+    });
+
+    sportsV.setOnMouseClicked(e -> {
+    });
+
+    ////////////////////////////////////////////////////////
+
+    sportsV.setOnMouseEntered(e -> {
+      sportsV.setImage(sportsH);
+    });
+
+    sportsV.setOnMouseExited(e -> {
+      sportsV.setImage(sportsB);
     });
 
     beautyV.setOnMouseEntered(e -> {
@@ -466,15 +371,132 @@ public class View {
       beautyV.setImage(beautyB);
     });
 
-    sportsV.setOnMouseClicked(e -> {
+    bagsV.setOnMouseEntered(e -> {
+      bagsV.setImage(bagsH);
     });
 
-    sportsV.setOnMouseEntered(e -> {
-      sportsV.setImage(sportsH);
+    bagsV.setOnMouseExited(e -> {
+      bagsV.setImage(bagsB);
     });
 
-    sportsV.setOnMouseExited(e -> {
-      sportsV.setImage(sportsB);
+    accV.setOnMouseEntered(e -> {
+      accV.setImage(accH);
+    });
+
+    accV.setOnMouseExited(e -> {
+      accV.setImage(accB);
+    });
+
+    shoesV.setOnMouseEntered(e -> {
+      shoesV.setImage(shoesH);
+    });
+
+    shoesV.setOnMouseExited(e -> {
+      shoesV.setImage(shoesB);
+    });
+
+    clothesV.setOnMouseEntered(e -> {
+      clothesV.setImage(clothingH);
+    });
+
+    clothesV.setOnMouseExited(e -> {
+      clothesV.setImage(clothingB);
+    });
+
+    order.setOnMouseEntered(e -> {
+      order.setImage(orderHover);
+    });
+
+    order.setOnMouseExited(e -> {
+      order.setImage(orderButton);
+    });
+
+    cart.setOnMouseEntered(e -> {
+      cart.setImage(cartHover);
+    });
+
+    cart.setOnMouseExited(e -> {
+      cart.setImage(cartButton);
+    });
+
+    account.setOnMouseEntered(e -> {
+      account.setImage(accountHover);
+    });
+
+    account.setOnMouseExited(e -> {
+      account.setImage(accountButton);
+    });
+
+    search.setOnMouseEntered(e -> {
+      search.setImage(searchHover);
+    });
+
+    search.setOnMouseExited(e -> {
+      search.setImage(searchButton);
+    });
+
+    zaloraButtonV.setOnMouseEntered(e -> {
+      zaloraButtonV.setImage(zaloraHover);
+    });
+
+    zaloraButtonV.setOnMouseExited(e -> {
+      zaloraButtonV.setImage(zaloraButton);
+    });
+
+    sign.setOnMouseEntered(e -> {
+      sign.setImage(signup);
+    });
+
+    sign.setOnMouseExited(e -> {
+      sign.setImage(signupHover);
+    });
+
+    femaleButton.setOnMouseExited(e -> {
+      femaleButton.setImage(female1);
+    });
+
+    femaleButton.setOnMouseEntered(e -> {
+      femaleButton.setImage(female2);
+    });
+
+    maleButton.setOnMouseEntered(e -> {
+      maleButton.setImage(male2);
+    });
+
+    maleButton.setOnMouseExited(e -> {
+      maleButton.setImage(male1);
+    });
+
+    backV.setOnMouseEntered(e -> {
+      backV.setImage(back2);
+    });
+
+    backV.setOnMouseExited(e -> {
+      backV.setImage(back);
+    });
+
+    registerV.setOnMouseEntered(e -> {
+      registerV.setImage(registerButton);
+    });
+
+    registerV.setOnMouseExited(e -> {
+      registerV.setImage(registerHover);
+    });
+
+    logInV.setOnMouseEntered(e -> {
+      logInV.setImage(loginButton);
+    });
+
+    logInV.setOnMouseExited(e -> {
+      logInV.setImage(loginHover);
+    });
+
+    continueIMG.setOnMouseEntered(e -> {
+      continueIMG.setImage(continueP);
+    });
+
+    continueIMG.setOnMouseExited(e -> {
+      continueIMG.setImage(continuep);
     });
 
     ///////////// SET DEFAULT SCENE /////////////
@@ -496,5 +518,22 @@ public class View {
     });
   }
 
+  private void clearPage() {
+    if (vertical.getChildren().size() > 1)
+      vertical.getChildren().remove(1);
+  }
+
+  private void viewAccountPage() {
+
+    //Generates Account Page
+
+    String getUserDetails = "Name: " + controller.getCurrentUser().getFirst_name() + " "
+        + controller.getCurrentUser().getLast_name();
+
+    Label userDetails = new Label(getUserDetails);
+
+    accountPage.getChildren().add(userDetails);
+    vertical.getChildren().add(accountPage);
+  };
 
 }
