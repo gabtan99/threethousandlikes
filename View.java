@@ -339,7 +339,7 @@ public class View {
     });
 
     order.setOnMouseClicked(e -> {
-
+		
     });
 
     clothesV.setOnMouseClicked(e -> {
