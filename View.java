@@ -587,7 +587,14 @@ public class View {
         primaryStage.setScene(loginScene);
       }
     });
-
+	out.setOnMouseEntered(e->{
+		out.setImage(logout2);
+	});
+	out.setOnMouseExited(e->{
+		out.setImage(logout);
+	});
+	out.setFitHeight(32);
+	out.setFitWidth(146);
     accountPage.getChildren().add(userDetails);
     accountPage.getChildren().add(name_text);
     accountPage.getChildren().add(register_text);
@@ -605,6 +612,8 @@ public class View {
     AnchorPane.setLeftAnchor(register_text, 349.0);
     AnchorPane.setLeftAnchor(contact_text, 300.0);
     AnchorPane.setLeftAnchor(sex_text, 483.0);
+	AnchorPane.setLeftAnchor(out, 500.0);
+	AnchorPane.setTopAnchor(out, 400.0);
     vertical.getChildren().add(accountPage);
   }
 
@@ -962,9 +971,49 @@ public class View {
     productaddbutton = new Button[count];
     productremovebutton = new Button[count];
     productorderquantity = new Text[count];
-
+	
+	
+	ComboBox<String> payment = new ComboBox<String>();
+	payment.getItems().addAll("Cash On Delivery", "Credit/Debit Card", "Wallet Credit", "E-Gift Card", "Paypal");
+	payment.setPromptText("Select Payment Method");
+	payment.setMaxHeight(40);
+	payment.setMaxWidth(200);
+	Text ship = new Text("Shipping Address:");
+	Text bill = new Text("Billing Address:");
+	Text total = new Text("TOTAL:");
+	TextField ShippingAddress = new TextField();
+	TextField BillingAddress = new TextField();
+	ShippingAddress.setMaxWidth(540);
+	ShippingAddress.setMaxHeight(40);
+	BillingAddress.setMaxWidth(540);
+	BillingAddress.setMaxHeight(40);
+	ship.setFont(Font.font("Madeleina Sans", 25));
+	bill.setFont(Font.font("Madeleina Sans", 25));
+	total.setFont(Font.font("Madeleina Sans", 35));
+	AnchorPane.setLeftAnchor(total, 700.0);
+	AnchorPane.setTopAnchor(total, 300.0);
+	AnchorPane.setLeftAnchor(bill, 700.0);
+	AnchorPane.setTopAnchor(bill, 124.0);
+	AnchorPane.setLeftAnchor(BillingAddress, 700.0);
+	AnchorPane.setTopAnchor(BillingAddress, 150.0);
+	AnchorPane.setLeftAnchor(ship, 700.0);
+	AnchorPane.setTopAnchor(ship, 60.0);
+	AnchorPane.setLeftAnchor(ShippingAddress, 700.0);
+	AnchorPane.setTopAnchor(ShippingAddress, 90.0);
+	AnchorPane.setLeftAnchor(payment, 700.0);
+	AnchorPane.setTopAnchor(payment, 200.0);
+	
     if (controller.getCurrentCart().size() > 0)
-      cartPane.getChildren().add(checkOutV);
+	{
+		cartPane.getChildren().add(ship);
+		cartPane.getChildren().add(ShippingAddress);
+		cartPane.getChildren().add(BillingAddress);
+		cartPane.getChildren().add(bill);
+		cartPane.getChildren().add(payment);
+		cartPane.getChildren().add(total);
+		cartPane.getChildren().add(checkOutV);
+		
+	}
     cartPane.getChildren().add(grid);
 	
     for (int i = 0; i < count; i++) {
@@ -1032,17 +1081,16 @@ public class View {
     checkOutV.setOnMouseExited(e -> {
       checkOutV.setImage(checkout);
     });
-
-    checkOutV.setOnMouseClicked(e -> {
-      if (controller.checkoutCart("Cash On Delivery", "Malate", "Makati")) {
-        clearPage();
-        viewMyCart();
-      }
-    });
-
+	checkOutV.setOnMouseClicked(e -> {			
+		if (controller.checkoutCart("Cash On Delivery", "Malate", "Makati")) 
+		{
+			clearPage();
+			viewMyCart();
+		}
+	});	
 	
     AnchorPane.setLeftAnchor(checkOutV, 700.0);
-	AnchorPane.setTopAnchor(checkOutV, 50.0);
+	AnchorPane.setTopAnchor(checkOutV, 500.0);
     scrollpane.setContent(cartPane);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
