@@ -171,40 +171,19 @@ public class Database {
     return temp;
   }
 
-  public String getBrandName(int brand_id) {
-    String returnBrandName = "select brand_name FROM brands WHERE brand_id = " + brand_id;
-    String brand_name = null;
+  public ArrayList<Product> getProductsOfBrand(int brand_id) {
+    String returnProductsOfBrand = "SELECT * FROM products WHERE brand_id = " + brand_id;
+
+    ArrayList<Product> temp = new ArrayList<Product>();
 
     try {
-      ResultSet rs = stmt.executeQuery(returnBrandName);
+      ResultSet rs = stmt.executeQuery(returnProductsOfBrand);
+
       while (rs.next()) {
-        brand_name = rs.getString("brand_name");
+        Product tproduct = new Product(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("brand_id"),
+            rs.getFloat("price"), rs.getString("classification"), rs.getString("apparel_type"));
+        temp.add(tproduct);
       }
-    } catch (SQLException e) {
-      System.out.println("SQLException: " + e.getMessage());
-      System.out.println("SQLState: " + e.getSQLState());
-      System.out.println("VendorError: " + e.getErrorCode());
-    }
-
-    return brand_name;
-
-  }
-
-  public ArrayList<Order> getOrderHistory() {
-
-    String returnOrderHistory = "SELECT orderdetails.* FROM orderdetails WHERE user_id = " + currentUser.getUser_id();
-
-    ArrayList<Order> temp = new ArrayList<Order>();
-
-    try {
-      ResultSet rs = stmt.executeQuery(returnOrderHistory);
-      while (rs.next()) {
-        Order torder = new Order(rs.getInt("order_id"), rs.getString("payment_method"), rs.getString("order_date"),
-            rs.getString("shipping_address"), rs.getString("billing_address"), rs.getFloat("total_amount"),
-            currentUser.getUser_id());
-        temp.add(torder);
-      }
-
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
@@ -254,6 +233,49 @@ public class Database {
         tproduct.setQuantity(rs.getInt("quantity"));
         tproduct.setSession_ID(rs.getInt("session_id"));
         temp.add(tproduct);
+      }
+
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public ArrayList<Brand> getAllBrands() {
+    String returnAllBrands = "SELECT * FROM brands";
+
+    ArrayList<Brand> temp = new ArrayList<Brand>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnAllBrands);
+      while (rs.next()) {
+        Brand tbrand = new Brand(rs.getInt("brand_id"), rs.getString("brand_name"), rs.getString("address"),
+            rs.getString("email"), rs.getString("contact_number"));
+        temp.add(tbrand);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public ArrayList<Order> getOrderHistory() {
+
+    String returnOrderHistory = "SELECT orderdetails.* FROM orderdetails WHERE user_id = " + currentUser.getUser_id();
+
+    ArrayList<Order> temp = new ArrayList<Order>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnOrderHistory);
+      while (rs.next()) {
+        Order torder = new Order(rs.getInt("order_id"), rs.getString("payment_method"), rs.getString("order_date"),
+            rs.getString("shipping_address"), rs.getString("billing_address"), rs.getFloat("total_amount"),
+            currentUser.getUser_id());
+        temp.add(torder);
       }
 
     } catch (SQLException e) {
@@ -372,6 +394,27 @@ public class Database {
       System.out.println("VendorError: " + e.getErrorCode());
     }
     return total;
+  }
+
+  public float getMyCartTotal() {
+    String returnMyCartTotal = "SELECT products.price, carts.quantity FROM carts INNER JOIN products ON products.product_id = carts.product_id WHERE carts.checked_out = 0 AND carts.user_id = "
+        + currentUser.getUser_id();
+
+    float total = 0;
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnMyCartTotal);
+
+      while (rs.next()) {
+        total += rs.getFloat("price") * rs.getInt("quantity");
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return total;
+
   }
 
   public int getNewSessionID() {

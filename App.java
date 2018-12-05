@@ -19,7 +19,6 @@ public class App extends Application {
   public void start(Stage primaryStage) throws SQLException {
     Database mainModel = new Database();
     Controller mainController = new Controller(mainModel, primaryStage);
-
   }
 
   public static void main(String[] args) {

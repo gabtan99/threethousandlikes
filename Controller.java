@@ -5,7 +5,6 @@ import java.util.*;
 public class Controller {
   Database model;
   View view;
-  Statement stmt;
 
   public Controller(Database m, Stage primaryStage) {
     model = m;
@@ -76,4 +75,15 @@ public class Controller {
     return model.getProductsInOrder(order_id);
   }
 
+  public ArrayList<Brand> getAllBrands() {
+    return model.getAllBrands();
+  }
+
+  public ArrayList<Product> getProductsOfBrand(int brand_id) {
+    return model.getProductsOfBrand(brand_id);
+  }
+
+  public float getMyCartTotal() {
+    return model.getMyCartTotal();
+  }
 }
