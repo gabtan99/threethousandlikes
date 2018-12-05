@@ -129,6 +129,8 @@ public class View {
   Image men2 = new Image("images/menHover.png");
   Image women = new Image("images/womenButton.png");
   Image women2 = new Image("images/womenHover.png");
+  Image admin = new Image("images/Admin.png");
+  Image admin2 = new Image("images/AdminButton.png");
 
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
@@ -179,8 +181,10 @@ public class View {
   ImageView brandV = new ImageView(brand);
   ImageView menV = new ImageView(men);
   ImageView womenV = new ImageView(women);
+  ImageView adminV = new ImageView(admin);
 
   VBox vertical = new VBox();
+  AnchorPane adminPane = new AnchorPane();
   StackPane welcomePage = new StackPane();
   StackPane loginPane = new StackPane();
   AnchorPane accountPage = new AnchorPane();
@@ -248,11 +252,25 @@ public class View {
         clearPage();
         viewAllProductsPage();
       }
+	  else{
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Action Can't be Done");
+		alert.setHeaderText("Incorrect Email/Password");
+		alert.setContentText("Please enter a valid Email and/or Password");
+		
+		alert.showAndWait();
+	  }
     });
 
     registerV.setOnMouseClicked(e -> {
       primaryStage.setScene(registerScene);
     });
+	adminV.setOnMouseEntered(e->{
+		adminV.setImage(admin2);
+	});
+	adminV.setOnMouseExited(e->{
+		adminV.setImage(admin);
+	});
 
     StackPane.setMargin(username, new Insets(0, 0, 115, 100));
     StackPane.setMargin(password, new Insets(45, 0, 0, 100));
@@ -262,6 +280,7 @@ public class View {
     loginPane.getChildren().add(username);
     loginPane.getChildren().add(password);
     loginPane.getChildren().add(registerV);
+	loginPane.getChildren().add(adminV);
 
     ////////////////// REGISTER PAGE ///////////////////////
     TextField last_name = new TextField();
@@ -905,6 +924,7 @@ public class View {
     orderdetails = new Text[n];
 
     productgrid = new TilePane[n];
+	
 
     for (int i = 0; i < n; i++) {
       String getOrderHistory = "Order ID: " + controller.getOrderHistory().get(i).getOrder_id();
@@ -918,6 +938,7 @@ public class View {
       getOrderHistory = getOrderHistory + "\nTotal: " + controller.getOrderHistory().get(i).getTotal_amount();
 
       orderdetails[i] = new Text(getOrderHistory);
+	  orderdetails[i].setFont(Font.font("Madeleina Sans", 25));
       orderHistoryPage.getChildren().add(orderdetails[i]);
 
       ////////////////////////////////
@@ -968,8 +989,9 @@ public class View {
         productpic[j].setFitHeight(200);
 
         String q = "Qty: ";
-        q = q + Integer.toString(prod.get(j).getQuantity());
+        q = q + Integer.toString(prod.get(j).getQuantity()) + "\n";
         productorderquantity[j] = new Text(q);
+		productorderquantity[j].setFont(Font.font("Madeleina Sans", 20));
 
         productpane[j] = new AnchorPane();
 
@@ -1304,9 +1326,9 @@ public class View {
 
     for (int i = 0; i < count; i++) {
 
-      brandname[i] = new Text(controller.getAllBrands().get(i).getBrand_name() + " Address: "
-          + controller.getAllBrands().get(i).getAddress() + " Email: " + controller.getAllBrands().get(i).getEmail()
-          + "Contact Number: " + controller.getAllBrands().get(i).getContact_number());
+      brandname[i] = new Text(controller.getAllBrands().get(i).getBrand_name() + "\nAddress: "
+          + controller.getAllBrands().get(i).getAddress() + "\nEmail: " + controller.getAllBrands().get(i).getEmail()
+          + "\nContact Number: " + controller.getAllBrands().get(i).getContact_number());
       brandname[i].setFont(Font.font("Madeleina Sans", 30));
 
       brandtextflow[i] = new TextFlow(brandname[i]);
