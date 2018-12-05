@@ -123,6 +123,12 @@ public class View {
   Image checkout2 = new Image("images/CheckOut2.png");
   Image back = new Image("images/backButton.png");
   Image back2 = new Image("images/backHover.png");
+  Image brand = new Image("images/2_BrandButton.png");
+  Image brand2 = new Image("images/2_BrandHover.png");
+  Image men = new Image("images/menButton.png");
+  Image men2 = new Image("images/menHover.png");
+  Image women = new Image("images/womenButton.png");
+  Image women2 = new Image("images/womenHover.png");
 
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
@@ -170,6 +176,9 @@ public class View {
   ImageView sportsV = new ImageView(sportsB);
   ImageView zaloraGIF = new ImageView(zaloralogo);
   ImageView continueIMG = new ImageView(continuep);
+  ImageView brandV = new ImageView(brand);
+  ImageView menV = new ImageView(men);
+  ImageView womenV = new ImageView(women);
 
   VBox vertical = new VBox();
   StackPane welcomePage = new StackPane();
@@ -314,15 +323,9 @@ public class View {
     TextField searchText = new TextField();
     searchText.setMaxWidth(500);
     searchText.setMaxHeight(45);
-    StackPane.setMargin(searchText, new Insets(0, 0, 70, 0));
-
-    ComboBox<String> filter = new ComboBox<String>();
-    filter.getItems().addAll("Male", "Female", "All Items");
-    filter.setPromptText("Filter By");
-    filter.setMaxHeight(50);
-    filter.setMaxWidth(300);
-    filter.setStyle("-fx-accent:rgb(0, 0, 0)");
-    filter.setStyle("-fx-font: 20px \"Madeleina Sans Regular\";");
+	
+    StackPane.setMargin(searchText, new Insets(0, 150, 70, 0));
+	StackPane.setMargin(search, new Insets(0, 0, 49, 420));
 
     menu.setStyle("-fx-background-color: #E6E7E7");
     menu.getChildren().add(barsV);
@@ -332,7 +335,8 @@ public class View {
     menu.getChildren().add(cart);
     menu.getChildren().add(order);
     menu.getChildren().add(searchText);
-    menu.getChildren().addAll(clothesV, shoesV, bagsV, beautyV, accV, sportsV);
+	menu.getChildren().add(brandV);
+    menu.getChildren().addAll(clothesV, shoesV, bagsV, beautyV, accV, sportsV, menV, womenV);
 
     //////////////// BUTTONS ////////////////////
 
@@ -390,8 +394,42 @@ public class View {
       clearPage();
       viewProductsUnderAType("Sports");
     });
+	
+	menV.setOnMouseClicked(e->{
+		clearPage();
+		viewProductsForMen();
+	});
+	
+	womenV.setOnMouseClicked(e->{
+		clearPage();
+		viewProductsForWomen();
+	});
+	
+	brandV.setOnMouseClicked(e->{
+		clearPage();
+		viewAllBrands();
+	});
 
     ////////////////////////////////////////////////////////
+	brandV.setOnMouseEntered(e->{
+		brandV.setImage(brand2);
+	});
+	brandV.setOnMouseExited(e->{
+		brandV.setImage(brand);
+	});
+	menV.setOnMouseEntered(e->{
+		menV.setImage(men2);
+	});
+	menV.setOnMouseExited(e->{
+		menV.setImage(men);
+	});
+	
+	womenV.setOnMouseEntered(e->{
+		womenV.setImage(women2);
+	});
+	womenV.setOnMouseExited(e->{
+		womenV.setImage(women);
+	});
 
     sportsV.setOnMouseEntered(e -> {
       sportsV.setImage(sportsH);
@@ -984,6 +1022,7 @@ public class View {
     Text ship = new Text("Shipping Address:");
     Text bill = new Text("Billing Address:");
     Text total = new Text("TOTAL:");
+	Text cartTotal = new Text(" " + controller.getMyCartTotal());
     TextField ShippingAddress = new TextField();
     TextField BillingAddress = new TextField();
     ShippingAddress.setMaxWidth(540);
@@ -993,6 +1032,9 @@ public class View {
     ship.setFont(Font.font("Madeleina Sans", 25));
     bill.setFont(Font.font("Madeleina Sans", 25));
     total.setFont(Font.font("Madeleina Sans", 35));
+    cartTotal.setFont(Font.font("Madeleina Sans", 35));
+	AnchorPane.setLeftAnchor(cartTotal, 700.00);
+	AnchorPane.setTopAnchor(cartTotal, 400.0);
     AnchorPane.setLeftAnchor(total, 700.0);
     AnchorPane.setTopAnchor(total, 300.0);
     AnchorPane.setLeftAnchor(bill, 700.0);
@@ -1013,6 +1055,7 @@ public class View {
       cartPane.getChildren().add(bill);
       cartPane.getChildren().add(payment);
       cartPane.getChildren().add(total);
+	  cartPane.getChildren().add(cartTotal);
       cartPane.getChildren().add(checkOutV);
 
     }
