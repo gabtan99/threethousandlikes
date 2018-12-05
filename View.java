@@ -1276,6 +1276,7 @@ public class View {
 
       brandviewprod[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent e) {
+          clearPage();
           viewProductsOfBrand(controller.getAllBrands().get(n).getBrand_id());
         }
       });
