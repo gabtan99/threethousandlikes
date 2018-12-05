@@ -1015,7 +1015,7 @@ public class View {
     productorderquantity = new Text[count];
 
     ComboBox<String> payment = new ComboBox<String>();
-    payment.getItems().addAll("Cash On Delivery", "Credit/Debit Card", "Wallet Credit", "E-Gift Card", "Paypal");
+    payment.getItems().addAll("Cash On Delivery", "Credit Card/Debit Card", "Wallet Credit", "E-Gift Card", "Paypal");
     payment.setPromptText("Select Payment Method");
     payment.setMaxHeight(40);
     payment.setMaxWidth(200);
@@ -1127,7 +1127,8 @@ public class View {
       checkOutV.setImage(checkout);
     });
     checkOutV.setOnMouseClicked(e -> {
-      if (controller.checkoutCart("Cash On Delivery", "Malate", "Makati")) {
+		System.out.println(payment.getValue());
+      if (controller.checkoutCart(payment.getValue(), ShippingAddress.getText(), BillingAddress.getText())) {
         clearPage();
         viewMyCart();
       }
