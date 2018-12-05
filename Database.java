@@ -377,7 +377,7 @@ public class Database {
   }
 
   public float getTotalOrderPrice(int order_id) {
-    String returnTotalOrderPrice = "SELECT SUM(products.price) as 'total' FROM products INNER JOIN carts ON products.product_id = carts.product_id WHERE carts.user_id = "
+    String returnTotalOrderPrice = "SELECT SUM(products.price*carts.quantity) as 'total' FROM products INNER JOIN carts ON products.product_id = carts.product_id WHERE carts.user_id = "
         + currentUser.getUser_id() + " AND carts.order_id = " + order_id;
 
     float total = 0;
