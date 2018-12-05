@@ -176,6 +176,7 @@ public class View {
   StackPane loginPane = new StackPane();
   AnchorPane accountPage = new AnchorPane();
   VBox orderHistoryPage = new VBox();
+  VBox brandPage = new VBox();
   ScrollPane scrollpane = new ScrollPane();
   StackPane registerPane = new StackPane();
   StackPane menu = new StackPane();
@@ -192,6 +193,9 @@ public class View {
   TilePane[] productgrid;
   Scene loginScene;
   Stage primaryStage;
+  TextFlow[] brandtextflow;
+  Text[] brandname;
+  Button[] brandviewprod;
 
   public View(Controller c, Stage primaryStage) {
 
@@ -587,14 +591,14 @@ public class View {
         primaryStage.setScene(loginScene);
       }
     });
-	out.setOnMouseEntered(e->{
-		out.setImage(logout2);
-	});
-	out.setOnMouseExited(e->{
-		out.setImage(logout);
-	});
-	out.setFitHeight(32);
-	out.setFitWidth(146);
+    out.setOnMouseEntered(e -> {
+      out.setImage(logout2);
+    });
+    out.setOnMouseExited(e -> {
+      out.setImage(logout);
+    });
+    out.setFitHeight(32);
+    out.setFitWidth(146);
     accountPage.getChildren().add(userDetails);
     accountPage.getChildren().add(name_text);
     accountPage.getChildren().add(register_text);
@@ -612,8 +616,8 @@ public class View {
     AnchorPane.setLeftAnchor(register_text, 349.0);
     AnchorPane.setLeftAnchor(contact_text, 300.0);
     AnchorPane.setLeftAnchor(sex_text, 483.0);
-	AnchorPane.setLeftAnchor(out, 500.0);
-	AnchorPane.setTopAnchor(out, 400.0);
+    AnchorPane.setLeftAnchor(out, 500.0);
+    AnchorPane.setTopAnchor(out, 400.0);
     vertical.getChildren().add(accountPage);
   }
 
@@ -953,7 +957,7 @@ public class View {
 
   private void viewMyCart() {
 
-	System.out.println(controller.getCurrentCart().size() );
+    System.out.println(controller.getCurrentCart().size());
     TilePane grid = new TilePane();
     AnchorPane cartPane = new AnchorPane();
 
@@ -971,51 +975,49 @@ public class View {
     productaddbutton = new Button[count];
     productremovebutton = new Button[count];
     productorderquantity = new Text[count];
-	
-	
-	ComboBox<String> payment = new ComboBox<String>();
-	payment.getItems().addAll("Cash On Delivery", "Credit/Debit Card", "Wallet Credit", "E-Gift Card", "Paypal");
-	payment.setPromptText("Select Payment Method");
-	payment.setMaxHeight(40);
-	payment.setMaxWidth(200);
-	Text ship = new Text("Shipping Address:");
-	Text bill = new Text("Billing Address:");
-	Text total = new Text("TOTAL:");
-	TextField ShippingAddress = new TextField();
-	TextField BillingAddress = new TextField();
-	ShippingAddress.setMaxWidth(540);
-	ShippingAddress.setMaxHeight(40);
-	BillingAddress.setMaxWidth(540);
-	BillingAddress.setMaxHeight(40);
-	ship.setFont(Font.font("Madeleina Sans", 25));
-	bill.setFont(Font.font("Madeleina Sans", 25));
-	total.setFont(Font.font("Madeleina Sans", 35));
-	AnchorPane.setLeftAnchor(total, 700.0);
-	AnchorPane.setTopAnchor(total, 300.0);
-	AnchorPane.setLeftAnchor(bill, 700.0);
-	AnchorPane.setTopAnchor(bill, 124.0);
-	AnchorPane.setLeftAnchor(BillingAddress, 700.0);
-	AnchorPane.setTopAnchor(BillingAddress, 150.0);
-	AnchorPane.setLeftAnchor(ship, 700.0);
-	AnchorPane.setTopAnchor(ship, 60.0);
-	AnchorPane.setLeftAnchor(ShippingAddress, 700.0);
-	AnchorPane.setTopAnchor(ShippingAddress, 90.0);
-	AnchorPane.setLeftAnchor(payment, 700.0);
-	AnchorPane.setTopAnchor(payment, 200.0);
-	
-    if (controller.getCurrentCart().size() > 0)
-	{
-		cartPane.getChildren().add(ship);
-		cartPane.getChildren().add(ShippingAddress);
-		cartPane.getChildren().add(BillingAddress);
-		cartPane.getChildren().add(bill);
-		cartPane.getChildren().add(payment);
-		cartPane.getChildren().add(total);
-		cartPane.getChildren().add(checkOutV);
-		
-	}
+
+    ComboBox<String> payment = new ComboBox<String>();
+    payment.getItems().addAll("Cash On Delivery", "Credit/Debit Card", "Wallet Credit", "E-Gift Card", "Paypal");
+    payment.setPromptText("Select Payment Method");
+    payment.setMaxHeight(40);
+    payment.setMaxWidth(200);
+    Text ship = new Text("Shipping Address:");
+    Text bill = new Text("Billing Address:");
+    Text total = new Text("TOTAL:");
+    TextField ShippingAddress = new TextField();
+    TextField BillingAddress = new TextField();
+    ShippingAddress.setMaxWidth(540);
+    ShippingAddress.setMaxHeight(40);
+    BillingAddress.setMaxWidth(540);
+    BillingAddress.setMaxHeight(40);
+    ship.setFont(Font.font("Madeleina Sans", 25));
+    bill.setFont(Font.font("Madeleina Sans", 25));
+    total.setFont(Font.font("Madeleina Sans", 35));
+    AnchorPane.setLeftAnchor(total, 700.0);
+    AnchorPane.setTopAnchor(total, 300.0);
+    AnchorPane.setLeftAnchor(bill, 700.0);
+    AnchorPane.setTopAnchor(bill, 124.0);
+    AnchorPane.setLeftAnchor(BillingAddress, 700.0);
+    AnchorPane.setTopAnchor(BillingAddress, 150.0);
+    AnchorPane.setLeftAnchor(ship, 700.0);
+    AnchorPane.setTopAnchor(ship, 60.0);
+    AnchorPane.setLeftAnchor(ShippingAddress, 700.0);
+    AnchorPane.setTopAnchor(ShippingAddress, 90.0);
+    AnchorPane.setLeftAnchor(payment, 700.0);
+    AnchorPane.setTopAnchor(payment, 200.0);
+
+    if (controller.getCurrentCart().size() > 0) {
+      cartPane.getChildren().add(ship);
+      cartPane.getChildren().add(ShippingAddress);
+      cartPane.getChildren().add(BillingAddress);
+      cartPane.getChildren().add(bill);
+      cartPane.getChildren().add(payment);
+      cartPane.getChildren().add(total);
+      cartPane.getChildren().add(checkOutV);
+
+    }
     cartPane.getChildren().add(grid);
-	
+
     for (int i = 0; i < count; i++) {
 
       productname[i] = new Text(controller.getCurrentCart().get(i).getProduct_name());
@@ -1081,19 +1083,289 @@ public class View {
     checkOutV.setOnMouseExited(e -> {
       checkOutV.setImage(checkout);
     });
-	checkOutV.setOnMouseClicked(e -> {			
-		if (controller.checkoutCart("Cash On Delivery", "Malate", "Makati")) 
-		{
-			clearPage();
-			viewMyCart();
-		}
-	});	
-	
+    checkOutV.setOnMouseClicked(e -> {
+      if (controller.checkoutCart("Cash On Delivery", "Malate", "Makati")) {
+        clearPage();
+        viewMyCart();
+      }
+    });
+
     AnchorPane.setLeftAnchor(checkOutV, 700.0);
-	AnchorPane.setTopAnchor(checkOutV, 500.0);
+    AnchorPane.setTopAnchor(checkOutV, 500.0);
     scrollpane.setContent(cartPane);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
   }
 
+  private void viewProductsForMen() {
+    TilePane grid = new TilePane();
+
+    grid.setStyle("-fx-border-color: #E6E7E7");
+    grid.setPrefColumns(3);
+    grid.setHgap(20);
+    grid.setVgap(50);
+
+    int count = controller.getProductsUnderGender("Men").size();
+
+    productpane = new AnchorPane[count];
+    productpic = new ImageView[count];
+    producttextflow = new TextFlow[count];
+    productname = new Text[count];
+    productquantity = new TextField[count];
+    productaddbutton = new Button[count];
+
+    for (int i = 0; i < count; i++) {
+
+      productname[i] = new Text(controller.getProductsUnderGender("Men").get(i).getProduct_name());
+      productname[i].setFont(Font.font("Madeleina Sans", 20));
+
+      producttextflow[i] = new TextFlow(productname[i]);
+      producttextflow[i].setPrefWidth(190);
+
+      if (controller.getProductsUnderGender("Men").get(i).getApparel_type().equals("Clothing"))
+        productpic[i] = new ImageView(clothingIcon);
+      else if (controller.getProductsUnderGender("Men").get(i).getApparel_type().equals("Shoes"))
+        productpic[i] = new ImageView(ShoesIcon);
+      else if (controller.getProductsUnderGender("Men").get(i).getApparel_type().equals("Bags"))
+        productpic[i] = new ImageView(bagIcon);
+      else if (controller.getProductsUnderGender("Men").get(i).getApparel_type().equals("Accessories"))
+        productpic[i] = new ImageView(accIcon);
+      else if (controller.getProductsUnderGender("Men").get(i).getApparel_type().equals("Sports"))
+        productpic[i] = new ImageView(sportsIcon);
+      else
+        productpic[i] = new ImageView(beautyIcon);
+
+      productpic[i].setFitWidth(200);
+      productpic[i].setFitHeight(200);
+
+      productquantity[i] = new TextField();
+      productquantity[i].setPrefWidth(40);
+
+      productaddbutton[i] = new Button("Add to Cart");
+      productaddbutton[i].setFont(Font.font("Madeleina Sans", 14));
+      productaddbutton[i].setStyle("-fx-background-color: #59938B");
+
+      int n = i;
+      productaddbutton[i].setOnMousePressed(new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent e) {
+          int q = Integer.parseInt(productquantity[n].getText());
+          if (controller.addToCart(controller.getProductsUnderGender("Men").get(n).getProduct_id(), q))
+            System.out.print("Added");
+        }
+      });
+
+      productpane[i] = new AnchorPane();
+
+      productpane[i].getChildren().add(productquantity[i]);
+      productpane[i].getChildren().add(productpic[i]);
+      productpane[i].getChildren().add(producttextflow[i]);
+      productpane[i].getChildren().add(productaddbutton[i]);
+
+      AnchorPane.setTopAnchor(producttextflow[i], 210.0);
+      AnchorPane.setTopAnchor(productquantity[i], 253.0);
+      AnchorPane.setRightAnchor(productquantity[i], 95.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 253.0);
+      AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
+
+      grid.getChildren().add(productpane[i]);
+    }
+    scrollpane.setContent(grid);
+    vertical.getChildren().add(scrollpane);
+    VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
+  }
+
+  private void viewProductsForWomen() {
+    TilePane grid = new TilePane();
+
+    grid.setStyle("-fx-border-color: #E6E7E7");
+    grid.setPrefColumns(3);
+    grid.setHgap(20);
+    grid.setVgap(50);
+
+    int count = controller.getProductsUnderGender("Women").size();
+
+    productpane = new AnchorPane[count];
+    productpic = new ImageView[count];
+    producttextflow = new TextFlow[count];
+    productname = new Text[count];
+    productquantity = new TextField[count];
+    productaddbutton = new Button[count];
+
+    for (int i = 0; i < count; i++) {
+
+      productname[i] = new Text(controller.getProductsUnderGender("Women").get(i).getProduct_name());
+      productname[i].setFont(Font.font("Madeleina Sans", 20));
+
+      producttextflow[i] = new TextFlow(productname[i]);
+      producttextflow[i].setPrefWidth(190);
+
+      if (controller.getProductsUnderGender("Women").get(i).getApparel_type().equals("Clothing"))
+        productpic[i] = new ImageView(clothingIcon);
+      else if (controller.getProductsUnderGender("Women").get(i).getApparel_type().equals("Shoes"))
+        productpic[i] = new ImageView(ShoesIcon);
+      else if (controller.getProductsUnderGender("Women").get(i).getApparel_type().equals("Bags"))
+        productpic[i] = new ImageView(bagIcon);
+      else if (controller.getProductsUnderGender("Women").get(i).getApparel_type().equals("Accessories"))
+        productpic[i] = new ImageView(accIcon);
+      else if (controller.getProductsUnderGender("Women").get(i).getApparel_type().equals("Sports"))
+        productpic[i] = new ImageView(sportsIcon);
+      else
+        productpic[i] = new ImageView(beautyIcon);
+
+      productpic[i].setFitWidth(200);
+      productpic[i].setFitHeight(200);
+
+      productquantity[i] = new TextField();
+      productquantity[i].setPrefWidth(40);
+
+      productaddbutton[i] = new Button("Add to Cart");
+      productaddbutton[i].setFont(Font.font("Madeleina Sans", 14));
+      productaddbutton[i].setStyle("-fx-background-color: #59938B");
+
+      int n = i;
+      productaddbutton[i].setOnMousePressed(new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent e) {
+          int q = Integer.parseInt(productquantity[n].getText());
+          if (controller.addToCart(controller.getProductsUnderGender("Women").get(n).getProduct_id(), q))
+            System.out.print("Added");
+        }
+      });
+
+      productpane[i] = new AnchorPane();
+
+      productpane[i].getChildren().add(productquantity[i]);
+      productpane[i].getChildren().add(productpic[i]);
+      productpane[i].getChildren().add(producttextflow[i]);
+      productpane[i].getChildren().add(productaddbutton[i]);
+
+      AnchorPane.setTopAnchor(producttextflow[i], 210.0);
+      AnchorPane.setTopAnchor(productquantity[i], 253.0);
+      AnchorPane.setRightAnchor(productquantity[i], 95.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 253.0);
+      AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
+
+      grid.getChildren().add(productpane[i]);
+    }
+    scrollpane.setContent(grid);
+    vertical.getChildren().add(scrollpane);
+    VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
+  }
+
+  private void viewAllBrands() {
+    int count = controller.getAllBrands().size();
+
+    brandtextflow = new TextFlow[count];
+    brandname = new Text[count];
+    brandviewprod = new Button[count];
+
+    for (int i = 0; i < count; i++) {
+
+      brandname[i] = new Text(controller.getAllBrands().get(i).getBrand_name() + " Address: "
+          + controller.getAllBrands().get(i).getAddress() + " Email: " + controller.getAllBrands().get(i).getEmail()
+          + "Contact Number: " + controller.getAllBrands().get(i).getContact_number());
+      brandname[i].setFont(Font.font("Madeleina Sans", 30));
+
+      brandtextflow[i] = new TextFlow(brandname[i]);
+      brandtextflow[i].setPrefWidth(400);
+
+      brandviewprod[i] = new Button("View Products");
+      brandviewprod[i].setFont(Font.font("Madeleina Sans", 20));
+      brandviewprod[i].setStyle("-fx-background-color: #59938B");
+
+      int n = i;
+
+      brandviewprod[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent e) {
+          clearPage();
+          viewProductsOfBrand(controller.getAllBrands().get(n).getBrand_id());
+        }
+      });
+
+      brandPage.getChildren().add(brandtextflow[i]);
+      brandPage.getChildren().add(brandviewprod[i]);
+
+    }
+
+    scrollpane.setContent(brandPage);
+    vertical.getChildren().add(scrollpane);
+
+  }
+
+  private void viewProductsOfBrand(int brand_id) {
+
+    TilePane grid = new TilePane();
+
+    grid.setStyle("-fx-border-color: #E6E7E7");
+    grid.setPrefColumns(3);
+    grid.setHgap(20);
+    grid.setVgap(50);
+
+    int count = controller.getProductsOfBrand(brand_id).size();
+
+    productpane = new AnchorPane[count];
+    productpic = new ImageView[count];
+    producttextflow = new TextFlow[count];
+    productname = new Text[count];
+    productquantity = new TextField[count];
+    productaddbutton = new Button[count];
+
+    for (int i = 0; i < count; i++) {
+
+      productname[i] = new Text(controller.getProductsOfBrand(brand_id).get(i).getProduct_name());
+      productname[i].setFont(Font.font("Madeleina Sans", 20));
+
+      producttextflow[i] = new TextFlow(productname[i]);
+      producttextflow[i].setPrefWidth(190);
+
+      if (controller.getProductsOfBrand(brand_id).get(i).getApparel_type().equals("Clothing"))
+        productpic[i] = new ImageView(clothingIcon);
+      else if (controller.getProductsOfBrand(brand_id).get(i).getApparel_type().equals("Shoes"))
+        productpic[i] = new ImageView(ShoesIcon);
+      else if (controller.getProductsOfBrand(brand_id).get(i).getApparel_type().equals("Bags"))
+        productpic[i] = new ImageView(bagIcon);
+      else if (controller.getProductsOfBrand(brand_id).get(i).getApparel_type().equals("Accessories"))
+        productpic[i] = new ImageView(accIcon);
+      else if (controller.getProductsOfBrand(brand_id).get(i).getApparel_type().equals("Sports"))
+        productpic[i] = new ImageView(sportsIcon);
+      else
+        productpic[i] = new ImageView(beautyIcon);
+
+      productpic[i].setFitWidth(200);
+      productpic[i].setFitHeight(200);
+
+      productquantity[i] = new TextField();
+      productquantity[i].setPrefWidth(40);
+
+      productaddbutton[i] = new Button("Add to Cart");
+      productaddbutton[i].setFont(Font.font("Madeleina Sans", 14));
+      productaddbutton[i].setStyle("-fx-background-color: #59938B");
+
+      int n = i;
+      productaddbutton[i].setOnMousePressed(new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent e) {
+          int q = Integer.parseInt(productquantity[n].getText());
+          if (controller.addToCart(controller.getProductsOfBrand(brand_id).get(n).getProduct_id(), q))
+            System.out.print("Added");
+        }
+      });
+
+      productpane[i] = new AnchorPane();
+
+      productpane[i].getChildren().add(productquantity[i]);
+      productpane[i].getChildren().add(productpic[i]);
+      productpane[i].getChildren().add(producttextflow[i]);
+      productpane[i].getChildren().add(productaddbutton[i]);
+
+      AnchorPane.setTopAnchor(producttextflow[i], 210.0);
+      AnchorPane.setTopAnchor(productquantity[i], 253.0);
+      AnchorPane.setRightAnchor(productquantity[i], 95.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 253.0);
+      AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
+
+      grid.getChildren().add(productpane[i]);
+    }
+    scrollpane.setContent(grid);
+    vertical.getChildren().add(scrollpane);
+    VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
+  }
 }
