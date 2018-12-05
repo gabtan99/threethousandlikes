@@ -396,6 +396,27 @@ public class Database {
     return total;
   }
 
+  public float getMyCartTotal() {
+    String returnMyCartTotal = "SELECT products.price, carts.quantity FROM carts INNER JOIN products ON products.product_id = carts.product_id WHERE carts.checked_out = 0 AND carts.user_id = "
+        + currentUser.getUser_id();
+
+    float total = 0;
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnMyCartTotal);
+
+      while (rs.next()) {
+        total += rs.getFloat("price") * rs.getInt("quantity");
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return total;
+
+  }
+
   public int getNewSessionID() {
     String returnMaxSessionID = "SELECT MAX(session_id) as 'max' FROM carts";
     int newID = 0;

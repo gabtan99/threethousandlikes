@@ -82,4 +82,8 @@ public class Controller {
   public ArrayList<Product> getProductsOfBrand(int brand_id) {
     return model.getProductsOfBrand(brand_id);
   }
+
+  public float getMyCartTotal() {
+    return model.getMyCartTotal();
+  }
 }
