@@ -944,6 +944,7 @@ public class View {
 
   private void viewMyCart() {
 
+	System.out.println(controller.getCurrentCart().size() );
     TilePane grid = new TilePane();
     AnchorPane cartPane = new AnchorPane();
 
@@ -962,6 +963,10 @@ public class View {
     productremovebutton = new Button[count];
     productorderquantity = new Text[count];
 
+    if (controller.getCurrentCart().size() > 0)
+      cartPane.getChildren().add(checkOutV);
+    cartPane.getChildren().add(grid);
+	
     for (int i = 0; i < count; i++) {
 
       productname[i] = new Text(controller.getCurrentCart().get(i).getProduct_name());
@@ -1035,10 +1040,9 @@ public class View {
       }
     });
 
-    cartPane.getChildren().add(grid);
-    if (controller.getCurrentCart().size() > 1)
-      cartPane.getChildren().add(checkOutV);
-    AnchorPane.setLeftAnchor(checkOutV, 170.0);
+	
+    AnchorPane.setLeftAnchor(checkOutV, 700.0);
+	AnchorPane.setTopAnchor(checkOutV, 50.0);
     scrollpane.setContent(cartPane);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
