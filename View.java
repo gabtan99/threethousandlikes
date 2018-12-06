@@ -142,6 +142,8 @@ public class View {
   Image summaryH = new Image("images/summaryHover.png");
   Image productB = new Image("images/productsButton.png");
   Image productH = new Image("images/productsHover.png");
+  Image edit = new Image("images/Edit.png");
+  Image editH = new Image("images/EditHover.png");
   
 
   ImageView clothing = new ImageView(clothingIcon);
@@ -200,6 +202,7 @@ public class View {
   ImageView userV = new ImageView(userB);
   ImageView brandView = new ImageView(brandB);
   ImageView productV = new ImageView(productB);
+  ImageView editV = new ImageView(edit);
 
   VBox vertical = new VBox();
   StackPane adminPane = new StackPane();
@@ -231,6 +234,7 @@ public class View {
   TextFlow[] brandtextflow;
   Text[] brandname;
   Button[] brandviewprod;
+  String getUserDetails = new String();
 
   public View(Controller c, Stage primaryStage) {
 
@@ -690,7 +694,7 @@ public class View {
     contact_text.setFont(Font.font("Madeleina Sans", 40));
     sex_text.setFont(Font.font("Madeleina Sans", 40));
 
-    String getUserDetails = controller.getCurrentUser().getFirst_name() + " "
+    getUserDetails = controller.getCurrentUser().getFirst_name() + " "
         + controller.getCurrentUser().getLast_name();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getRegister_date();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getContact_number();
@@ -711,14 +715,26 @@ public class View {
     out.setOnMouseExited(e -> {
       out.setImage(logout);
     });
+	editV.setOnMouseClicked(e->{
+		editAccount();
+	});
+	editV.setOnMouseEntered(e->{
+		editV.setImage(editH);
+	});
+	editV.setOnMouseExited(e->{
+		editV.setImage(edit);
+	});
     out.setFitHeight(32);
     out.setFitWidth(146);
+	editV.setFitHeight(32);
+	editV.setFitWidth(146);
     accountPage.getChildren().add(userDetails);
     accountPage.getChildren().add(name_text);
     accountPage.getChildren().add(register_text);
     accountPage.getChildren().add(contact_text);
     accountPage.getChildren().add(sex_text);
     accountPage.getChildren().add(out);
+	accountPage.getChildren().add(editV);
     AnchorPane.setTopAnchor(out, 300.0);
     AnchorPane.setTopAnchor(name_text, 147.0);
     AnchorPane.setTopAnchor(register_text, 197.0);
@@ -732,6 +748,8 @@ public class View {
     AnchorPane.setLeftAnchor(sex_text, 483.0);
     AnchorPane.setLeftAnchor(out, 500.0);
     AnchorPane.setTopAnchor(out, 400.0);
+	AnchorPane.setLeftAnchor(editV, 700.0);
+	AnchorPane.setTopAnchor(editV, 400.0);
     vertical.getChildren().add(accountPage);
   }
 
@@ -1500,6 +1518,51 @@ public class View {
     scrollpane.setContent(grid);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
+  }
+  private void editAccount(){
+	  StackPane accountPane = new StackPane();
+	  Scene accountScene = new Scene(accountPane, 400, 400);
+	  Stage accountStage = new Stage();
+	  accountStage.setScene(accountScene);
+	  
+	  Button edited = new Button("Confirm");
+	  TextField firstname = new TextField(controller.getCurrentUser().getFirst_name());
+	  TextField lastname = new TextField(controller.getCurrentUser().getLast_name());
+	  TextField register_date = new TextField(controller.getCurrentUser().getRegister_date());
+	  TextField contact_num = new TextField(controller.getCurrentUser().getContact_number());
+	  TextField sex = new TextField(controller.getCurrentUser().getGender());
+	  
+	  firstname.setMaxWidth(100);
+	  lastname.setMaxWidth(100);
+	  register_date.setMaxWidth(100);
+	  contact_num.setMaxWidth(100);
+	  sex.setMaxWidth(100);
+	  
+	  Text details = new Text("Name: \nRegister Date: \nContact Number: \nSex: ");
+	  details.setFont(Font.font("Madeleina Sans", 30));
+	  
+	  accountPane.getChildren().add(details);
+	  accountPane.getChildren().add(edited);
+	  accountPane.getChildren().addAll(firstname, lastname, register_date, contact_num, sex);
+	  
+	  StackPane.setMargin(details, new Insets(0, 200, 50, 0));
+	  StackPane.setMargin(edited, new Insets(150, 0, 0, 0));
+	  StackPane.setMargin(firstname, new Insets(0, 100, 150, 0));
+	  StackPane.setMargin(lastname, new Insets(0, 0, 150, 130));
+	  StackPane.setMargin(register_date, new Insets(0, 0, 80, 130));
+	  StackPane.setMargin(contact_num, new Insets(0, 0, 18, 130));
+	  StackPane.setMargin(sex, new Insets(48, 0, 0, 130));
+	  
+	  controller
+	  
+	  
+	  edited.setOnMousePressed(new EventHandler<MouseEvent> (){
+		  public void handle(MouseEvent e){
+			  accountStage.close();
+		  }
+	  });
+	  
+	  accountStage.show();
   }
 
   private void AdminCall() {
