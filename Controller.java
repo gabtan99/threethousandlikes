@@ -124,4 +124,15 @@ public class Controller {
     return model.editUser(email, password, first_name, last_name, contact_number, gender);
   }
 
+  public boolean editBrand(int brand_id, String brand_name, String address, String email, String contact_number) {
+    return model.editBrand(brand_id, brand_name, address, email, contact_number);
+  }
+
+  public boolean editProduct(int product_id, String product_name, String brand_name, float price, String classification,
+      String apparel_type) {
+
+    return model.editProduct(product_id, product_name, brand_name, price, classification, apparel_type);
+
+  }
+
 }

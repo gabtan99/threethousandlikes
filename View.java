@@ -144,7 +144,6 @@ public class View {
   Image productH = new Image("images/productsHover.png");
   Image edit = new Image("images/Edit.png");
   Image editH = new Image("images/EditHover.png");
-  
 
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
@@ -694,8 +693,7 @@ public class View {
     contact_text.setFont(Font.font("Madeleina Sans", 40));
     sex_text.setFont(Font.font("Madeleina Sans", 40));
 
-    getUserDetails = controller.getCurrentUser().getFirst_name() + " "
-        + controller.getCurrentUser().getLast_name();
+    getUserDetails = controller.getCurrentUser().getFirst_name() + " " + controller.getCurrentUser().getLast_name();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getRegister_date();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getContact_number();
     getUserDetails = getUserDetails + "\n" + controller.getCurrentUser().getGender();
@@ -715,26 +713,26 @@ public class View {
     out.setOnMouseExited(e -> {
       out.setImage(logout);
     });
-	editV.setOnMouseClicked(e->{
-		editAccount();
-	});
-	editV.setOnMouseEntered(e->{
-		editV.setImage(editH);
-	});
-	editV.setOnMouseExited(e->{
-		editV.setImage(edit);
-	});
+    editV.setOnMouseClicked(e -> {
+      editAccount();
+    });
+    editV.setOnMouseEntered(e -> {
+      editV.setImage(editH);
+    });
+    editV.setOnMouseExited(e -> {
+      editV.setImage(edit);
+    });
     out.setFitHeight(32);
     out.setFitWidth(146);
-	editV.setFitHeight(32);
-	editV.setFitWidth(146);
+    editV.setFitHeight(32);
+    editV.setFitWidth(146);
     accountPage.getChildren().add(userDetails);
     accountPage.getChildren().add(name_text);
     accountPage.getChildren().add(register_text);
     accountPage.getChildren().add(contact_text);
     accountPage.getChildren().add(sex_text);
     accountPage.getChildren().add(out);
-	accountPage.getChildren().add(editV);
+    accountPage.getChildren().add(editV);
     AnchorPane.setTopAnchor(out, 300.0);
     AnchorPane.setTopAnchor(name_text, 147.0);
     AnchorPane.setTopAnchor(register_text, 197.0);
@@ -748,8 +746,8 @@ public class View {
     AnchorPane.setLeftAnchor(sex_text, 483.0);
     AnchorPane.setLeftAnchor(out, 500.0);
     AnchorPane.setTopAnchor(out, 400.0);
-	AnchorPane.setLeftAnchor(editV, 700.0);
-	AnchorPane.setTopAnchor(editV, 400.0);
+    AnchorPane.setLeftAnchor(editV, 700.0);
+    AnchorPane.setTopAnchor(editV, 400.0);
     vertical.getChildren().add(accountPage);
   }
 
@@ -1519,96 +1517,94 @@ public class View {
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
   }
-  private void editAccount(){
-	  StackPane accountPane = new StackPane();
-	  Scene accountScene = new Scene(accountPane, 400, 400);
-	  Stage accountStage = new Stage();
-	  accountStage.setScene(accountScene);
-	  
-	  Button edited = new Button("Confirm");
-	  TextField firstname = new TextField(controller.getCurrentUser().getFirst_name());
-	  TextField lastname = new TextField(controller.getCurrentUser().getLast_name());
-	  TextField register_date = new TextField(controller.getCurrentUser().getRegister_date());
-	  TextField contact_num = new TextField(controller.getCurrentUser().getContact_number());
-	  TextField sex = new TextField(controller.getCurrentUser().getGender());
-	  
-	  firstname.setMaxWidth(100);
-	  lastname.setMaxWidth(100);
-	  register_date.setMaxWidth(100);
-	  contact_num.setMaxWidth(100);
-	  sex.setMaxWidth(100);
-	  
-	  Text details = new Text("Name: \nRegister Date: \nContact Number: \nSex: ");
-	  details.setFont(Font.font("Madeleina Sans", 30));
-	  
-	  accountPane.getChildren().add(details);
-	  accountPane.getChildren().add(edited);
-	  accountPane.getChildren().addAll(firstname, lastname, register_date, contact_num, sex);
-	  
-	  StackPane.setMargin(details, new Insets(0, 200, 50, 0));
-	  StackPane.setMargin(edited, new Insets(150, 0, 0, 0));
-	  StackPane.setMargin(firstname, new Insets(0, 100, 150, 0));
-	  StackPane.setMargin(lastname, new Insets(0, 0, 150, 130));
-	  StackPane.setMargin(register_date, new Insets(0, 0, 80, 130));
-	  StackPane.setMargin(contact_num, new Insets(0, 0, 18, 130));
-	  StackPane.setMargin(sex, new Insets(48, 0, 0, 130));
-	  
-	  controller
-	  
-	  
-	  edited.setOnMousePressed(new EventHandler<MouseEvent> (){
-		  public void handle(MouseEvent e){
-			  accountStage.close();
-		  }
-	  });
-	  
-	  accountStage.show();
+
+  private void editAccount() {
+    StackPane accountPane = new StackPane();
+    Scene accountScene = new Scene(accountPane, 400, 400);
+    Stage accountStage = new Stage();
+    accountStage.setScene(accountScene);
+
+    Button edited = new Button("Confirm");
+    TextField firstname = new TextField(controller.getCurrentUser().getFirst_name());
+    TextField lastname = new TextField(controller.getCurrentUser().getLast_name());
+    TextField register_date = new TextField(controller.getCurrentUser().getRegister_date());
+    TextField contact_num = new TextField(controller.getCurrentUser().getContact_number());
+    TextField sex = new TextField(controller.getCurrentUser().getGender());
+
+    firstname.setMaxWidth(100);
+    lastname.setMaxWidth(100);
+    register_date.setMaxWidth(100);
+    contact_num.setMaxWidth(100);
+    sex.setMaxWidth(100);
+
+    Text details = new Text("Name: \nRegister Date: \nContact Number: \nSex: ");
+    details.setFont(Font.font("Madeleina Sans", 30));
+
+    accountPane.getChildren().add(details);
+    accountPane.getChildren().add(edited);
+    accountPane.getChildren().addAll(firstname, lastname, register_date, contact_num, sex);
+
+    StackPane.setMargin(details, new Insets(0, 200, 50, 0));
+    StackPane.setMargin(edited, new Insets(150, 0, 0, 0));
+    StackPane.setMargin(firstname, new Insets(0, 100, 150, 0));
+    StackPane.setMargin(lastname, new Insets(0, 0, 150, 130));
+    StackPane.setMargin(register_date, new Insets(0, 0, 80, 130));
+    StackPane.setMargin(contact_num, new Insets(0, 0, 18, 130));
+    StackPane.setMargin(sex, new Insets(48, 0, 0, 130));
+
+    edited.setOnMousePressed(new EventHandler<MouseEvent>() {
+      public void handle(MouseEvent e) {
+        accountStage.close();
+      }
+    });
+
+    accountStage.show();
   }
 
   private void AdminCall() {
     Scene AdminScene = new Scene(adminPane, 1280, 720);
     primaryStage.setScene(AdminScene);
-	
-	AnchorPane adminMenu = new AnchorPane();
-	adminMenu.getChildren().add(adminBarV);
-	adminMenu.getChildren().add(brandView);
-	adminMenu.getChildren().add(userV);
-	adminMenu.getChildren().add(summaryV);
-	adminMenu.getChildren().add(orderV);
-	adminMenu.getChildren().add(productV);
-	
-	brandView.setOnMouseEntered(e->{
-		brandView.setImage(brandH);
-	});
-	brandView.setOnMouseExited(e->{
-		brandView.setImage(brandB);
-	});
-	userV.setOnMouseEntered(e->{
-		userV.setImage(userH);
-	});
-	userV.setOnMouseExited(e->{
-		userV.setImage(userB);
-	});
-	productV.setOnMouseEntered(e->{
-		productV.setImage(productH);
-	});
-	productV.setOnMouseExited(e->{
-		productV.setImage(productB);
-	});
-	summaryV.setOnMouseEntered(e->{
-		summaryV.setImage(summaryH);
-	});
-	summaryV.setOnMouseExited(e->{
-		summaryV.setImage(summaryB);
-	});
-	orderV.setOnMouseEntered(e->{
-		orderV.setImage(orderH);
-	});
-	orderV.setOnMouseExited(e->{
-		orderV.setImage(orderB);
-	});
-	
-	adminPane.getChildren().add(adminMenu);
-    
+
+    AnchorPane adminMenu = new AnchorPane();
+    adminMenu.getChildren().add(adminBarV);
+    adminMenu.getChildren().add(brandView);
+    adminMenu.getChildren().add(userV);
+    adminMenu.getChildren().add(summaryV);
+    adminMenu.getChildren().add(orderV);
+    adminMenu.getChildren().add(productV);
+
+    brandView.setOnMouseEntered(e -> {
+      brandView.setImage(brandH);
+    });
+    brandView.setOnMouseExited(e -> {
+      brandView.setImage(brandB);
+    });
+    userV.setOnMouseEntered(e -> {
+      userV.setImage(userH);
+    });
+    userV.setOnMouseExited(e -> {
+      userV.setImage(userB);
+    });
+    productV.setOnMouseEntered(e -> {
+      productV.setImage(productH);
+    });
+    productV.setOnMouseExited(e -> {
+      productV.setImage(productB);
+    });
+    summaryV.setOnMouseEntered(e -> {
+      summaryV.setImage(summaryH);
+    });
+    summaryV.setOnMouseExited(e -> {
+      summaryV.setImage(summaryB);
+    });
+    orderV.setOnMouseEntered(e -> {
+      orderV.setImage(orderH);
+    });
+    orderV.setOnMouseExited(e -> {
+      orderV.setImage(orderB);
+    });
+
+    adminPane.getChildren().add(adminMenu);
+
   }
 }

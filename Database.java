@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Database {
 
-  private static User currentUser = new User();
-  private static Statement stmt;
+  private User currentUser = new User();
+  private Statement stmt;
 
   private String driver = "com.mysql.jdbc.Driver";
   private String db = "zaloradb";
@@ -701,43 +701,6 @@ public class Database {
     return 0;
   }
 
-  public void removeBrand(int brand_id) {
-    String removeBrand = "DELETE FROM `zaloradb`.`brands` WHERE (`brand_id` = '" + brand_id + "')";
-
-    try {
-      stmt.executeUpdate(removeBrand);
-    } catch (SQLException e) {
-      System.out.println("SQLException: " + e.getMessage());
-      System.out.println("SQLState: " + e.getSQLState());
-      System.out.println("VendorError: " + e.getErrorCode());
-    }
-
-  }
-
-  public void removeProduct(int product_id) {
-    String removeProduct = "DELETE FROM `zaloradb`.`products` WHERE (`product_id` = '" + product_id + "')";
-
-    try {
-      stmt.executeUpdate(removeProduct);
-    } catch (SQLException e) {
-      System.out.println("SQLException: " + e.getMessage());
-      System.out.println("SQLState: " + e.getSQLState());
-      System.out.println("VendorError: " + e.getErrorCode());
-    }
-  }
-
-  public void removeUser(int user_id) {
-    String removeUser = "DELETE FROM `zaloradb`.`useraccounts` WHERE (`user_id` = '" + user_id + "')";
-
-    try {
-      stmt.executeUpdate(removeUser);
-    } catch (SQLException e) {
-      System.out.println("SQLException: " + e.getMessage());
-      System.out.println("SQLState: " + e.getSQLState());
-      System.out.println("VendorError: " + e.getErrorCode());
-    }
-  }
-
   public boolean editUser(String email, String password, String first_name, String last_name, String contact_number,
       String gender) {
 
@@ -758,4 +721,48 @@ public class Database {
 
   }
 
+  public boolean editBrand(int brand_id, String brand_name, String address, String email, String contact_number) {
+    String editBrand = "UPDATE `zaloradb`.`brands` SET `brand_name` = '" + brand_name + "', `address` = '" + address
+        + "', `email` = '" + email + "', `contact_number` = '" + contact_number + "' WHERE (`brand_id` = '" + brand_id
+        + "')";
+
+    try {
+      stmt.executeUpdate(editBrand);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      return false;
+    }
+
+    return true;
+  }
+
+  public boolean editProduct(int product_id, String product_name, String brand_name, float price, String classification,
+      String apparel_type) {
+
+    int brand_id = verifyBrand(brand_name);
+
+    if (brand_id != 0) {
+
+      String editProduct = "UPDATE `zaloradb`.`products` SET `product_name` = '" + product_name + "', `brand_id` = '"
+          + brand_id + "', `price` = '" + price + "', `classification` = '" + classification + "', `apparel_type` = '"
+          + apparel_type + "' WHERE (`product_id` = '" + product_id + "')";
+
+      try {
+        stmt.executeUpdate(editProduct);
+      } catch (SQLException e) {
+        System.out.println("SQLException: " + e.getMessage());
+        System.out.println("SQLState: " + e.getSQLState());
+        System.out.println("VendorError: " + e.getErrorCode());
+        return false;
+      }
+
+      return true;
+
+    }
+
+    return false;
+
+  }
 }
