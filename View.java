@@ -56,6 +56,12 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.*;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.*;
 
 public class View {
@@ -204,7 +210,7 @@ public class View {
   ImageView editV = new ImageView(edit);
 
   VBox vertical = new VBox();
-  StackPane adminPane = new StackPane();
+  VBox adminPane = new VBox();
   StackPane welcomePage = new StackPane();
   StackPane loginPane = new StackPane();
   AnchorPane accountPage = new AnchorPane();
@@ -1612,6 +1618,21 @@ public class View {
     });
 
     adminPane.getChildren().add(adminMenu);
+	
+	TableView<User> table = new TableView<User>();
+	ObservableList<User> data = FXCollections.observableArrayList(controller.getAllUsers());
+	
+	table.setEditable(true);
+	TableColumn<User, String> name_column = new TableColumn<User, String>("First Name");
+	TableColumn<User, String> last_column = new TableColumn<User, String>("Last Name");
+	TableColumn<User, String> mail_column = new TableColumn<User, String>("Email");
+	name_column.setMinWidth(100);
+	table.getColumns().add(name_column);
+	table.getColumns().add(last_column);
+	table.getColumns().add(mail_column);
+	table.setItems(data);
+	
+	adminPane.getChildren().add(table);
 
   }
 }
