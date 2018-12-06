@@ -701,4 +701,41 @@ public class Database {
     return 0;
   }
 
+  public void removeBrand(int brand_id) {
+    String removeBrand = "DELETE FROM `zaloradb`.`brands` WHERE (`brand_id` = '" + brand_id + "')";
+
+    try {
+      stmt.executeUpdate(removeBrand);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+  }
+
+  public void removeProduct(int product_id) {
+    String removeProduct = "DELETE FROM `zaloradb`.`products` WHERE (`product_id` = '" + product_id + "')";
+
+    try {
+      stmt.executeUpdate(removeProduct);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+  }
+
+  public void removeUser(int user_id) {
+    String removeUser = "DELETE FROM `zaloradb`.`useraccounts` WHERE (`user_id` = '" + user_id + "')";
+
+    try {
+      stmt.executeUpdate(removeUser);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+  }
+
 }
