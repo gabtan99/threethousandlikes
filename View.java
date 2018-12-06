@@ -1527,34 +1527,41 @@ public class View {
     Button edited = new Button("Confirm");
     TextField firstname = new TextField(controller.getCurrentUser().getFirst_name());
     TextField lastname = new TextField(controller.getCurrentUser().getLast_name());
-    TextField register_date = new TextField(controller.getCurrentUser().getRegister_date());
+    TextField email_user = new TextField(controller.getCurrentUser().getEmail());
+	PasswordField pw_user = new PasswordField();
     TextField contact_num = new TextField(controller.getCurrentUser().getContact_number());
     TextField sex = new TextField(controller.getCurrentUser().getGender());
 
     firstname.setMaxWidth(100);
     lastname.setMaxWidth(100);
-    register_date.setMaxWidth(100);
+    email_user.setMaxWidth(100);
+	pw_user.setMaxWidth(100);
     contact_num.setMaxWidth(100);
     sex.setMaxWidth(100);
 
-    Text details = new Text("Name: \nRegister Date: \nContact Number: \nSex: ");
+    Text details = new Text("Name: \nEmail: \nPassword: \nContact Number: \nSex: ");
     details.setFont(Font.font("Madeleina Sans", 30));
 
     accountPane.getChildren().add(details);
     accountPane.getChildren().add(edited);
-    accountPane.getChildren().addAll(firstname, lastname, register_date, contact_num, sex);
+    accountPane.getChildren().addAll(firstname, lastname, email_user, pw_user, contact_num, sex);
 
-    StackPane.setMargin(details, new Insets(0, 200, 50, 0));
-    StackPane.setMargin(edited, new Insets(150, 0, 0, 0));
+    StackPane.setMargin(details, new Insets(0, 200, 10, 0));
+    StackPane.setMargin(edited, new Insets(200, 0, 0, 0));
     StackPane.setMargin(firstname, new Insets(0, 100, 150, 0));
     StackPane.setMargin(lastname, new Insets(0, 0, 150, 130));
-    StackPane.setMargin(register_date, new Insets(0, 0, 80, 130));
-    StackPane.setMargin(contact_num, new Insets(0, 0, 18, 130));
-    StackPane.setMargin(sex, new Insets(48, 0, 0, 130));
+    StackPane.setMargin(email_user, new Insets(0, 0, 80, 130));
+	StackPane.setMargin(pw_user, new Insets(0, 0, 11, 130));
+    StackPane.setMargin(contact_num, new Insets(55, 0, 0, 130));
+    StackPane.setMargin(sex, new Insets(120, 0, 0, 130));
+	
 
     edited.setOnMousePressed(new EventHandler<MouseEvent>() {
       public void handle(MouseEvent e) {
+		controller.editUser(email_user.getText(), pw_user.getText(), firstname.getText(), lastname.getText(), contact_num.getText(), sex.getText());
         accountStage.close();
+		//clearPage();
+		//viewAccountPage();
       }
     });
 
