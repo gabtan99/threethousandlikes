@@ -22,7 +22,6 @@ public class Controller {
 
   public boolean loginUser(String email, String password) {
     if (model.loginUser(email, password)) {
-      System.out.println("success");
       return true;
     } else
       return false;
