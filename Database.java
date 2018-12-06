@@ -738,4 +738,24 @@ public class Database {
     }
   }
 
+  public boolean editUser(String email, String password, String first_name, String last_name, String contact_number,
+      String gender) {
+
+    String editUser = "UPDATE `zaloradb`.`useraccounts` SET `email` = '" + email + "', `password` = '" + password
+        + "', `first_name` = '" + first_name + "', `last_name` = '" + last_name + "', `contact_number` = '"
+        + contact_number + "', `gender` = '" + gender + "' WHERE (`user_id` = '" + currentUser.getUser_id() + "')";
+
+    try {
+      stmt.executeUpdate(editUser);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      return false;
+    }
+
+    return true;
+
+  }
+
 }

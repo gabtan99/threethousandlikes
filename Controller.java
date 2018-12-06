@@ -119,4 +119,9 @@ public class Controller {
       return false;
   }
 
+  public boolean editUser(String email, String password, String first_name, String last_name, String contact_number,
+      String gender) {
+    return model.editUser(email, password, first_name, last_name, contact_number, gender);
+  }
+
 }
