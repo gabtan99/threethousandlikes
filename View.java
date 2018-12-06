@@ -1604,6 +1604,7 @@ public class View {
 				
 				int i = 0;
 				int j = 0;
+				System.out.println(controller.getOlapOneBrand(brand.getValue(), year.getText()).size());
 				for(i=0; i<counter; i++)
 				{System.out.println("Entered Loop!");
 					queryResult[i] = new Text(controller.getOlapOneBrand(brand.getValue(), year.getText()).get(i));

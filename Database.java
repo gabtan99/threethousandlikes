@@ -89,8 +89,8 @@ public class Database {
   
   public ArrayList<String> getOlapAllBrands(String year)
   {
-	  String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_id WHERE YEAR(orderdetails.order_date) = "
-		+ year + " GROUP BY MONTH(orderdetails.order_date);";
+		  String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_id WHERE YEAR(orderdetails.order_date) = "
+			+ year + " GROUP BY MONTH(orderdetails.order_date);";
 		
 	  ArrayList<String> results = new ArrayList<String>();
 	  
@@ -112,9 +112,12 @@ public class Database {
   
   public ArrayList<String> getOlapOneBrand(String brand, String year)
   {
-	  String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_date " + 
-	  "INNER JOIN products ON products.product_id = carts.product_id INNER JOIN brands ON brands.brand_id = products.brand_id WHERE YEAR(orderdetails.order_date) = " + year + " AND brands.brand_name LIKE '%" + 
-	  brand + "%' GROUP BY brands.brand_id, MONTH(orderdetails.order_date);";
+	  String returnResults = "SELECT carts.quantity as 'quantity', orderdetails.order_date as 'month'"+ 
+								"FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_id " + 
+								" INNER JOIN products ON products.product_id = carts.product_id" + 
+								" INNER JOIN brands ON brands.brand_id = products.brand_id "+
+								" WHERE YEAR(orderdetails.order_date) ="+ year + "AND brands.brand_name = '"+brand+"'"+
+								" GROUP BY brands.brand_id, MONTH(orderdetails.order_date);";
 	  
 	  ArrayList<String> results = new ArrayList<String>();
 	  
