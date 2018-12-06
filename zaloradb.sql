@@ -34,6 +34,11 @@ CREATE TABLE `brands` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+ALTER TABLE `zaloradb`.`brands` 
+ADD UNIQUE INDEX `brand_name_UNIQUE` (`brand_name` ASC) VISIBLE;
+;
+
+
 --
 -- Dumping data for table `brands`
 --
@@ -169,6 +174,12 @@ CREATE TABLE `useraccounts` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+
+ALTER TABLE `zaloradb`.`useraccounts` 
+ADD UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE;
+;
+
 
 --
 -- Dumping data for table `useraccounts`
