@@ -132,6 +132,17 @@ public class View {
   Image admin = new Image("images/Admin.png");
   Image admin2 = new Image("images/AdminButton.png");
   Image adminBar = new Image("images/adminBars.png");
+  Image userB = new Image("images/userButton.png");
+  Image userH = new Image("images/userHover.png");
+  Image orderB = new Image("images/orderButton.png");
+  Image orderH = new Image("images/orderHover.png");
+  Image brandB = new Image("images/brandsButton.png");
+  Image brandH = new Image("images/brandsHover.png");
+  Image summaryB = new Image("images/summaryButton.png");
+  Image summaryH = new Image("images/summaryHover.png");
+  Image productB = new Image("images/productsButton.png");
+  Image productH = new Image("images/productsHover.png");
+  
 
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
@@ -184,6 +195,11 @@ public class View {
   ImageView womenV = new ImageView(women);
   ImageView adminV = new ImageView(admin);
   ImageView adminBarV = new ImageView(adminBar);
+  ImageView summaryV = new ImageView(summaryB);
+  ImageView orderV = new ImageView(orderB);
+  ImageView userV = new ImageView(userB);
+  ImageView brandView = new ImageView(brandB);
+  ImageView productV = new ImageView(productB);
 
   VBox vertical = new VBox();
   StackPane adminPane = new StackPane();
@@ -1489,172 +1505,47 @@ public class View {
   private void AdminCall() {
     Scene AdminScene = new Scene(adminPane, 1280, 720);
     primaryStage.setScene(AdminScene);
-    TextField year = new TextField();
-    Button generate = new Button("Generate");
-    Text sales = new Text("Total Sales of                  by");
-    year.setPromptText("Year");
-    ComboBox<String> brand = new ComboBox<String>();
-    brand.getItems().addAll("All Brands", "Nike", "REGATTA", "Adidas", "Herschel", "Maybelline", "Silverworks");
-    month = new Text();
-
-    brand.setPromptText("Brand");
-    brand.setMaxHeight(40);
-    brand.setMaxWidth(130);
-    sales.setFont(Font.font("Madeleina Sans", 40));
-    sales.setFill(Color.rgb(255, 255, 255));
-    year.setMaxWidth(130);
-    year.setMaxHeight(40);
-
-    brand.setCellFactory(l -> new ListCell<String>() {
-      @Override
-      protected void updateItem(String item, boolean empty) {
-        super.updateItem(item, empty);
-
-        if (empty || item == null) {
-          setText(null);
-        } else {
-          setText(item.toString());
-          setFont(Font.font("Madeleina Sans", 30));
-        }
-      }
-    });
-
-    adminPane.getChildren().add(adminBarV);
-    adminPane.getChildren().add(sales);
-    adminPane.getChildren().add(brand);
-    adminPane.getChildren().add(year);
-    adminPane.getChildren().add(generate);
-
-    System.out.println(sales);
-    generate.setOnMousePressed(new EventHandler<MouseEvent>() {
-      public void handle(MouseEvent e) {
-        if (brand.getValue().equals("All Brands")) {
-          System.out.println("Entered Here!");
-          int counter = controller.getOlapAllBrands(year.getText()).size();
-          queryResult = new Text[counter];
-
-          int i = 0;
-          int j = 60;
-          for (i = 0; i < counter; i++) {
-            queryResult[i] = new Text(controller.getOlapAllBrands(year.getText()).get(i));
-            if (i % 2 != 0) {
-              System.out.println("Here?" + controller.getOlapAllBrands(year.getText()).get(i));
-              switch (controller.getOlapAllBrands(year.getText()).get(i)) {
-              case "1":
-                queryResult[i] = new Text("January");
-                break;
-              case "2":
-                queryResult[i] = new Text("February");
-                break;
-              case "3":
-                queryResult[i] = new Text("March");
-                break;
-              case "4":
-                queryResult[i] = new Text("April");
-                break;
-              case "5":
-                queryResult[i] = new Text("May");
-                break;
-              case "6":
-                queryResult[i] = new Text("June");
-                break;
-              case "7":
-                queryResult[i] = new Text("July");
-                break;
-              case "8":
-                queryResult[i] = new Text("August");
-                break;
-              case "9":
-                queryResult[i] = new Text("September");
-                break;
-              case "10":
-                queryResult[i] = new Text("October");
-                break;
-              case "11":
-                queryResult[i] = new Text("November");
-                break;
-              case "12":
-                queryResult[i] = new Text("December");
-                break;
-              }
-
-            }
-            adminPane.getChildren().add(queryResult[i]);
-            queryResult[i].setFont(Font.font("Madeleina Sans", 30));
-            StackPane.setMargin(queryResult[i], new Insets(0, 0, 0, j));
-            j += 130;
-          }
-        } else {
-          System.out.println("Entered Second!");
-          int counter = controller.getOlapOneBrand(brand.getValue(), year.getText()).size();
-          queryResult = new Text[counter];
-
-          int i = 0;
-          int j = 0;
-          for (i = 0; i < counter; i++) {
-            System.out.println("Entered Loop!");
-            queryResult[i] = new Text(controller.getOlapOneBrand(brand.getValue(), year.getText()).get(i));
-            if (i % 2 != 0) {
-              switch (controller.getOlapOneBrand(brand.getValue(), year.getText()).get(i)) {
-              case "1":
-                queryResult[i] = new Text("January");
-                break;
-              case "2":
-                queryResult[i] = new Text("February");
-                break;
-              case "3":
-                queryResult[i] = new Text("March");
-                break;
-              case "4":
-                queryResult[i] = new Text("April");
-                break;
-              case "5":
-                queryResult[i] = new Text("May");
-                break;
-              case "6":
-                queryResult[i] = new Text("June");
-                break;
-              case "7":
-                queryResult[i] = new Text("July");
-                break;
-              case "8":
-                queryResult[i] = new Text("August");
-                break;
-              case "9":
-                queryResult[i] = new Text("September");
-                break;
-              case "10":
-                queryResult[i] = new Text("October");
-                break;
-              case "11":
-                queryResult[i] = new Text("November");
-                break;
-              case "12":
-                queryResult[i] = new Text("December");
-                break;
-              }
-
-            }
-            adminPane.getChildren().add(queryResult[i]);
-            System.out.println("Done!");
-            queryResult[i].setFont(Font.font("Madeleina Sans", 30));
-            StackPane.setMargin(queryResult[i], new Insets(0, 0, 0, j));
-            j += 130;
-
-          }
-
-        }
-      }
-    });
-
-    StackPane.setMargin(adminBarV, new Insets(0, 0, 600, 0));
-    StackPane.setMargin(sales, new Insets(0, 135, 520, 0));
-    StackPane.setMargin(brand, new Insets(0, 0, 520, 0));
-    StackPane.setMargin(year, new Insets(0, 0, 520, 450));
-    StackPane.setMargin(generate, new Insets(0, 0, 400, 0));
-
-    //brand.getValue();
-    //year.getText();
-
+	
+	AnchorPane adminMenu = new AnchorPane();
+	adminMenu.getChildren().add(adminBarV);
+	adminMenu.getChildren().add(brandView);
+	adminMenu.getChildren().add(userV);
+	adminMenu.getChildren().add(summaryV);
+	adminMenu.getChildren().add(orderV);
+	adminMenu.getChildren().add(productV);
+	
+	brandView.setOnMouseEntered(e->{
+		brandView.setImage(brandH);
+	});
+	brandView.setOnMouseExited(e->{
+		brandView.setImage(brandB);
+	});
+	userV.setOnMouseEntered(e->{
+		userV.setImage(userH);
+	});
+	userV.setOnMouseExited(e->{
+		userV.setImage(userB);
+	});
+	productV.setOnMouseEntered(e->{
+		productV.setImage(productH);
+	});
+	productV.setOnMouseExited(e->{
+		productV.setImage(productB);
+	});
+	summaryV.setOnMouseEntered(e->{
+		summaryV.setImage(summaryH);
+	});
+	summaryV.setOnMouseExited(e->{
+		summaryV.setImage(summaryB);
+	});
+	orderV.setOnMouseEntered(e->{
+		orderV.setImage(orderH);
+	});
+	orderV.setOnMouseExited(e->{
+		orderV.setImage(orderB);
+	});
+	
+	adminPane.getChildren().add(adminMenu);
+    
   }
 }
