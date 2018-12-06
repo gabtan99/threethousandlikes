@@ -86,4 +86,12 @@ public class Controller {
   public float getMyCartTotal() {
     return model.getMyCartTotal();
   }
+  
+  public ArrayList<String> getOlapAllBrands(String year){
+	  return model.getOlapAllBrands(year);
+  }
+  
+  public ArrayList<String> getOlapOneBrand(String brand, String year){
+	  return model.getOlapOneBrand(brand, year);
+  }
 }
