@@ -9,6 +9,7 @@ public class Controller {
   public Controller(Database m, Stage primaryStage) {
     model = m;
     view = new View(this, primaryStage);
+
   }
 
   public boolean registerUser(String email, String password, String last_name, String first_name, String contact_number,
@@ -79,6 +80,14 @@ public class Controller {
     return model.getAllBrands();
   }
 
+  public ArrayList<Order> getAllOrders() {
+    return model.getAllOrders();
+  }
+
+  public ArrayList<User> getAllUsers() {
+    return model.getAllUsers();
+  }
+
   public ArrayList<Product> getProductsOfBrand(int brand_id) {
     return model.getProductsOfBrand(brand_id);
   }
@@ -86,12 +95,28 @@ public class Controller {
   public float getMyCartTotal() {
     return model.getMyCartTotal();
   }
-  
-  public ArrayList<String> getOlapAllBrands(String year){
-	  return model.getOlapAllBrands(year);
+
+  public ArrayList<String> getOlapAllBrands(String year) {
+    return model.getOlapAllBrands(year);
   }
-  
-  public ArrayList<String> getOlapOneBrand(String brand, String year){
-	  return model.getOlapOneBrand(brand, year);
+
+  public ArrayList<String> getOlapOneBrand(String brand, String year) {
+    return model.getOlapOneBrand(brand, year);
   }
+
+  public boolean addNewProduct(String product_name, String brand_name, float price, String classification,
+      String apparel_type) {
+    if (model.addNewProduct(product_name, brand_name, price, classification, apparel_type))
+      return true;
+    else
+      return false;
+  }
+
+  public boolean addNewBrand(String brand_name, String address, String email, String contact_number) {
+    if (model.addNewBrand(brand_name, address, email, contact_number))
+      return true;
+    else
+      return false;
+  }
+
 }

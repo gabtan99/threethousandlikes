@@ -58,7 +58,7 @@ public class Database {
   public boolean registerUser(String email, String password, String first_name, String last_name, String contact_number,
       String gender) {
 
-    int newusercount = getUserCount() + 1;
+    int newusercount = getNewUserID();
     String addNewUser = "INSERT INTO `zaloradb`.`useraccounts` (`user_id`, `email`, `password`, `first_name`, `last_name`, `contact_number`, `gender`, `register_date`)";
     addNewUser = addNewUser + "VALUES ('" + newusercount + "', '" + email + "', '" + password + "', '" + first_name
         + "', '" + last_name + "', '" + contact_number + "', '" + gender + "', '" + getDate() + "')";
@@ -86,51 +86,50 @@ public class Database {
     currentUser.setContact_number(null);
     currentUser.setEmail(null);
   }
-  
-  public ArrayList<String> getOlapAllBrands(String year)
-  {
-	  String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_id WHERE YEAR(orderdetails.order_date) = "
-		+ year + " GROUP BY MONTH(orderdetails.order_date);";
-		
-	  ArrayList<String> results = new ArrayList<String>();
-	  
-	  try{
-		  ResultSet rs = stmt.executeQuery(returnResults);
-		  
-		  while (rs.next()){
-			  results.add(rs.getString("quantity"));
-			  results.add(rs.getString("month"));
-		  }
-	  } catch (SQLException e){
-		System.out.println("SQLException: " + e.getMessage());
-		System.out.println("SQLState: " + e.getSQLState());
-		System.out.println("VendorError: " + e.getErrorCode());
-	  }
-	  
-	  return results;
+
+  public ArrayList<String> getOlapAllBrands(String year) {
+    String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_id WHERE YEAR(orderdetails.order_date) = "
+        + year + " GROUP BY MONTH(orderdetails.order_date);";
+
+    ArrayList<String> results = new ArrayList<String>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnResults);
+
+      while (rs.next()) {
+        results.add(rs.getString("quantity"));
+        results.add(rs.getString("month"));
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+    return results;
   }
-  
-  public ArrayList<String> getOlapOneBrand(String brand, String year)
-  {
-	  String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_date " + 
-	  "INNER JOIN products ON products.product_id = carts.product_id INNER JOIN brands ON brands.brand_id = products.brand_id WHERE YEAR(orderdetails.order_date) = " + year + " AND brands.brand_name LIKE '%" + 
-	  brand + "%' GROUP BY brands.brand_id, MONTH(orderdetails.order_date);";
-	  
-	  ArrayList<String> results = new ArrayList<String>();
-	  
-	  try{
-		  ResultSet rs = stmt.executeQuery(returnResults);
-		  while(rs.next()){
-			results.add(rs.getString("quantity"));
-			results.add(rs.getString("month"));
-		  }
-	  }catch (SQLException e){
-		System.out.println("SQLException: " + e.getMessage());
-		System.out.println("SQLState: " + e.getSQLState());
-		System.out.println("VendorError: " + e.getErrorCode());  
-	  }
-	  
-	  return results;
+
+  public ArrayList<String> getOlapOneBrand(String brand, String year) {
+    String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_date "
+        + "INNER JOIN products ON products.product_id = carts.product_id INNER JOIN brands ON brands.brand_id = products.brand_id WHERE YEAR(orderdetails.order_date) = "
+        + year + " AND brands.brand_name LIKE '%" + brand
+        + "%' GROUP BY brands.brand_id, MONTH(orderdetails.order_date);";
+
+    ArrayList<String> results = new ArrayList<String>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnResults);
+      while (rs.next()) {
+        results.add(rs.getString("quantity"));
+        results.add(rs.getString("month"));
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+    return results;
   }
 
   public ArrayList<Product> getProductsWithKeyword(String keyword) {
@@ -506,24 +505,70 @@ public class Database {
     return newID;
   }
 
-  public int getUserCount() {
+  public int getNewProductID() {
+    String returnMaxProductID = "SELECT MAX(product_id) as 'max' FROM products";
 
-    String returnUserCount = "SELECT COUNT(user_id) as 'usercount' FROM useraccounts";
-
-    int count = 0;
+    int newID = 0;
 
     try {
-      ResultSet rs = stmt.executeQuery(returnUserCount);
+      ResultSet rs = stmt.executeQuery(returnMaxProductID);
+
       while (rs.next()) {
-        count = rs.getInt("usercount");
+        newID = rs.getInt("max");
+        newID++;
       }
+
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
       System.out.println("VendorError: " + e.getErrorCode());
     }
 
-    return count;
+    return newID;
+  }
+
+  public int getNewUserID() {
+    String returnMaxUserID = "SELECT MAX(user_id) as 'max' FROM useraccounts";
+
+    int newID = 0;
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnMaxUserID);
+
+      while (rs.next()) {
+        newID = rs.getInt("max");
+        newID++;
+      }
+
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+    return newID;
+  }
+
+  public int getNewBrandID() {
+    String returnMaxBrandID = "SELECT MAX(brand_id) as 'max' FROM carts";
+
+    int newID = 0;
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnMaxBrandID);
+
+      while (rs.next()) {
+        newID = rs.getInt("max");
+        newID++;
+      }
+
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+    return newID;
   }
 
   public User getCurrentUser() {
@@ -548,6 +593,112 @@ public class Database {
     }
 
     return date;
+  }
+
+  public ArrayList<User> getAllUsers() {
+    String returnAllUsers = "SELECT * FROM useraccounts";
+    ArrayList<User> temp = new ArrayList<User>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnAllUsers);
+
+      while (rs.next()) {
+        User tuser = new User(rs.getInt("user_id"), rs.getString("email"), rs.getString("password"),
+            rs.getString("first_name"), rs.getString("last_name"), rs.getString("contact_number"),
+            rs.getString("gender"), rs.getString("register_date"));
+
+        temp.add(tuser);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public ArrayList<Order> getAllOrders() {
+    String returnAllOrders = "SELECT * FROM orderdetails";
+    ArrayList<Order> temp = new ArrayList<Order>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnAllOrders);
+
+      while (rs.next()) {
+        Order torder = new Order(rs.getInt("order_id"), rs.getString("payment_method"), rs.getString("order_date"),
+            rs.getString("shipping_address"), rs.getString("billing_address"), rs.getFloat("total_amount"),
+            rs.getInt("user_id"));
+        temp.add(torder);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public boolean addNewBrand(String brand_name, String address, String email, String contact_number) {
+    String addNewBrand = "INSERT INTO `zaloradb`.`brands` (`brand_id`, `brand_name`, `address`, `email`, `contact_number`) VALUES ('"
+        + getNewBrandID() + "', '" + brand_name + "', '" + address + "', '" + email + "', '" + contact_number + "')";
+
+    try {
+      stmt.executeUpdate(addNewBrand);
+
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+      return false;
+    }
+
+    return true;
+  }
+
+  public boolean addNewProduct(String product_name, String brand_name, float price, String classification,
+      String apparel_type) {
+
+    int brand_id = verifyBrand(brand_name);
+
+    if (brand_id != 0) {
+
+      String addNewProduct = "INSERT INTO `zaloradb`.`products` (`product_id`, `product_name`, `brand_id`, `price`, `classification`, `apparel_type`) VALUES ('"
+          + getNewProductID() + "', '" + product_name + "', '" + brand_id + "', '" + price + "', '" + classification
+          + "', '" + apparel_type + "')";
+
+      try {
+        stmt.executeUpdate(addNewProduct);
+      } catch (SQLException e) {
+        System.out.println("SQLException: " + e.getMessage());
+        System.out.println("SQLState: " + e.getSQLState());
+        System.out.println("VendorError: " + e.getErrorCode());
+        return false;
+      }
+
+      return true;
+
+    }
+
+    return false;
+  }
+
+  public int verifyBrand(String brand_name) {
+    String verifyBrand = "SELECT brand_id FROM brands WHERE brand_name = '" + brand_name + "'";
+
+    try {
+      ResultSet rs = stmt.executeQuery(verifyBrand);
+
+      if (rs.next()) {
+        return rs.getInt("brand_id");
+      }
+
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+    return 0;
   }
 
 }

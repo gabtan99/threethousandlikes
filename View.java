@@ -132,7 +132,7 @@ public class View {
   Image admin = new Image("images/Admin.png");
   Image admin2 = new Image("images/AdminButton.png");
   Image adminBar = new Image("images/adminBars.png");
-  
+
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
   ImageView shoes = new ImageView(ShoesIcon);
@@ -184,7 +184,6 @@ public class View {
   ImageView womenV = new ImageView(women);
   ImageView adminV = new ImageView(admin);
   ImageView adminBarV = new ImageView(adminBar);
-  
 
   VBox vertical = new VBox();
   StackPane adminPane = new StackPane();
@@ -258,65 +257,61 @@ public class View {
 
         clearPage();
         viewAllProductsPage();
+      } else {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Action Can't be Done");
+        alert.setHeaderText("Incorrect Email/Password");
+        alert.setContentText("Please enter a valid Email and/or Password");
+
+        alert.showAndWait();
       }
-	  else{
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Action Can't be Done");
-		alert.setHeaderText("Incorrect Email/Password");
-		alert.setContentText("Please enter a valid Email and/or Password");
-		
-		alert.showAndWait();
-	  }
     });
 
     registerV.setOnMouseClicked(e -> {
       primaryStage.setScene(registerScene);
     });
-	adminV.setOnMouseClicked(new EventHandler<MouseEvent>(){
-		public void handle(MouseEvent me)
-			{
-				AnchorPane promptPane = new AnchorPane();
-				Scene promptScene = new Scene(promptPane, 300, 300);
-				Stage subStage = new Stage();
-				subStage.setTitle("Admin Password");
-				PasswordField passed = new PasswordField();
-				Text passwordText = new Text("Password: ");
-				Button confirmpw = new Button("Confirm");
-				passwordText.setFont(Font.font("Madeleina Sans", 20));
-				
-				confirmpw.setOnMousePressed(new EventHandler<MouseEvent>(){
-					public void handle(MouseEvent e){
-						if(passed.getText().equals("password"))
-							AdminCall();
-						subStage.close();
-					}
-				});
-			
-				
-				passed.setMaxWidth(220);
-				promptPane.getChildren().add(passed);
-				promptPane.getChildren().add(passwordText);
-				promptPane.getChildren().add(confirmpw);
-			
-				//promptPane.setLeftAnchor(pw, 50.0);
-				promptPane.setBottomAnchor(passwordText, 180.0);
-				promptPane.setLeftAnchor(passwordText, 70.0);
-				promptPane.setTopAnchor(passed, 130.0);
-				promptPane.setLeftAnchor(passed, 70.0);
-				promptPane.setLeftAnchor(confirmpw, 110.0);
-				promptPane.setTopAnchor(confirmpw, 200.0);
-				
-				
-				subStage.setScene(promptScene);
-				subStage.show();	
-			}
-	});
-	adminV.setOnMouseEntered(e->{
-		adminV.setImage(admin2);
-	});
-	adminV.setOnMouseExited(e->{
-		adminV.setImage(admin);
-	});
+    adminV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      public void handle(MouseEvent me) {
+        AnchorPane promptPane = new AnchorPane();
+        Scene promptScene = new Scene(promptPane, 300, 300);
+        Stage subStage = new Stage();
+        subStage.setTitle("Admin Password");
+        PasswordField passed = new PasswordField();
+        Text passwordText = new Text("Password: ");
+        Button confirmpw = new Button("Confirm");
+        passwordText.setFont(Font.font("Madeleina Sans", 20));
+
+        confirmpw.setOnMousePressed(new EventHandler<MouseEvent>() {
+          public void handle(MouseEvent e) {
+            if (passed.getText().equals("password"))
+              AdminCall();
+            subStage.close();
+          }
+        });
+
+        passed.setMaxWidth(220);
+        promptPane.getChildren().add(passed);
+        promptPane.getChildren().add(passwordText);
+        promptPane.getChildren().add(confirmpw);
+
+        //promptPane.setLeftAnchor(pw, 50.0);
+        AnchorPane.setBottomAnchor(passwordText, 180.0);
+        AnchorPane.setLeftAnchor(passwordText, 70.0);
+        AnchorPane.setTopAnchor(passed, 130.0);
+        AnchorPane.setLeftAnchor(passed, 70.0);
+        AnchorPane.setLeftAnchor(confirmpw, 110.0);
+        AnchorPane.setTopAnchor(confirmpw, 200.0);
+
+        subStage.setScene(promptScene);
+        subStage.show();
+      }
+    });
+    adminV.setOnMouseEntered(e -> {
+      adminV.setImage(admin2);
+    });
+    adminV.setOnMouseExited(e -> {
+      adminV.setImage(admin);
+    });
 
     StackPane.setMargin(username, new Insets(0, 0, 115, 100));
     StackPane.setMargin(password, new Insets(45, 0, 0, 100));
@@ -326,7 +321,7 @@ public class View {
     loginPane.getChildren().add(username);
     loginPane.getChildren().add(password);
     loginPane.getChildren().add(registerV);
-	loginPane.getChildren().add(adminV);
+    loginPane.getChildren().add(adminV);
 
     ////////////////// REGISTER PAGE ///////////////////////
     TextField last_name = new TextField();
@@ -388,9 +383,9 @@ public class View {
     TextField searchText = new TextField();
     searchText.setMaxWidth(500);
     searchText.setMaxHeight(45);
-	
+
     StackPane.setMargin(searchText, new Insets(0, 150, 70, 0));
-	StackPane.setMargin(search, new Insets(0, 0, 49, 420));
+    StackPane.setMargin(search, new Insets(0, 0, 49, 420));
 
     menu.setStyle("-fx-background-color: #E6E7E7");
     menu.getChildren().add(barsV);
@@ -400,7 +395,7 @@ public class View {
     menu.getChildren().add(cart);
     menu.getChildren().add(order);
     menu.getChildren().add(searchText);
-	menu.getChildren().add(brandV);
+    menu.getChildren().add(brandV);
     menu.getChildren().addAll(clothesV, shoesV, bagsV, beautyV, accV, sportsV, menV, womenV);
 
     //////////////// BUTTONS ////////////////////
@@ -459,42 +454,42 @@ public class View {
       clearPage();
       viewProductsUnderAType("Sports");
     });
-	
-	menV.setOnMouseClicked(e->{
-		clearPage();
-		viewProductsForMen();
-	});
-	
-	womenV.setOnMouseClicked(e->{
-		clearPage();
-		viewProductsForWomen();
-	});
-	
-	brandV.setOnMouseClicked(e->{
-		clearPage();
-		viewAllBrands();
-	});
+
+    menV.setOnMouseClicked(e -> {
+      clearPage();
+      viewProductsForMen();
+    });
+
+    womenV.setOnMouseClicked(e -> {
+      clearPage();
+      viewProductsForWomen();
+    });
+
+    brandV.setOnMouseClicked(e -> {
+      clearPage();
+      viewAllBrands();
+    });
 
     ////////////////////////////////////////////////////////
-	brandV.setOnMouseEntered(e->{
-		brandV.setImage(brand2);
-	});
-	brandV.setOnMouseExited(e->{
-		brandV.setImage(brand);
-	});
-	menV.setOnMouseEntered(e->{
-		menV.setImage(men2);
-	});
-	menV.setOnMouseExited(e->{
-		menV.setImage(men);
-	});
-	
-	womenV.setOnMouseEntered(e->{
-		womenV.setImage(women2);
-	});
-	womenV.setOnMouseExited(e->{
-		womenV.setImage(women);
-	});
+    brandV.setOnMouseEntered(e -> {
+      brandV.setImage(brand2);
+    });
+    brandV.setOnMouseExited(e -> {
+      brandV.setImage(brand);
+    });
+    menV.setOnMouseEntered(e -> {
+      menV.setImage(men2);
+    });
+    menV.setOnMouseExited(e -> {
+      menV.setImage(men);
+    });
+
+    womenV.setOnMouseEntered(e -> {
+      womenV.setImage(women2);
+    });
+    womenV.setOnMouseExited(e -> {
+      womenV.setImage(women);
+    });
 
     sportsV.setOnMouseEntered(e -> {
       sportsV.setImage(sportsH);
@@ -739,8 +734,8 @@ public class View {
     productpic = new ImageView[count];
     producttextflow = new TextFlow[count];
     productname = new Text[count];
-	productprice = new Text[count];
-	productclassify = new Text[count];
+    productprice = new Text[count];
+    productclassify = new Text[count];
     productquantity = new TextField[count];
     productaddbutton = new Button[count];
 
@@ -748,10 +743,10 @@ public class View {
 
       productname[i] = new Text(controller.getAllProducts().get(i).getProduct_name());
       productname[i].setFont(Font.font("Madeleina Sans", 20));
-	  productprice[i] = new Text("Php " + controller.getAllProducts().get(i).getPrice());
-	  productprice[i].setFont(Font.font("Madeleina Sans", 20));
-	  productclassify[i] = new Text(controller.getAllProducts().get(i).getClassification());
-	  productclassify[i].setFont(Font.font("Madeleina Sans", 20));
+      productprice[i] = new Text("Php " + controller.getAllProducts().get(i).getPrice());
+      productprice[i].setFont(Font.font("Madeleina Sans", 20));
+      productclassify[i] = new Text(controller.getAllProducts().get(i).getClassification());
+      productclassify[i].setFont(Font.font("Madeleina Sans", 20));
 
       producttextflow[i] = new TextFlow(productname[i]);
       producttextflow[i].setPrefWidth(190);
@@ -793,14 +788,14 @@ public class View {
 
       productpane[i].getChildren().add(productquantity[i]);
       productpane[i].getChildren().add(productpic[i]);
-	  productpane[i].getChildren().add(productprice[i]);
-	  productpane[i].getChildren().add(productclassify[i]);
+      productpane[i].getChildren().add(productprice[i]);
+      productpane[i].getChildren().add(productclassify[i]);
       productpane[i].getChildren().add(producttextflow[i]);
       productpane[i].getChildren().add(productaddbutton[i]);
 
-	  AnchorPane.setBottomAnchor(productclassify[i], 22.0);
-	  AnchorPane.setLeftAnchor(productclassify[i], 120.0);
-	  AnchorPane.setBottomAnchor(productprice[i], 20.0);
+      AnchorPane.setBottomAnchor(productclassify[i], 22.0);
+      AnchorPane.setLeftAnchor(productclassify[i], 120.0);
+      AnchorPane.setBottomAnchor(productprice[i], 20.0);
       AnchorPane.setTopAnchor(producttextflow[i], 210.0);
       AnchorPane.setTopAnchor(productquantity[i], 280.0);
       AnchorPane.setRightAnchor(productquantity[i], 85.0);
@@ -981,7 +976,6 @@ public class View {
     orderdetails = new Text[n];
 
     productgrid = new TilePane[n];
-	
 
     for (int i = 0; i < n; i++) {
       String getOrderHistory = "Order ID: " + controller.getOrderHistory().get(i).getOrder_id();
@@ -995,7 +989,7 @@ public class View {
       getOrderHistory = getOrderHistory + "\nTotal: " + controller.getOrderHistory().get(i).getTotal_amount();
 
       orderdetails[i] = new Text(getOrderHistory);
-	  orderdetails[i].setFont(Font.font("Madeleina Sans", 25));
+      orderdetails[i].setFont(Font.font("Madeleina Sans", 25));
       orderHistoryPage.getChildren().add(orderdetails[i]);
 
       ////////////////////////////////
@@ -1048,7 +1042,7 @@ public class View {
         String q = "Qty: ";
         q = q + Integer.toString(prod.get(j).getQuantity()) + "\n";
         productorderquantity[j] = new Text(q);
-		productorderquantity[j].setFont(Font.font("Madeleina Sans", 20));
+        productorderquantity[j].setFont(Font.font("Madeleina Sans", 20));
 
         productpane[j] = new AnchorPane();
 
@@ -1101,7 +1095,7 @@ public class View {
     Text ship = new Text("Shipping Address:");
     Text bill = new Text("Billing Address:");
     Text total = new Text("TOTAL:");
-	Text cartTotal = new Text(" " + controller.getMyCartTotal());
+    Text cartTotal = new Text(" " + controller.getMyCartTotal());
     TextField ShippingAddress = new TextField();
     TextField BillingAddress = new TextField();
     ShippingAddress.setMaxWidth(540);
@@ -1112,8 +1106,8 @@ public class View {
     bill.setFont(Font.font("Madeleina Sans", 25));
     total.setFont(Font.font("Madeleina Sans", 35));
     cartTotal.setFont(Font.font("Madeleina Sans", 35));
-	AnchorPane.setLeftAnchor(cartTotal, 700.00);
-	AnchorPane.setTopAnchor(cartTotal, 400.0);
+    AnchorPane.setLeftAnchor(cartTotal, 700.00);
+    AnchorPane.setTopAnchor(cartTotal, 400.0);
     AnchorPane.setLeftAnchor(total, 700.0);
     AnchorPane.setTopAnchor(total, 300.0);
     AnchorPane.setLeftAnchor(bill, 700.0);
@@ -1134,7 +1128,7 @@ public class View {
       cartPane.getChildren().add(bill);
       cartPane.getChildren().add(payment);
       cartPane.getChildren().add(total);
-	  cartPane.getChildren().add(cartTotal);
+      cartPane.getChildren().add(cartTotal);
       cartPane.getChildren().add(checkOutV);
 
     }
@@ -1206,7 +1200,7 @@ public class View {
       checkOutV.setImage(checkout);
     });
     checkOutV.setOnMouseClicked(e -> {
-		System.out.println(payment.getValue());
+      System.out.println(payment.getValue());
       if (controller.checkoutCart(payment.getValue(), ShippingAddress.getText(), BillingAddress.getText())) {
         clearPage();
         viewMyCart();
@@ -1491,191 +1485,176 @@ public class View {
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
   }
-  
-  private void AdminCall()
-  {
-	  Scene AdminScene = new Scene(adminPane, 1280, 720);
-	  primaryStage.setScene(AdminScene);
-	  TextField year = new TextField();
-	  Button generate = new Button("Generate");
-	  Text sales = new Text("Total Sales of                  by");
-	  year.setPromptText("Year");
-	  ComboBox<String> brand = new ComboBox<String>();
-	  brand.getItems().addAll("All Brands", "Nike", "REGATTA", "Adidas", "Herschel", "Maybelline", "Silverworks");
-	  month = new Text();
-	  
-	  brand.setPromptText("Brand");
-	  brand.setMaxHeight(40);
-	  brand.setMaxWidth(130);
-	  sales.setFont(Font.font("Madeleina Sans", 40));
-	  sales.setFill(Color.rgb(255, 255, 255));
-	  year.setMaxWidth(130);
-	  year.setMaxHeight(40);
-	
-	  brand.setCellFactory(l -> new ListCell<String>() {
-        @Override
-        protected void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
 
-            if (empty || item == null) {
-                setText(null);
-            } else {
-                setText(item.toString());
-                setFont(Font.font("Madeleina Sans", 30));
-            }
+  private void AdminCall() {
+    Scene AdminScene = new Scene(adminPane, 1280, 720);
+    primaryStage.setScene(AdminScene);
+    TextField year = new TextField();
+    Button generate = new Button("Generate");
+    Text sales = new Text("Total Sales of                  by");
+    year.setPromptText("Year");
+    ComboBox<String> brand = new ComboBox<String>();
+    brand.getItems().addAll("All Brands", "Nike", "REGATTA", "Adidas", "Herschel", "Maybelline", "Silverworks");
+    month = new Text();
+
+    brand.setPromptText("Brand");
+    brand.setMaxHeight(40);
+    brand.setMaxWidth(130);
+    sales.setFont(Font.font("Madeleina Sans", 40));
+    sales.setFill(Color.rgb(255, 255, 255));
+    year.setMaxWidth(130);
+    year.setMaxHeight(40);
+
+    brand.setCellFactory(l -> new ListCell<String>() {
+      @Override
+      protected void updateItem(String item, boolean empty) {
+        super.updateItem(item, empty);
+
+        if (empty || item == null) {
+          setText(null);
+        } else {
+          setText(item.toString());
+          setFont(Font.font("Madeleina Sans", 30));
         }
-	  });
+      }
+    });
 
-	  adminPane.getChildren().add(adminBarV);
-	  adminPane.getChildren().add(sales);
-	  adminPane.getChildren().add(brand);
-	  adminPane.getChildren().add(year);
-	  adminPane.getChildren().add(generate);
-	  
-	  
-	  System.out.println(sales);
-	  generate.setOnMousePressed(new EventHandler<MouseEvent>(){
-		public void handle(MouseEvent e){
-			if(brand.getValue().equals("All Brands"))
-			{
-				System.out.println("Entered Here!");
-				int counter = controller.getOlapAllBrands(year.getText()).size();
-				queryResult = new Text[counter];
-				
-				int i = 0;
-				int j = 60;
-				for(i = 0; i<counter; i++)
-				{
-					queryResult[i] = new Text(controller.getOlapAllBrands(year.getText()).get(i));
-					if(i%2 != 0)
-					{
-						System.out.println("Here?" + controller.getOlapAllBrands(year.getText()).get(i));
-						switch(controller.getOlapAllBrands(year.getText()).get(i))
-						{
-							case "1":
-								queryResult[i] = new Text("January");
-								break;
-							case "2":
-								queryResult[i] = new Text("February");
-								break;
-							case "3":
-								queryResult[i] = new Text("March");
-								break;
-							case "4":
-								queryResult[i] = new Text("April");
-								break;
-							case "5":
-								queryResult[i] = new Text("May");
-								break;
-							case "6":
-								queryResult[i] = new Text("June");
-								break;
-							case "7":
-								queryResult[i] = new Text("July");
-								break;
-							case "8":
-								queryResult[i] = new Text("August");
-								break;
-							case "9":
-								queryResult[i] = new Text("September");
-								break;
-							case "10":
-								queryResult[i] = new Text("October");
-								break;
-							case "11":
-								queryResult[i] = new Text("November");
-								break;
-							case "12":
-								queryResult[i] = new Text("December");
-								break;
-						}
-						
-					}	
-					adminPane.getChildren().add(queryResult[i]);
-					queryResult[i].setFont(Font.font("Madeleina Sans", 30));
-					adminPane.setMargin(queryResult[i], new Insets(0, 0, 0, j));
-					j+=130;
-				}
-			}
-			else{
-				System.out.println("Entered Second!");
-				int counter = controller.getOlapOneBrand(brand.getValue(), year.getText()).size();
-				queryResult = new Text[counter];
-				
-				int i = 0;
-				int j = 0;
-				for(i=0; i<counter; i++)
-				{System.out.println("Entered Loop!");
-					queryResult[i] = new Text(controller.getOlapOneBrand(brand.getValue(), year.getText()).get(i));
-					if(i%2 != 0)
-					{
-						switch(controller.getOlapOneBrand(brand.getValue() ,year.getText()).get(i))
-						{
-							case "1":
-								queryResult[i] = new Text("January");
-								break;
-							case "2":
-								queryResult[i] = new Text("February");
-								break;
-							case "3":
-								queryResult[i] = new Text("March");
-								break;
-							case "4":
-								queryResult[i] = new Text("April");
-								break;
-							case "5":
-								queryResult[i] = new Text("May");
-								break;
-							case "6":
-								queryResult[i] = new Text("June");
-								break;
-							case "7":
-								queryResult[i] = new Text("July");
-								break;
-							case "8":
-								queryResult[i] = new Text("August");
-								break;
-							case "9":
-								queryResult[i] = new Text("September");
-								break;
-							case "10":
-								queryResult[i] = new Text("October");
-								break;
-							case "11":
-								queryResult[i] = new Text("November");
-								break;
-							case "12":
-								queryResult[i] = new Text("December");
-								break;
-						}
-						
-					}	
-					adminPane.getChildren().add(queryResult[i]);
-					System.out.println("Done!");
-					queryResult[i].setFont(Font.font("Madeleina Sans", 30));
-					adminPane.setMargin(queryResult[i], new Insets(0, 0, 0, j));
-					j+=130;
-					
-				}
-				
-			}
-		}
-	});
-	
-		
-	  
-	  adminPane.setMargin(adminBarV, new Insets(0, 0, 600, 0));
-	  adminPane.setMargin(sales, new Insets(0, 135, 520, 0));
-	  adminPane.setMargin(brand, new Insets(0, 0, 520, 0));
-	  adminPane.setMargin(year, new Insets(0, 0, 520, 450));
-	  adminPane.setMargin(generate, new Insets(0, 0, 400, 0));
-	  
-	  
-	  //brand.getValue();
-	  //year.getText();
-	  
-	 
+    adminPane.getChildren().add(adminBarV);
+    adminPane.getChildren().add(sales);
+    adminPane.getChildren().add(brand);
+    adminPane.getChildren().add(year);
+    adminPane.getChildren().add(generate);
 
-	  
+    System.out.println(sales);
+    generate.setOnMousePressed(new EventHandler<MouseEvent>() {
+      public void handle(MouseEvent e) {
+        if (brand.getValue().equals("All Brands")) {
+          System.out.println("Entered Here!");
+          int counter = controller.getOlapAllBrands(year.getText()).size();
+          queryResult = new Text[counter];
+
+          int i = 0;
+          int j = 60;
+          for (i = 0; i < counter; i++) {
+            queryResult[i] = new Text(controller.getOlapAllBrands(year.getText()).get(i));
+            if (i % 2 != 0) {
+              System.out.println("Here?" + controller.getOlapAllBrands(year.getText()).get(i));
+              switch (controller.getOlapAllBrands(year.getText()).get(i)) {
+              case "1":
+                queryResult[i] = new Text("January");
+                break;
+              case "2":
+                queryResult[i] = new Text("February");
+                break;
+              case "3":
+                queryResult[i] = new Text("March");
+                break;
+              case "4":
+                queryResult[i] = new Text("April");
+                break;
+              case "5":
+                queryResult[i] = new Text("May");
+                break;
+              case "6":
+                queryResult[i] = new Text("June");
+                break;
+              case "7":
+                queryResult[i] = new Text("July");
+                break;
+              case "8":
+                queryResult[i] = new Text("August");
+                break;
+              case "9":
+                queryResult[i] = new Text("September");
+                break;
+              case "10":
+                queryResult[i] = new Text("October");
+                break;
+              case "11":
+                queryResult[i] = new Text("November");
+                break;
+              case "12":
+                queryResult[i] = new Text("December");
+                break;
+              }
+
+            }
+            adminPane.getChildren().add(queryResult[i]);
+            queryResult[i].setFont(Font.font("Madeleina Sans", 30));
+            StackPane.setMargin(queryResult[i], new Insets(0, 0, 0, j));
+            j += 130;
+          }
+        } else {
+          System.out.println("Entered Second!");
+          int counter = controller.getOlapOneBrand(brand.getValue(), year.getText()).size();
+          queryResult = new Text[counter];
+
+          int i = 0;
+          int j = 0;
+          for (i = 0; i < counter; i++) {
+            System.out.println("Entered Loop!");
+            queryResult[i] = new Text(controller.getOlapOneBrand(brand.getValue(), year.getText()).get(i));
+            if (i % 2 != 0) {
+              switch (controller.getOlapOneBrand(brand.getValue(), year.getText()).get(i)) {
+              case "1":
+                queryResult[i] = new Text("January");
+                break;
+              case "2":
+                queryResult[i] = new Text("February");
+                break;
+              case "3":
+                queryResult[i] = new Text("March");
+                break;
+              case "4":
+                queryResult[i] = new Text("April");
+                break;
+              case "5":
+                queryResult[i] = new Text("May");
+                break;
+              case "6":
+                queryResult[i] = new Text("June");
+                break;
+              case "7":
+                queryResult[i] = new Text("July");
+                break;
+              case "8":
+                queryResult[i] = new Text("August");
+                break;
+              case "9":
+                queryResult[i] = new Text("September");
+                break;
+              case "10":
+                queryResult[i] = new Text("October");
+                break;
+              case "11":
+                queryResult[i] = new Text("November");
+                break;
+              case "12":
+                queryResult[i] = new Text("December");
+                break;
+              }
+
+            }
+            adminPane.getChildren().add(queryResult[i]);
+            System.out.println("Done!");
+            queryResult[i].setFont(Font.font("Madeleina Sans", 30));
+            StackPane.setMargin(queryResult[i], new Insets(0, 0, 0, j));
+            j += 130;
+
+          }
+
+        }
+      }
+    });
+
+    StackPane.setMargin(adminBarV, new Insets(0, 0, 600, 0));
+    StackPane.setMargin(sales, new Insets(0, 135, 520, 0));
+    StackPane.setMargin(brand, new Insets(0, 0, 520, 0));
+    StackPane.setMargin(year, new Insets(0, 0, 520, 450));
+    StackPane.setMargin(generate, new Insets(0, 0, 400, 0));
+
+    //brand.getValue();
+    //year.getText();
+
   }
 }

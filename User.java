@@ -9,7 +9,17 @@ public class User {
   private String gender;
   private String register_date;
 
-
+  public User(int user_id, String email, String password, String first_name, String last_name, String contact_number,
+      String gender, String register_date) {
+    this.user_id = user_id;
+    this.email = email;
+    this.password = password;
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.contact_number = contact_number;
+    this.gender = gender;
+    this.register_date = register_date;
+  }
 
   public User() {
     int user_id = 0;
