@@ -376,9 +376,12 @@ public class View {
     });
 
     sign.setOnMouseClicked(e -> {
-      if (controller.registerUser(email.getText(), password_register.getText(), last_name.getText(),
-          first_name.getText(), contact.getText().toString(), selectedgender))
-        primaryStage.setScene(loginScene);
+      if (!(email.getText().equals("") || password_register.getText().equals("") || last_name.getText().equals("")
+          || first_name.getText().equals("") || contact.getText().equals(""))) {
+        if (controller.registerUser(email.getText(), password_register.getText(), last_name.getText(),
+            first_name.getText(), contact.getText().toString(), selectedgender))
+          primaryStage.setScene(loginScene);
+      }
     });
 
     StackPane.setMargin(last_name, new Insets(0, 30, 135, 0));
@@ -825,13 +828,13 @@ public class View {
       productpane[i].getChildren().add(producttextflow[i]);
       productpane[i].getChildren().add(productaddbutton[i]);
 
-      AnchorPane.setBottomAnchor(productclassify[i], 22.0);
+      AnchorPane.setBottomAnchor(productclassify[i], 28.0);
       AnchorPane.setLeftAnchor(productclassify[i], 120.0);
-      AnchorPane.setBottomAnchor(productprice[i], 20.0);
+      AnchorPane.setBottomAnchor(productprice[i], 28.0);
       AnchorPane.setTopAnchor(producttextflow[i], 210.0);
-      AnchorPane.setTopAnchor(productquantity[i], 280.0);
+      AnchorPane.setTopAnchor(productquantity[i], 290.0);
       AnchorPane.setRightAnchor(productquantity[i], 85.0);
-      AnchorPane.setTopAnchor(productaddbutton[i], 280.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 290.0);
       AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
 
       grid.getChildren().add(productpane[i]);
@@ -859,10 +862,17 @@ public class View {
     productquantity = new TextField[count];
     productaddbutton = new Button[count];
 
+    productprice = new Text[count];
+    productclassify = new Text[count];
+
     for (int i = 0; i < count; i++) {
 
       productname[i] = new Text(controller.getProductsWithKeyword(keyword).get(i).getProduct_name());
       productname[i].setFont(Font.font("Madeleina Sans", 20));
+      productprice[i] = new Text("Php " + controller.getProductsWithKeyword(keyword).get(i).getPrice());
+      productprice[i].setFont(Font.font("Madeleina Sans", 20));
+      productclassify[i] = new Text(controller.getProductsWithKeyword(keyword).get(i).getClassification());
+      productclassify[i].setFont(Font.font("Madeleina Sans", 20));
 
       producttextflow[i] = new TextFlow(productname[i]);
       producttextflow[i].setPrefWidth(190);
@@ -905,11 +915,16 @@ public class View {
       productpane[i].getChildren().add(productpic[i]);
       productpane[i].getChildren().add(producttextflow[i]);
       productpane[i].getChildren().add(productaddbutton[i]);
+      productpane[i].getChildren().add(productprice[i]);
+      productpane[i].getChildren().add(productclassify[i]);
 
+      AnchorPane.setBottomAnchor(productclassify[i], 28.0);
+      AnchorPane.setLeftAnchor(productclassify[i], 120.0);
+      AnchorPane.setBottomAnchor(productprice[i], 28.0);
       AnchorPane.setTopAnchor(producttextflow[i], 210.0);
-      AnchorPane.setTopAnchor(productquantity[i], 253.0);
-      AnchorPane.setRightAnchor(productquantity[i], 95.0);
-      AnchorPane.setTopAnchor(productaddbutton[i], 253.0);
+      AnchorPane.setTopAnchor(productquantity[i], 290.0);
+      AnchorPane.setRightAnchor(productquantity[i], 85.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 290.0);
       AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
 
       grid.getChildren().add(productpane[i]);
@@ -934,6 +949,8 @@ public class View {
     productpic = new ImageView[count];
     producttextflow = new TextFlow[count];
     productname = new Text[count];
+    productprice = new Text[count];
+    productclassify = new Text[count];
     productquantity = new TextField[count];
     productaddbutton = new Button[count];
 
@@ -941,6 +958,10 @@ public class View {
 
       productname[i] = new Text(controller.getProductsUnderAType(AType).get(i).getProduct_name());
       productname[i].setFont(Font.font("Madeleina Sans", 20));
+      productprice[i] = new Text("Php " + controller.getProductsUnderAType(AType).get(i).getPrice());
+      productprice[i].setFont(Font.font("Madeleina Sans", 20));
+      productclassify[i] = new Text(controller.getProductsUnderAType(AType).get(i).getClassification());
+      productclassify[i].setFont(Font.font("Madeleina Sans", 20));
 
       producttextflow[i] = new TextFlow(productname[i]);
       producttextflow[i].setPrefWidth(190);
@@ -974,6 +995,7 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getProductsUnderAType(AType).get(n).getProduct_id(), q))
             System.out.print("Added");
+
         }
       });
 
@@ -981,17 +1003,23 @@ public class View {
 
       productpane[i].getChildren().add(productquantity[i]);
       productpane[i].getChildren().add(productpic[i]);
+      productpane[i].getChildren().add(productprice[i]);
+      productpane[i].getChildren().add(productclassify[i]);
       productpane[i].getChildren().add(producttextflow[i]);
       productpane[i].getChildren().add(productaddbutton[i]);
 
+      AnchorPane.setBottomAnchor(productclassify[i], 28.0);
+      AnchorPane.setLeftAnchor(productclassify[i], 120.0);
+      AnchorPane.setBottomAnchor(productprice[i], 28.0);
       AnchorPane.setTopAnchor(producttextflow[i], 210.0);
-      AnchorPane.setTopAnchor(productquantity[i], 253.0);
-      AnchorPane.setRightAnchor(productquantity[i], 95.0);
-      AnchorPane.setTopAnchor(productaddbutton[i], 253.0);
+      AnchorPane.setTopAnchor(productquantity[i], 290.0);
+      AnchorPane.setRightAnchor(productquantity[i], 85.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 290.0);
       AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
 
       grid.getChildren().add(productpane[i]);
     }
+
     scrollpane.setContent(grid);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
@@ -1100,7 +1128,6 @@ public class View {
 
   private void viewMyCart() {
 
-    System.out.println(controller.getCurrentCart().size());
     TilePane grid = new TilePane();
     AnchorPane cartPane = new AnchorPane();
 
@@ -1198,7 +1225,6 @@ public class View {
       productremovebutton[i].setOnMousePressed(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent e) {
           if (controller.removeFromCart(controller.getCurrentCart().get(n).getSession_ID())) {
-            System.out.print("Removed");
             clearPage();
             viewMyCart();
           }
@@ -1232,10 +1258,12 @@ public class View {
       checkOutV.setImage(checkout);
     });
     checkOutV.setOnMouseClicked(e -> {
-      System.out.println(payment.getValue());
-      if (controller.checkoutCart(payment.getValue(), ShippingAddress.getText(), BillingAddress.getText())) {
-        clearPage();
-        viewMyCart();
+
+      if (!(ShippingAddress.getText().equals("") || BillingAddress.getText().equals(""))) {
+        if (controller.checkoutCart(payment.getValue(), ShippingAddress.getText(), BillingAddress.getText())) {
+          clearPage();
+          viewMyCart();
+        }
       }
     });
 
@@ -1260,6 +1288,8 @@ public class View {
     productpic = new ImageView[count];
     producttextflow = new TextFlow[count];
     productname = new Text[count];
+    productprice = new Text[count];
+    productclassify = new Text[count];
     productquantity = new TextField[count];
     productaddbutton = new Button[count];
 
@@ -1267,6 +1297,10 @@ public class View {
 
       productname[i] = new Text(controller.getProductsUnderGender("Men").get(i).getProduct_name());
       productname[i].setFont(Font.font("Madeleina Sans", 20));
+      productprice[i] = new Text("Php " + controller.getProductsUnderGender("Men").get(i).getPrice());
+      productprice[i].setFont(Font.font("Madeleina Sans", 20));
+      productclassify[i] = new Text(controller.getProductsUnderGender("Men").get(i).getClassification());
+      productclassify[i].setFont(Font.font("Madeleina Sans", 20));
 
       producttextflow[i] = new TextFlow(productname[i]);
       producttextflow[i].setPrefWidth(190);
@@ -1300,6 +1334,7 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getProductsUnderGender("Men").get(n).getProduct_id(), q))
             System.out.print("Added");
+
         }
       });
 
@@ -1307,17 +1342,23 @@ public class View {
 
       productpane[i].getChildren().add(productquantity[i]);
       productpane[i].getChildren().add(productpic[i]);
+      productpane[i].getChildren().add(productprice[i]);
+      productpane[i].getChildren().add(productclassify[i]);
       productpane[i].getChildren().add(producttextflow[i]);
       productpane[i].getChildren().add(productaddbutton[i]);
 
+      AnchorPane.setBottomAnchor(productclassify[i], 28.0);
+      AnchorPane.setLeftAnchor(productclassify[i], 120.0);
+      AnchorPane.setBottomAnchor(productprice[i], 28.0);
       AnchorPane.setTopAnchor(producttextflow[i], 210.0);
-      AnchorPane.setTopAnchor(productquantity[i], 253.0);
-      AnchorPane.setRightAnchor(productquantity[i], 95.0);
-      AnchorPane.setTopAnchor(productaddbutton[i], 253.0);
+      AnchorPane.setTopAnchor(productquantity[i], 290.0);
+      AnchorPane.setRightAnchor(productquantity[i], 85.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 290.0);
       AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
 
       grid.getChildren().add(productpane[i]);
     }
+
     scrollpane.setContent(grid);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
@@ -1337,6 +1378,8 @@ public class View {
     productpic = new ImageView[count];
     producttextflow = new TextFlow[count];
     productname = new Text[count];
+    productprice = new Text[count];
+    productclassify = new Text[count];
     productquantity = new TextField[count];
     productaddbutton = new Button[count];
 
@@ -1344,6 +1387,10 @@ public class View {
 
       productname[i] = new Text(controller.getProductsUnderGender("Women").get(i).getProduct_name());
       productname[i].setFont(Font.font("Madeleina Sans", 20));
+      productprice[i] = new Text("Php " + controller.getProductsUnderGender("Women").get(i).getPrice());
+      productprice[i].setFont(Font.font("Madeleina Sans", 20));
+      productclassify[i] = new Text(controller.getProductsUnderGender("Women").get(i).getClassification());
+      productclassify[i].setFont(Font.font("Madeleina Sans", 20));
 
       producttextflow[i] = new TextFlow(productname[i]);
       producttextflow[i].setPrefWidth(190);
@@ -1377,6 +1424,7 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getProductsUnderGender("Women").get(n).getProduct_id(), q))
             System.out.print("Added");
+
         }
       });
 
@@ -1384,17 +1432,23 @@ public class View {
 
       productpane[i].getChildren().add(productquantity[i]);
       productpane[i].getChildren().add(productpic[i]);
+      productpane[i].getChildren().add(productprice[i]);
+      productpane[i].getChildren().add(productclassify[i]);
       productpane[i].getChildren().add(producttextflow[i]);
       productpane[i].getChildren().add(productaddbutton[i]);
 
+      AnchorPane.setBottomAnchor(productclassify[i], 28.0);
+      AnchorPane.setLeftAnchor(productclassify[i], 120.0);
+      AnchorPane.setBottomAnchor(productprice[i], 28.0);
       AnchorPane.setTopAnchor(producttextflow[i], 210.0);
-      AnchorPane.setTopAnchor(productquantity[i], 253.0);
-      AnchorPane.setRightAnchor(productquantity[i], 95.0);
-      AnchorPane.setTopAnchor(productaddbutton[i], 253.0);
+      AnchorPane.setTopAnchor(productquantity[i], 290.0);
+      AnchorPane.setRightAnchor(productquantity[i], 85.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 290.0);
       AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
 
       grid.getChildren().add(productpane[i]);
     }
+
     scrollpane.setContent(grid);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
@@ -1455,6 +1509,8 @@ public class View {
     productpic = new ImageView[count];
     producttextflow = new TextFlow[count];
     productname = new Text[count];
+    productprice = new Text[count];
+    productclassify = new Text[count];
     productquantity = new TextField[count];
     productaddbutton = new Button[count];
 
@@ -1462,6 +1518,10 @@ public class View {
 
       productname[i] = new Text(controller.getProductsOfBrand(brand_id).get(i).getProduct_name());
       productname[i].setFont(Font.font("Madeleina Sans", 20));
+      productprice[i] = new Text("Php " + controller.getProductsOfBrand(brand_id).get(i).getPrice());
+      productprice[i].setFont(Font.font("Madeleina Sans", 20));
+      productclassify[i] = new Text(controller.getProductsOfBrand(brand_id).get(i).getClassification());
+      productclassify[i].setFont(Font.font("Madeleina Sans", 20));
 
       producttextflow[i] = new TextFlow(productname[i]);
       producttextflow[i].setPrefWidth(190);
@@ -1495,6 +1555,7 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getProductsOfBrand(brand_id).get(n).getProduct_id(), q))
             System.out.print("Added");
+
         }
       });
 
@@ -1502,17 +1563,23 @@ public class View {
 
       productpane[i].getChildren().add(productquantity[i]);
       productpane[i].getChildren().add(productpic[i]);
+      productpane[i].getChildren().add(productprice[i]);
+      productpane[i].getChildren().add(productclassify[i]);
       productpane[i].getChildren().add(producttextflow[i]);
       productpane[i].getChildren().add(productaddbutton[i]);
 
+      AnchorPane.setBottomAnchor(productclassify[i], 28.0);
+      AnchorPane.setLeftAnchor(productclassify[i], 120.0);
+      AnchorPane.setBottomAnchor(productprice[i], 28.0);
       AnchorPane.setTopAnchor(producttextflow[i], 210.0);
-      AnchorPane.setTopAnchor(productquantity[i], 253.0);
-      AnchorPane.setRightAnchor(productquantity[i], 95.0);
-      AnchorPane.setTopAnchor(productaddbutton[i], 253.0);
+      AnchorPane.setTopAnchor(productquantity[i], 290.0);
+      AnchorPane.setRightAnchor(productquantity[i], 85.0);
+      AnchorPane.setTopAnchor(productaddbutton[i], 290.0);
       AnchorPane.setRightAnchor(productaddbutton[i], 1.0);
 
       grid.getChildren().add(productpane[i]);
     }
+
     scrollpane.setContent(grid);
     vertical.getChildren().add(scrollpane);
     VBox.setMargin(scrollpane, new Insets(0, 0, 0, 320));
@@ -1528,14 +1595,14 @@ public class View {
     TextField firstname = new TextField(controller.getCurrentUser().getFirst_name());
     TextField lastname = new TextField(controller.getCurrentUser().getLast_name());
     TextField email_user = new TextField(controller.getCurrentUser().getEmail());
-	PasswordField pw_user = new PasswordField();
+    PasswordField pw_user = new PasswordField();
     TextField contact_num = new TextField(controller.getCurrentUser().getContact_number());
     TextField sex = new TextField(controller.getCurrentUser().getGender());
 
     firstname.setMaxWidth(100);
     lastname.setMaxWidth(100);
     email_user.setMaxWidth(100);
-	pw_user.setMaxWidth(100);
+    pw_user.setMaxWidth(100);
     contact_num.setMaxWidth(100);
     sex.setMaxWidth(100);
 
@@ -1551,17 +1618,21 @@ public class View {
     StackPane.setMargin(firstname, new Insets(0, 100, 150, 0));
     StackPane.setMargin(lastname, new Insets(0, 0, 150, 130));
     StackPane.setMargin(email_user, new Insets(0, 0, 80, 130));
-	StackPane.setMargin(pw_user, new Insets(0, 0, 11, 130));
+    StackPane.setMargin(pw_user, new Insets(0, 0, 11, 130));
     StackPane.setMargin(contact_num, new Insets(55, 0, 0, 130));
     StackPane.setMargin(sex, new Insets(120, 0, 0, 130));
-	
 
     edited.setOnMousePressed(new EventHandler<MouseEvent>() {
       public void handle(MouseEvent e) {
-		controller.editUser(email_user.getText(), pw_user.getText(), firstname.getText(), lastname.getText(), contact_num.getText(), sex.getText());
-        accountStage.close();
-		//clearPage();
-		//viewAccountPage();
+
+        if (!(email_user.getText().equals("") || pw_user.getText().equals("") || firstname.getText().equals("")
+            || lastname.getText().equals("") || contact_num.getText().equals("") || sex.getText().equals(""))) {
+          controller.editUser(email_user.getText(), pw_user.getText(), firstname.getText(), lastname.getText(),
+              contact_num.getText(), sex.getText());
+          accountStage.close();
+          vertical.getChildren().remove(accountPage);
+          viewAccountPage();
+        }
       }
     });
 

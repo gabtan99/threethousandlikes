@@ -710,6 +710,12 @@ public class Database {
 
     try {
       stmt.executeUpdate(editUser);
+      currentUser.setEmail(email);
+      currentUser.setPassword(password);
+      currentUser.setFirst_name(first_name);
+      currentUser.setLast_name(last_name);
+      currentUser.setContact_number(contact_number);
+      currentUser.setGender(gender);
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
