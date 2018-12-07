@@ -95,12 +95,12 @@ public class Controller {
     return model.getMyCartTotal();
   }
 
-  public ArrayList<String> getOlapAllBrands(String year) {
-    return model.getOlapAllBrands(year);
+  public ArrayList<String> getOlapAllBrandsQuantity(String year) {
+    return model.getOlapAllBrandsQuantity(year);
   }
 
-  public ArrayList<String> getOlapOneBrand(String brand, String year) {
-    return model.getOlapOneBrand(brand, year);
+  public ArrayList<String> getOlapAllBrandsMonth(String year) {
+    return model.getOlapAllBrandsMonth(year);
   }
 
   public boolean addNewProduct(String product_name, String brand_name, float price, String classification,

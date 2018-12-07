@@ -16,7 +16,7 @@ public class Database {
   public Database() {
 
     //Connection attempt
-    try {
+    try{
       Class.forName(driver);
       conn = DriverManager.getConnection(url, user, pass);
       System.out.println("Connected to database : " + db);
@@ -56,8 +56,7 @@ public class Database {
     return false;
   }
 
-  public boolean registerUser(String email, String password, String first_name, String last_name, String contact_number,
-      String gender) {
+  public boolean registerUser(String email, String password, String first_name, String last_name, String contact_number, String gender) {
 
     int newusercount = getNewUserID();
     String addNewUser = "INSERT INTO `zaloradb`.`useraccounts` (`user_id`, `email`, `password`, `first_name`, `last_name`, `contact_number`, `gender`, `register_date`)";
@@ -88,7 +87,7 @@ public class Database {
     currentUser.setEmail(null);
   }
 
-  public ArrayList<String> getOlapAllBrands(String year) {
+  public ArrayList<String> getOlapAllBrandsQuantity(String year) {
     String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_id WHERE YEAR(orderdetails.order_date) = "
         + year + " GROUP BY MONTH(orderdetails.order_date);";
 
@@ -99,7 +98,6 @@ public class Database {
 
       while (rs.next()) {
         results.add(rs.getString("quantity"));
-        results.add(rs.getString("month"));
       }
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
@@ -110,18 +108,16 @@ public class Database {
     return results;
   }
 
-  public ArrayList<String> getOlapOneBrand(String brand, String year) {
-    String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_date "
-        + "INNER JOIN products ON products.product_id = carts.product_id INNER JOIN brands ON brands.brand_id = products.brand_id WHERE YEAR(orderdetails.order_date) = "
-        + year + " AND brands.brand_name LIKE '%" + brand
-        + "%' GROUP BY brands.brand_id, MONTH(orderdetails.order_date);";
+  public ArrayList<String> getOlapAllBrandsMonth(String year) {
+    String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_id WHERE YEAR(orderdetails.order_date) = "
+        + year + " GROUP BY MONTH(orderdetails.order_date);";
 
     ArrayList<String> results = new ArrayList<String>();
 
     try {
       ResultSet rs = stmt.executeQuery(returnResults);
+
       while (rs.next()) {
-        results.add(rs.getString("quantity"));
         results.add(rs.getString("month"));
       }
     } catch (SQLException e) {
