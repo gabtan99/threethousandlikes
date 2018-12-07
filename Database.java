@@ -194,7 +194,7 @@ public class Database {
   }
 
   public ArrayList<Product> getProductsUnderGender(String classification) {
-    String returnProductsUnderAType = "SELECT * FROM products WHERE classification = '" + classification + "'";
+    String returnProductsUnderAType = "v'" + classification + "'";
     ArrayList<Product> temp = new ArrayList<Product>();
 
     try {
@@ -307,7 +307,7 @@ public class Database {
 
   public ArrayList<Order> getOrderHistory() {
 
-    String returnOrderHistory = "SELECT orderdetails.* FROM orderdetails WHERE user_id = " + currentUser.getUser_id();
+    String returnOrderHistory = "  " + currentUser.getUser_id();
 
     ArrayList<Order> temp = new ArrayList<Order>();
 
@@ -547,7 +547,7 @@ public class Database {
   }
 
   public int getNewBrandID() {
-    String returnMaxBrandID = "SELECT MAX(brand_id) as 'max' FROM carts";
+    String returnMaxBrandID = "SELECT MAX(brand_id) as 'max' FROM brands";
 
     int newID = 0;
 
