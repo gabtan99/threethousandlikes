@@ -308,7 +308,7 @@ public class Database {
 
   public ArrayList<Order> getOrderHistory() {
 
-    String returnOrderHistory = "  " + currentUser.getUser_id();
+    String returnOrderHistory = " SELECT orderdetails.* FROM orderdetails  WHERE user_id = " + currentUser.getUser_id();
 
     ArrayList<Order> temp = new ArrayList<Order>();
 
@@ -482,7 +482,7 @@ public class Database {
   }
 
   public int getNewOrderID() {
-    String returnMaxOrderID = "SELECT MAX(order_id) as 'max' FROM carts";
+    String returnMaxOrderID = "SELECT MAX(order_id) as 'max' FROM orderdetails";
 
     int newID = 0;
 

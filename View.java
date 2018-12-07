@@ -1724,6 +1724,7 @@ public class View {
       table.setEditable(true);
       TableColumn<User, String> name_column = new TableColumn<User, String>("First Name");
       name_column.setCellValueFactory(new PropertyValueFactory<>("first_name"));
+
       TableColumn<User, String> last_column = new TableColumn<User, String>("Last Name");
       last_column.setCellValueFactory(new PropertyValueFactory<>("last_name"));
       TableColumn<User, String> mail_column = new TableColumn<User, String>("Email");
