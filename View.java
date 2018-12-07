@@ -385,7 +385,7 @@ public class View {
 
     sign.setOnMouseClicked(e -> {
       if (!(email.getText().equals("") || password_register.getText().length() < 6 || last_name.getText().equals("")
-          || first_name.getText().equals("") || contact.getText().length() < 11)) {
+          || first_name.getText().equals("") || contact.getText().length() != 11)) {
         if (controller.registerUser(email.getText(), password_register.getText(), last_name.getText(),
             first_name.getText(), contact.getText().toString(), selectedgender))
           primaryStage.setScene(loginScene);
@@ -1640,7 +1640,7 @@ public class View {
 
         if (confirmpw.getText().equals(controller.getCurrentUser().getPassword())
             && !(email_user.getText().equals("") || pw_user.getText().length() < 7 || firstname.getText().equals("")
-                || lastname.getText().equals("") || contact_num.getText().length() < 11 || sex.getText().equals(""))) {
+                || lastname.getText().equals("") || contact_num.getText().length() != 11 || sex.getText().equals(""))) {
           controller.editUser(email_user.getText(), pw_user.getText(), firstname.getText(), lastname.getText(),
               contact_num.getText(), sex.getText());
           accountStage.close();
