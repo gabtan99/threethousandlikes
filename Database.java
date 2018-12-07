@@ -16,7 +16,7 @@ public class Database {
   public Database() {
 
     //Connection attempt
-    try{
+    try {
       Class.forName(driver);
       conn = DriverManager.getConnection(url, user, pass);
       System.out.println("Connected to database : " + db);
@@ -56,7 +56,8 @@ public class Database {
     return false;
   }
 
-  public boolean registerUser(String email, String password, String first_name, String last_name, String contact_number, String gender) {
+  public boolean registerUser(String email, String password, String first_name, String last_name, String contact_number,
+      String gender) {
 
     int newusercount = getNewUserID();
     String addNewUser = "INSERT INTO `zaloradb`.`useraccounts` (`user_id`, `email`, `password`, `first_name`, `last_name`, `contact_number`, `gender`, `register_date`)";
@@ -194,7 +195,7 @@ public class Database {
   }
 
   public ArrayList<Product> getProductsUnderGender(String classification) {
-    String returnProductsUnderAType = "v'" + classification + "'";
+    String returnProductsUnderAType = "SELECT * FROM products WHERE classification = '" + classification + "'";
     ArrayList<Product> temp = new ArrayList<Product>();
 
     try {
