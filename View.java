@@ -1604,35 +1604,41 @@ public class View {
     PasswordField pw_user = new PasswordField();
     TextField contact_num = new TextField(controller.getCurrentUser().getContact_number());
     TextField sex = new TextField(controller.getCurrentUser().getGender());
+    PasswordField confirmpw = new PasswordField();
 
-    firstname.setMaxWidth(100);
-    lastname.setMaxWidth(100);
-    email_user.setMaxWidth(100);
-    pw_user.setMaxWidth(100);
-    contact_num.setMaxWidth(100);
-    sex.setMaxWidth(100);
+    firstname.setMaxWidth(150);
+    lastname.setMaxWidth(150);
+    email_user.setMaxWidth(150);
+    pw_user.setMaxWidth(150);
+    pw_user.setText(controller.getCurrentUser().getPassword());
+    contact_num.setMaxWidth(150);
+    sex.setMaxWidth(150);
+    confirmpw.setMaxWidth(200);
+    confirmpw.setPromptText("Confirm password");
 
     Text details = new Text("Name: \nEmail: \nPassword: \nContact Number: \nSex: ");
     details.setFont(Font.font("Madeleina Sans", 30));
 
     accountPane.getChildren().add(details);
     accountPane.getChildren().add(edited);
-    accountPane.getChildren().addAll(firstname, lastname, email_user, pw_user, contact_num, sex);
+    accountPane.getChildren().addAll(firstname, lastname, email_user, pw_user, contact_num, sex, confirmpw);
 
     StackPane.setMargin(details, new Insets(0, 200, 10, 0));
-    StackPane.setMargin(edited, new Insets(200, 0, 0, 0));
+    StackPane.setMargin(edited, new Insets(270, 0, 0, 0));
     StackPane.setMargin(firstname, new Insets(0, 100, 150, 0));
-    StackPane.setMargin(lastname, new Insets(0, 0, 150, 130));
-    StackPane.setMargin(email_user, new Insets(0, 0, 80, 130));
-    StackPane.setMargin(pw_user, new Insets(0, 0, 11, 130));
-    StackPane.setMargin(contact_num, new Insets(55, 0, 0, 130));
-    StackPane.setMargin(sex, new Insets(120, 0, 0, 130));
+    StackPane.setMargin(lastname, new Insets(0, 0, 150, 200));
+    StackPane.setMargin(email_user, new Insets(0, 0, 80, 200));
+    StackPane.setMargin(pw_user, new Insets(0, 0, 11, 200));
+    StackPane.setMargin(contact_num, new Insets(55, 0, 0, 200));
+    StackPane.setMargin(sex, new Insets(120, 0, 0, 200));
+    StackPane.setMargin(confirmpw, new Insets(200, 0, 0, 0));
 
     edited.setOnMousePressed(new EventHandler<MouseEvent>() {
       public void handle(MouseEvent e) {
 
-        if (!(email_user.getText().equals("") || pw_user.getText().equals("") || firstname.getText().equals("")
-            || lastname.getText().equals("") || contact_num.getText().equals("") || sex.getText().equals(""))) {
+        if (confirmpw.getText().equals(controller.getCurrentUser().getPassword())
+            && !(email_user.getText().equals("") || pw_user.getText().equals("") || firstname.getText().equals("")
+                || lastname.getText().equals("") || contact_num.getText().equals("") || sex.getText().equals(""))) {
           controller.editUser(email_user.getText(), pw_user.getText(), firstname.getText(), lastname.getText(),
               contact_num.getText(), sex.getText());
           accountStage.close();
@@ -1689,21 +1695,22 @@ public class View {
     });
 
     adminPane.getChildren().add(adminMenu);
-	
-	TableView<User> table = new TableView<User>();
-	ObservableList<User> data = FXCollections.observableArrayList(controller.getAllUsers());
-	
-	table.setEditable(true);
-	TableColumn<User, String> name_column = new TableColumn<User, String>("First Name");
-	TableColumn<User, String> last_column = new TableColumn<User, String>("Last Name");
-	TableColumn<User, String> mail_column = new TableColumn<User, String>("Email");
-	name_column.setMinWidth(100);
-	table.getColumns().add(name_column);
-	table.getColumns().add(last_column);
-	table.getColumns().add(mail_column);
-	table.setItems(data);
-	
-	adminPane.getChildren().add(table);
+
+    TableView<User> table = new TableView<User>();
+    ObservableList<User> data = FXCollections.observableArrayList(controller.getAllUsers());
+
+    table.setEditable(true);
+    TableColumn<User, String> name_column = new TableColumn<User, String>("First Name");
+    TableColumn<User, String> last_column = new TableColumn<User, String>("Last Name");
+    TableColumn<User, String> mail_column = new TableColumn<User, String>("Email");
+    name_column.setMinWidth(100);
+    table.getColumns().add(name_column);
+    table.getColumns().add(last_column);
+    table.getColumns().add(mail_column);
+    table.setItems(data);
+
+    adminPane.getChildren().add(table);
 
   }
+
 }

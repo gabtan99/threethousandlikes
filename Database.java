@@ -44,6 +44,7 @@ public class Database {
           currentUser.setContact_number(rs.getString("contact_number"));
           currentUser.setGender(rs.getString("gender"));
           currentUser.setRegister_date(rs.getString("register_date"));
+          currentUser.setPassword(rs.getString("password"));
           return true;
         }
       }
