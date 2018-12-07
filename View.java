@@ -1819,10 +1819,10 @@ public class View {
 	  Stage editProductStage = new Stage();
 	  
 	  Button okay = new Button("Done");
-	  Text details = new Text("Name:\nBrand ID:\nPrice:\nClassification:\nApparel Type:");
+	  Text details = new Text("Name:\nBrand Name:\nPrice:\nClassification:\nApparel Type:");
 	  details.setFont(Font.font("Madeleina Sans", 30));
 	  TextField p_name = new TextField(controller.getAllProducts().get(Integer.parseInt(info) - 1).getProduct_name());
-	  TextField brand = new TextField(""+controller.getAllProducts().get(Integer.parseInt(info)-1).getBrand_id());
+	  TextField brand = new TextField(""+controller.getBrandName(controller.getAllProducts().get(Integer.parseInt(info)-1).getBrand_id()));
 	  TextField price = new TextField(""+controller.getAllProducts().get(Integer.parseInt(info)-1).getPrice());
 	  TextField classification = new TextField(controller.getAllProducts().get(Integer.parseInt(info)-1).getClassification());
 	  TextField apparel = new TextField(controller.getAllProducts().get(Integer.parseInt(info)-1).getApparel_type());

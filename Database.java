@@ -769,4 +769,25 @@ public class Database {
     return false;
 
   }
+  
+  public String getBrandName(int brand_id){
+	 String returnResults = "SELECT brand_name FROM brands WHERE brand_id = " + brand_id;
+
+		String results = new String("");
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnResults);
+	  
+	  if (rs.next()) {
+        return rs.getString("brand_name");
+      }
+	  
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+	
+	return results;
+  }
 }

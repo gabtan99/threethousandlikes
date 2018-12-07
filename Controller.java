@@ -133,5 +133,10 @@ public class Controller {
     return model.editProduct(product_id, product_name, brand_name, price, classification, apparel_type);
 
   }
+  
+  public String getBrandName(int brand_id)
+  {
+	  return model.getBrandName(brand_id);
+  }
 
 }
