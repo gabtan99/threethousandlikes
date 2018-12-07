@@ -150,6 +150,8 @@ public class View {
   Image productH = new Image("images/productsHover.png");
   Image edit = new Image("images/Edit.png");
   Image editH = new Image("images/EditHover.png");
+  Image add = new Image("images/Add2.png");
+  Image addH = new Image("images/Add.png");
 
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
@@ -209,6 +211,9 @@ public class View {
   ImageView productV = new ImageView(productB);
   ImageView editV = new ImageView(edit);
   ImageView editT = new ImageView(edit);
+  ImageView editT2 = new ImageView(edit);
+  ImageView addV = new ImageView(add);
+  ImageView addV2 = new ImageView(add);
 
   VBox vertical = new VBox();
   VBox adminPane = new VBox();
@@ -1652,6 +1657,210 @@ public class View {
 
     accountStage.show();
   }
+  
+  private void AddProducts(){
+	  StackPane editPPane = new StackPane();
+	  Scene editPScene = new Scene(editPPane, 500, 500);
+	  Stage editProductStage = new Stage();
+	  
+	  Button okay = new Button("Done");
+	  Text details = new Text("Name:\nBrand ID:\nPrice:\nClassification:\nApparel Type:");
+	  details.setFont(Font.font("Madeleina Sans", 30));
+	  TextField p_name = new TextField();
+	  TextField brand = new TextField();
+	  TextField price = new TextField();
+	  TextField classification = new TextField();
+	  TextField apparel = new TextField();
+	  
+	  p_name.setPromptText("Name");
+	  brand.setPromptText("Brand ID");
+	  price.setPromptText("Price");
+	  classification.setPromptText("Classification");
+	  apparel.setPromptText("Apparel Type");
+	  
+	  p_name.setMaxWidth(250);
+	  brand.setMaxWidth(250);
+	  price.setMaxWidth(250);
+	  classification.setMaxWidth(250);
+	  apparel.setMaxWidth(250);
+	  
+	  editPPane.getChildren().add(okay);
+	  editPPane.getChildren().add(details);
+	  editPPane.getChildren().add(p_name);
+	  editPPane.getChildren().add(brand);
+	  editPPane.getChildren().add(price);
+	  editPPane.getChildren().add(classification);
+	  editPPane.getChildren().add(apparel);
+	  
+	  
+	  StackPane.setMargin(details, new Insets(0, 200, 0, 0));
+	  StackPane.setMargin(okay, new Insets(200, 0, 0, 0));
+	  StackPane.setMargin(p_name, new Insets(0, 0, 130, 200));
+	  StackPane.setMargin(brand, new Insets(0, 0, 70, 200));
+	  StackPane.setMargin(price, new Insets(0, 0, 0, 200));
+	  StackPane.setMargin(classification, new Insets(70, 0, 0, 200));
+	  StackPane.setMargin(apparel, new Insets(140, 0, 0, 200));
+	  
+	  okay.setOnMousePressed(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e)
+		  {
+			  controller.addNewProduct(p_name.getText(), brand.getText(), Float.parseFloat(price.getText()), classification.getText(), apparel.getText());
+			  editProductStage.close();
+		  }
+	  });
+	  
+	  editProductStage.setScene(editPScene);
+	  editProductStage.show();
+  }
+  
+  private void AddBrands(){
+	  StackPane editBPane = new StackPane();
+	  Scene editBScene = new Scene(editBPane, 500, 500);
+	  Stage editBrandStage = new Stage();
+	  
+	  Button okay = new Button("Done");
+	  Text details = new Text("\nBrand Name:\nAddress:\nEmail:\nContact Number:");
+	  details.setFont(Font.font("Madeleina Sans", 30));
+	  TextField b_name = new TextField();
+	  TextField address = new TextField();
+	  TextField email = new TextField();
+	  TextField contact = new TextField();
+	  b_name.setPromptText("Brand Name");
+	  address.setPromptText("Address");
+	  email.setPromptText("Email");
+	  contact.setPromptText("Contact");
+	  
+	  b_name.setMaxWidth(250);
+	  address.setMaxWidth(250);
+	  email.setMaxWidth(250);
+	  contact.setMaxWidth(250);
+	  
+	  editBPane.getChildren().add(okay);
+	  editBPane.getChildren().add(details);
+	  editBPane.getChildren().add(b_name);
+	  editBPane.getChildren().add(address);
+	  editBPane.getChildren().add(email);
+	  editBPane.getChildren().add(contact);
+	  
+	  
+	  StackPane.setMargin(details, new Insets(0, 300, 0, 0));
+	  StackPane.setMargin(okay, new Insets(220, 0, 0, 0));
+	  StackPane.setMargin(b_name, new Insets(0, 0, 70, 220));
+	  StackPane.setMargin(address, new Insets(0, 0, 0, 220));
+	  StackPane.setMargin(email, new Insets(70, 0, 0, 220));
+	  StackPane.setMargin(contact, new Insets(140, 0, 0, 220));
+	  
+	  okay.setOnMousePressed(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e)
+		  {
+			  controller.addNewBrand(b_name.getText(), address.getText(), email.getText(), contact.getText());
+			  editBrandStage.close();
+		  }
+	  });
+	  
+	  editBrandStage.setScene(editBScene);
+	  editBrandStage.show();  
+  }
+  
+  private void EditBrands(String info){
+	  StackPane editBPane = new StackPane();
+	  Scene editBScene = new Scene(editBPane, 500, 500);
+	  Stage editBrandStage = new Stage();
+	  
+	  Button okay = new Button("Done");
+	  Text details = new Text("Brand ID:\nBrand Name:\nAddress:\nEmail:\nContact Number:");
+	  details.setFont(Font.font("Madeleina Sans", 30));
+	  TextField b_name = new TextField(controller.getAllBrands().get(Integer.parseInt(info) - 1).getBrand_name());
+	  TextField brand = new TextField(""+controller.getAllBrands().get(Integer.parseInt(info)-1).getBrand_id());
+	  TextField address = new TextField(""+controller.getAllBrands().get(Integer.parseInt(info)-1).getAddress());
+	  TextField email = new TextField(controller.getAllBrands().get(Integer.parseInt(info)-1).getEmail());
+	  TextField contact = new TextField(controller.getAllBrands().get(Integer.parseInt(info)-1).getContact_number());
+	  
+	  b_name.setMaxWidth(250);
+	  brand.setMaxWidth(250);
+	  address.setMaxWidth(250);
+	  email.setMaxWidth(250);
+	  contact.setMaxWidth(250);
+	  
+	  editBPane.getChildren().add(okay);
+	  editBPane.getChildren().add(details);
+	  editBPane.getChildren().add(brand);
+	  editBPane.getChildren().add(b_name);
+	  editBPane.getChildren().add(address);
+	  editBPane.getChildren().add(email);
+	  editBPane.getChildren().add(contact);
+	  
+	  
+	  StackPane.setMargin(details, new Insets(0, 300, 0, 0));
+	  StackPane.setMargin(okay, new Insets(220, 0, 0, 0));
+	  StackPane.setMargin(brand, new Insets(0, 0, 130, 220));
+	  StackPane.setMargin(b_name, new Insets(0, 0, 70, 220));
+	  StackPane.setMargin(address, new Insets(0, 0, 0, 220));
+	  StackPane.setMargin(email, new Insets(70, 0, 0, 220));
+	  StackPane.setMargin(contact, new Insets(140, 0, 0, 220));
+	  
+	  okay.setOnMousePressed(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e)
+		  {
+			  controller.editBrand(Integer.parseInt(info), b_name.getText(), address.getText(), email.getText(), contact.getText());
+			  editBrandStage.close();
+		  }
+	  });
+	  
+	  editBrandStage.setScene(editBScene);
+	  editBrandStage.show();
+	  
+  }
+  
+  private void EditProduct(String info){
+	  StackPane editPPane = new StackPane();
+	  Scene editPScene = new Scene(editPPane, 500, 500);
+	  Stage editProductStage = new Stage();
+	  
+	  Button okay = new Button("Done");
+	  Text details = new Text("Name:\nBrand ID:\nPrice:\nClassification:\nApparel Type:");
+	  details.setFont(Font.font("Madeleina Sans", 30));
+	  TextField p_name = new TextField(controller.getAllProducts().get(Integer.parseInt(info) - 1).getProduct_name());
+	  TextField brand = new TextField(""+controller.getAllProducts().get(Integer.parseInt(info)-1).getBrand_id());
+	  TextField price = new TextField(""+controller.getAllProducts().get(Integer.parseInt(info)-1).getPrice());
+	  TextField classification = new TextField(controller.getAllProducts().get(Integer.parseInt(info)-1).getClassification());
+	  TextField apparel = new TextField(controller.getAllProducts().get(Integer.parseInt(info)-1).getApparel_type());
+	  
+	  p_name.setMaxWidth(250);
+	  brand.setMaxWidth(250);
+	  price.setMaxWidth(250);
+	  classification.setMaxWidth(250);
+	  apparel.setMaxWidth(250);
+	  
+	  editPPane.getChildren().add(okay);
+	  editPPane.getChildren().add(details);
+	  editPPane.getChildren().add(p_name);
+	  editPPane.getChildren().add(brand);
+	  editPPane.getChildren().add(price);
+	  editPPane.getChildren().add(classification);
+	  editPPane.getChildren().add(apparel);
+	  
+	  
+	  StackPane.setMargin(details, new Insets(0, 200, 0, 0));
+	  StackPane.setMargin(okay, new Insets(200, 0, 0, 0));
+	  StackPane.setMargin(p_name, new Insets(0, 0, 130, 200));
+	  StackPane.setMargin(brand, new Insets(0, 0, 70, 200));
+	  StackPane.setMargin(price, new Insets(0, 0, 0, 200));
+	  StackPane.setMargin(classification, new Insets(70, 0, 0, 200));
+	  StackPane.setMargin(apparel, new Insets(140, 0, 0, 200));
+	  
+	  okay.setOnMousePressed(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e)
+		  {
+			  System.out.println(Integer.parseInt(info));
+			  controller.editProduct(Integer.parseInt(info), p_name.getText(), brand.getText(), Float.parseFloat(price.getText()), classification.getText(), apparel.getText());
+			  editProductStage.close();
+		  }
+	  });
+	  
+	  editProductStage.setScene(editPScene);
+	  editProductStage.show();
+  }
 
   private void AdminCall() {
     Scene AdminScene = new Scene(adminPane, 1280, 720);
@@ -1660,16 +1869,22 @@ public class View {
     AnchorPane adminMenu = new AnchorPane();
     VBox olapMonthPane = new VBox();
     VBox olapPane = new VBox();
-    HBox screen = new HBox();
-    VBox sideMenu = new VBox();
+    AnchorPane screen = new AnchorPane();
     adminMenu.getChildren().add(adminBarV);
     adminMenu.getChildren().add(brandView);
     adminMenu.getChildren().add(userV);
     adminMenu.getChildren().add(summaryV);
     adminMenu.getChildren().add(orderV);
     adminMenu.getChildren().add(productV);
-    //editT.setFitWidth(73);
-    //editT.setFitHeight(16);
+    editT.setFitWidth(146);
+    editT.setFitHeight(32);
+	editT2.setFitWidth(146);
+	editT2.setFitHeight(32);
+	addV.setFitWidth(146);
+	addV2.setFitWidth(146);
+	addV.setFitHeight(32);
+	addV2.setFitHeight(32);
+	
 
     brandView.setOnMouseEntered(e -> {
       brandView.setImage(brandH);
@@ -1701,12 +1916,30 @@ public class View {
     orderV.setOnMouseExited(e -> {
       orderV.setImage(orderB);
     });
-    /*editT.setOnMouseEntered(e->{
+    editT.setOnMouseEntered(e->{
     	editT.setImage(editH);
     });
     editT.setOnMouseExited(e->{
     	editT.setImage(edit);
-    });*/
+    });
+	editT2.setOnMouseEntered(e->{
+		editT2.setImage(editH);
+	});
+	editT2.setOnMouseExited(e->{
+		editT2.setImage(edit);
+	});
+	addV.setOnMouseEntered(e->{
+		addV.setImage(addH);
+	});
+	addV.setOnMouseExited(e->{
+		addV.setImage(add);
+	});
+	addV2.setOnMouseEntered(e->{
+		addV2.setImage(addH);
+	});
+	addV2.setOnMouseExited(e->{
+		addV2.setImage(add);
+	});
 
     adminPane.getChildren().add(adminMenu);
 
@@ -1831,7 +2064,42 @@ public class View {
       table.getColumns().add(contactNum_column);
 
       screen.getChildren().add(table);
+	  screen.getChildren().add(editT2);
+	  screen.getChildren().add(addV2);
       adminPane.getChildren().add(screen);
+	  
+	  AnchorPane.setTopAnchor(editT2, 420.0);
+	  AnchorPane.setLeftAnchor(editT2, 200.0);
+	  AnchorPane.setTopAnchor(addV2, 420.0);
+	  AnchorPane.setLeftAnchor(addV2, 400.0);
+	  
+	  editT2.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e)
+		  {
+			  TextInputDialog dialog = new TextInputDialog("name");
+			  dialog.setTitle("Edit Product");
+			  dialog.setHeaderText("Edit Product");
+			  dialog.setContentText("Enter Product ID: ");
+				
+			  Optional<String> result = dialog.showAndWait();
+			  if(result.isPresent())
+			  {
+				  
+				result.ifPresent(name->{
+					EditBrands(name);
+				});
+			  }
+				
+			
+		  }
+	  });
+	  
+	  addV2.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		public void handle (MouseEvent e)
+		{
+		  AddBrands();
+		}
+	});
     });
 
     productV.setOnMouseClicked(e -> {
@@ -1875,7 +2143,43 @@ public class View {
       table.getColumns().add(apparel_column);
 
       screen.getChildren().add(table);
+	  screen.getChildren().add(editT);
+	  screen.getChildren().add(addV);
       adminPane.getChildren().add(screen);
+	  
+	  AnchorPane.setTopAnchor(editT, 420.0);
+	  AnchorPane.setLeftAnchor(editT, 200.0);
+	  AnchorPane.setTopAnchor(addV, 420.0);
+	  AnchorPane.setLeftAnchor(addV, 400.0);
+	  
+	  editT.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e)
+		  {
+			  TextInputDialog dialog = new TextInputDialog("name");
+			  dialog.setTitle("Edit Product");
+			  dialog.setHeaderText("Edit Product");
+			  dialog.setContentText("Enter Product ID: ");
+				
+			  Optional<String> result = dialog.showAndWait();
+			  if(result.isPresent())
+			  {
+				  
+				result.ifPresent(name->{
+					EditProduct(name);
+				});
+			  }
+				
+			
+		  }
+	  });
+	  
+	  addV.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e)
+		  {
+			  AddProducts();
+		  }
+	  });
+	  
     });
 
     summaryV.setOnMouseClicked(e -> {
@@ -1889,7 +2193,6 @@ public class View {
 
       Text words = new Text("Total Sales of All Brands in the Year ");
       words.setFont(Font.font("Madeleina Sans", 30));
-      Text spaces = new Text("                       ");
       TextField year = new TextField();
       Button generate = new Button("Generate");
       year.setPromptText("Year");
@@ -1898,8 +2201,14 @@ public class View {
 
       screen.getChildren().add(words);
       screen.getChildren().add(year);
-      screen.getChildren().add(spaces);
       screen.getChildren().add(generate);
+	  
+	  AnchorPane.setTopAnchor(words, 50.0);
+	  AnchorPane.setLeftAnchor(words, 200.0 );
+	  AnchorPane.setTopAnchor(year, 50.0);
+	  AnchorPane.setLeftAnchor(year, 590.0);
+	  AnchorPane.setTopAnchor(generate, 85.0);
+	  AnchorPane.setLeftAnchor(generate, 400.0);
       //LastPane.getChildren().add(screen);
 
       generate.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -1913,6 +2222,11 @@ public class View {
           olapPane.getChildren().add(quant);
           Text months = new Text("Month");
           olapMonthPane.getChildren().add(months);
+		  
+		  AnchorPane.setTopAnchor(quant, 100.0);
+		  AnchorPane.setTopAnchor(months, 100.0);
+		  AnchorPane.setLeftAnchor(quant, 250.0);
+		  AnchorPane.setLeftAnchor(months, 350.0);
 
           for (int i = 0; i < counter; i++) {
             OlapQuantity[i] = new Text(controller.getOlapAllBrandsQuantity(year.getText()).get(i));
@@ -1950,6 +2264,11 @@ public class View {
 
           screen.getChildren().add(olapPane);
           screen.getChildren().add(olapMonthPane);
+		  
+		  AnchorPane.setTopAnchor(olapPane, 120.0);
+		  AnchorPane.setTopAnchor(olapMonthPane, 120.0);
+		  AnchorPane.setLeftAnchor(olapPane, 250.0);
+		  AnchorPane.setLeftAnchor(olapMonthPane, 350.0);
         }
       });
       adminPane.getChildren().add(screen);
