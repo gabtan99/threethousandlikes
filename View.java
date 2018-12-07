@@ -1664,7 +1664,7 @@ public class View {
 	  Stage editProductStage = new Stage();
 	  
 	  Button okay = new Button("Done");
-	  Text details = new Text("Name:\nBrand ID:\nPrice:\nClassification:\nApparel Type:");
+	  Text details = new Text("Name:\nBrand Name:\nPrice:\nClassification:\nApparel Type:");
 	  details.setFont(Font.font("Madeleina Sans", 30));
 	  TextField p_name = new TextField();
 	  TextField brand = new TextField();
@@ -1673,7 +1673,7 @@ public class View {
 	  TextField apparel = new TextField();
 	  
 	  p_name.setPromptText("Name");
-	  brand.setPromptText("Brand ID");
+	  brand.setPromptText("Brand Name");
 	  price.setPromptText("Price");
 	  classification.setPromptText("Classification");
 	  apparel.setPromptText("Apparel Type");
@@ -1705,6 +1705,7 @@ public class View {
 		  public void handle(MouseEvent e)
 		  {
 			  controller.addNewProduct(p_name.getText(), brand.getText(), Float.parseFloat(price.getText()), classification.getText(), apparel.getText());
+			  System.out.println("lez get this bread");
 			  editProductStage.close();
 		  }
 	  });
@@ -1854,6 +1855,7 @@ public class View {
 		  {
 			  System.out.println(Integer.parseInt(info));
 			  controller.editProduct(Integer.parseInt(info), p_name.getText(), brand.getText(), Float.parseFloat(price.getText()), classification.getText(), apparel.getText());
+			  System.out.println("productEdit!");
 			  editProductStage.close();
 		  }
 	  });
