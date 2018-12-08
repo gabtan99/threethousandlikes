@@ -2240,16 +2240,22 @@ public class View {
 
       generate.setOnMousePressed(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent e) {
-			if(screen.getChildren().size()>1)
+			/*if(screen.getChildren().size()>0)
 				screen.getChildren().removeAll(olapPane, olapMonthPane);
-			if(olapPane.getChildren().size()>1)
+			if(olapPane.getChildren().size()>0)
+				olapPane.getChildren().remove(0);
+			if(olapMonthPane.getChildren().size()>0)
+				olapMonthPane.getChildren().remove(0);*/
+			if(screen.getChildren().size()>0)
+				screen.getChildren().removeAll(olapPane, olapMonthPane);
+			if(olapPane.getChildren().size()>0)
 			{
 				int i;
 				for(i=0; i <= olapPane.getChildren().size(); i++)
 					olapPane.getChildren().remove(OlapQuantity[i]);
 				olapPane.getChildren().removeAll(quant);
 			}
-			if(olapMonthPane.getChildren().size()>1)
+			if(olapMonthPane.getChildren().size()>0)
 			{
 				int i;
 				for(i=0; i <= olapMonthPane.getChildren().size(); i++)
