@@ -247,6 +247,8 @@ public class View {
   Text[] brandname;
   Button[] brandviewprod;
   String getUserDetails = new String();
+  VBox olapPane;
+  VBox olapMonthPane;
 
   public View(Controller c, Stage primaryStage) {
 
@@ -828,7 +830,13 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getAllProducts().get(n).getProduct_id(), q))
             System.out.print("Added");
+		
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Add to Cart!");
+			alert.setHeaderText("Item Added!");
+			alert.setContentText("Item added to your Cart!");
 
+			alert.showAndWait();
         }
       });
 
@@ -919,6 +927,13 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getProductsWithKeyword(keyword).get(n).getProduct_id(), q))
             System.out.print("Added");
+		
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Add to Cart!");
+			alert.setHeaderText("Item Added!");
+			alert.setContentText("Item added to your Cart!");
+
+			alert.showAndWait();
         }
       });
 
@@ -1008,6 +1023,13 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getProductsUnderAType(AType).get(n).getProduct_id(), q))
             System.out.print("Added");
+		
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Add to Cart!");
+			alert.setHeaderText("Item Added!");
+			alert.setContentText("Item added to your Cart!");
+
+			alert.showAndWait();
 
         }
       });
@@ -1869,8 +1891,8 @@ public class View {
     primaryStage.setScene(AdminScene);
 
     AnchorPane adminMenu = new AnchorPane();
-    VBox olapMonthPane = new VBox();
-    VBox olapPane = new VBox();
+    olapMonthPane = new VBox();
+    olapPane = new VBox();
     AnchorPane screen = new AnchorPane();
     adminMenu.getChildren().add(adminBarV);
     adminMenu.getChildren().add(brandView);
@@ -2201,9 +2223,9 @@ public class View {
       year.setPromptText("Year");
       year.setMaxWidth(200);
       year.setMaxHeight(30);
-
-      screen.getChildren().add(words);
-      screen.getChildren().add(year);
+	  
+	  screen.getChildren().add(words);
+	  screen.getChildren().add(year);
       screen.getChildren().add(generate);
 	  
 	  AnchorPane.setTopAnchor(words, 50.0);
@@ -2216,22 +2238,25 @@ public class View {
 
       generate.setOnMousePressed(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent e) {
-          System.out.println(controller.getOlapAllBrandsQuantity(year.getText()));
+				
           int counter = controller.getOlapAllBrandsQuantity(year.getText()).size();
           OlapQuantity = new Text[counter];
           OlapMonth = new Text[counter];
 
           Text quant = new Text("Quantity");
-          olapPane.getChildren().add(quant);
           Text months = new Text("Month");
-          olapMonthPane.getChildren().add(months);
-		  
+		  quant.setFont(Font.font("Madeleina Sans", 25));
+		  months. setFont(Font.font("Madeleina Sans", 25));
+		  olapPane.getChildren().add(quant);
+		  olapMonthPane.getChildren().add(months);
+		   
 		  AnchorPane.setTopAnchor(quant, 100.0);
 		  AnchorPane.setTopAnchor(months, 100.0);
 		  AnchorPane.setLeftAnchor(quant, 250.0);
 		  AnchorPane.setLeftAnchor(months, 350.0);
-
-          for (int i = 0; i < counter; i++) {
+		  
+		  int i;
+          for (i = 0; i < counter; i++) {
             OlapQuantity[i] = new Text(controller.getOlapAllBrandsQuantity(year.getText()).get(i));
             if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("1"))
               OlapMonth[i] = new Text("January");
@@ -2258,8 +2283,10 @@ public class View {
             else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("12"))
               OlapMonth[i] = new Text("December");
 
-            System.out.println(controller.getOlapAllBrandsMonth(year.getText()).get(i));
-            System.out.println(OlapMonth[i]);
+		  
+			System.out.println("This is i:" + i);
+			OlapQuantity[i].setFont(Font.font("Madeleina Sans", 25));
+			OlapMonth[i].setFont(Font.font("Madeleina Sans", 25));
             olapPane.getChildren().add(OlapQuantity[i]);
             olapMonthPane.getChildren().add(OlapMonth[i]);
 
