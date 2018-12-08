@@ -656,7 +656,7 @@ public class Database {
   }
 
   public ArrayList<User> getAllUsersOfGender(String gender) {
-    String returnAllUsers = "SELECT email, first_name, last_name, contact_number, gender, register_date FROM useraccounts WHERE gender = ‘"
+    String returnAllUsers = "SELECT user_id, email, first_name, last_name, contact_number, gender, register_date FROM useraccounts WHERE gender = ‘"
         + gender + "’";
     ArrayList<User> temp = new ArrayList<User>();
 
@@ -916,6 +916,24 @@ public class Database {
     }
 
     return results;
+  }
+
+  public String getOlapNetSales (String year) {
+    String returnNetSales = "SELECT  SUM(total_amount) as ‘total’ FROM orderdetails WHERE YEAR(order_date) = '"+year+"’";
+
+    String temp = "0";
+    try {
+      ResultSet rs = stmt.executeQuery(returnNetSales);
+      while (rs.next()) {
+        temp = rs.getString("total");
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+    return temp;
   }
 
 }

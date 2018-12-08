@@ -162,4 +162,8 @@ public class Controller {
     return model.getAllRecentUsers();
   }
 
+  public String getOlapNetSales (String year) {
+    return model.getOlapNetSales(year);
+  }
+
 }
