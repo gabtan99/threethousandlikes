@@ -743,7 +743,7 @@ public class Database {
   }
 
   public ArrayList<Order> getAllOrdersOfPaymentMethod(String payment_method) {
-    String returnAllOrders = "SELECT orderdetails.* FROM orderdetails WHERE payment_method = ‘" + payment_method + "’";
+    String returnAllOrders = "SELECT order_id, payment_method, order_date, shipping_address, billing_address, total_amount, user_id FROM orderdetails WHERE payment_method = ‘" + payment_method + "’";
     ArrayList<Order> temp = new ArrayList<Order>();
 
     try {
@@ -918,14 +918,14 @@ public class Database {
     return results;
   }
 
-  public String getOlapNetSales (String year) {
-    String returnNetSales = "SELECT  SUM(total_amount) as ‘total’ FROM orderdetails WHERE YEAR(order_date) = '"+year+"’";
+  public int getOlapNetSales (int year) {
+    String returnNetSales = "SELECT  SUM(total_amount) as 'total' FROM orderdetails WHERE YEAR(order_date) = '" + year + "'";
 
-    String temp = "0";
+    int temp = 0;
     try {
       ResultSet rs = stmt.executeQuery(returnNetSales);
       while (rs.next()) {
-        temp = rs.getString("total");
+        temp = rs.getInt("total");
       }
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());

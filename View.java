@@ -2642,7 +2642,7 @@ public class View {
           OlapQuantity = new Text[12];
           OlapMonth = new Text[12];
 
-          quant = new Text("Quantity");
+          quant = new Text("Sales");
           months = new Text("Month");
 		  quant.setFont(Font.font("Madeleina Sans", 25));
 		  months. setFont(Font.font("Madeleina Sans", 25));
@@ -2700,7 +2700,7 @@ public class View {
             olapMonthPane.getChildren().add(OlapMonth[i]);
 		  }
           
-		  Text netSales = new Text("Net Sales: " + controller.getOlapNetSales(year.getText()));
+		  Text netSales = new Text("Net Sales: " + controller.getOlapNetSales(Integer.parseInt(year.getText())));
 		  netSales.setFont(Font.font("Madeleina Sans", 25));
 			
 		  

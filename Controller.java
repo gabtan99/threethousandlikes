@@ -151,6 +151,7 @@ public class Controller {
   }
 
   public ArrayList<Order> getAllOrdersOfPaymentMethod(String payment_method) {
+	  System.out.println("Printing: " + payment_method);
     return model.getAllOrdersOfPaymentMethod(payment_method);
   }
 
@@ -162,7 +163,8 @@ public class Controller {
     return model.getAllRecentUsers();
   }
 
-  public String getOlapNetSales (String year) {
+  public int getOlapNetSales (int year) {
+	  System.out.println("Printed This"+year);
     return model.getOlapNetSales(year);
   }
 
