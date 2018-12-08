@@ -88,9 +88,8 @@ public class Database {
     currentUser.setEmail(null);
   }
 
-  public ArrayList<String> getOlapAllBrandsQuantity(String year) {
-    String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_id WHERE YEAR(orderdetails.order_date) = "
-        + year + " GROUP BY MONTH(orderdetails.order_date);";
+  public ArrayList<String> getOlapAllBrandsSales(String year) {
+    String returnResults = "SELECT MONTH(order_date) as 'month', SUM(total_amount) as 'revenue' FROM orderdetails WHERE YEAR(order_date) = '"+year+"' GROUP BY MONTH(order_date)";
 
     ArrayList<String> results = new ArrayList<String>();
 
@@ -98,7 +97,7 @@ public class Database {
       ResultSet rs = stmt.executeQuery(returnResults);
 
       while (rs.next()) {
-        results.add(rs.getString("quantity"));
+        results.add(rs.getString("revenue"));
       }
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
@@ -110,8 +109,7 @@ public class Database {
   }
 
   public ArrayList<String> getOlapAllBrandsMonth(String year) {
-    String returnResults = "SELECT carts.quantity as 'quantity', MONTH(orderdetails.order_date) as 'month' FROM carts INNER JOIN orderdetails ON carts.order_id = orderdetails.order_id WHERE YEAR(orderdetails.order_date) = "
-        + year + " GROUP BY MONTH(orderdetails.order_date);";
+    String returnResults = "SELECT MONTH(order_date) as 'month', SUM(total_amount) as 'revenue' FROM orderdetails WHERE YEAR(order_date) = '"+year+"' GROUP BY MONTH(order_date)";
 
     ArrayList<String> results = new ArrayList<String>();
 
@@ -769,7 +767,7 @@ public class Database {
     return false;
 
   }
-  
+
   public String getBrandName(int brand_id){
 	 String returnResults = "SELECT brand_name FROM brands WHERE brand_id = " + brand_id;
 
@@ -777,17 +775,17 @@ public class Database {
 
     try {
       ResultSet rs = stmt.executeQuery(returnResults);
-	  
+
 	  if (rs.next()) {
         return rs.getString("brand_name");
       }
-	  
+
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState: " + e.getSQLState());
       System.out.println("VendorError: " + e.getErrorCode());
     }
-	
+
 	return results;
   }
 }

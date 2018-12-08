@@ -95,8 +95,8 @@ public class Controller {
     return model.getMyCartTotal();
   }
 
-  public ArrayList<String> getOlapAllBrandsQuantity(String year) {
-    return model.getOlapAllBrandsQuantity(year);
+  public ArrayList<String> getOlapAllBrandsSales(String year) {
+    return model.getOlapAllBrandsSales(year);
   }
 
   public ArrayList<String> getOlapAllBrandsMonth(String year) {
@@ -133,7 +133,7 @@ public class Controller {
     return model.editProduct(product_id, product_name, brand_name, price, classification, apparel_type);
 
   }
-  
+
   public String getBrandName(int brand_id)
   {
 	  return model.getBrandName(brand_id);
