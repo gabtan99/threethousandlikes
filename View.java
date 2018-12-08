@@ -2246,25 +2246,34 @@ public class View {
 				olapPane.getChildren().remove(0);
 			if(olapMonthPane.getChildren().size()>0)
 				olapMonthPane.getChildren().remove(0);*/
-			if(screen.getChildren().size()>0)
-				screen.getChildren().removeAll(olapPane, olapMonthPane);
+			System.out.println("Size: " + olapPane.getChildren().size());
+			int check = olapPane.getChildren().size();
 			if(olapPane.getChildren().size()>0)
 			{
 				int i;
-				for(i=0; i <= olapPane.getChildren().size(); i++)
+				for(i=0; i < check-1; i++)
+				{
 					olapPane.getChildren().remove(OlapQuantity[i]);
+					System.out.println("Remove " + i);
+				}
+				System.out.println("Here?");
 				olapPane.getChildren().removeAll(quant);
 			}
 			if(olapMonthPane.getChildren().size()>0)
 			{
 				int i;
-				for(i=0; i <= olapMonthPane.getChildren().size(); i++)
+				for(i=0; i < check - 1; i++)
+				{
 					olapMonthPane.getChildren().remove(OlapMonth[i]);
+					System.out.println("Month Remove " + i);
+				}
 				olapMonthPane.getChildren().removeAll(months);
 			}
+			if(screen.getChildren().size()>0)
+				screen.getChildren().removeAll(olapPane, olapMonthPane);
 				
 				
-          int counter = controller.getOlapAllBrandsQuantity(year.getText()).size();
+          int counter = controller.getOlapAllBrandsSales(year.getText()).size();
           OlapQuantity = new Text[counter];
           OlapMonth = new Text[counter];
 
@@ -2282,7 +2291,7 @@ public class View {
 		  
 		  int i;
           for (i = 0; i < counter; i++) {
-            OlapQuantity[i] = new Text(controller.getOlapAllBrandsQuantity(year.getText()).get(i));
+            OlapQuantity[i] = new Text(controller.getOlapAllBrandsSales(year.getText()).get(i));
             if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("1"))
               OlapMonth[i] = new Text("January");
             else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("2"))
