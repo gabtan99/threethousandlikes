@@ -152,6 +152,10 @@ public class View {
   Image editH = new Image("images/EditHover.png");
   Image add = new Image("images/Add2.png");
   Image addH = new Image("images/Add.png");
+  Image recent = new Image("images/recent.png");
+  Image recentH = new Image("images/recent2.png");
+  Image payment = new Image("images/payment.png");
+  Image paymentH = new Image("images/payment2.png");
 
   ImageView clothing = new ImageView(clothingIcon);
   ImageView bag = new ImageView(bagIcon);
@@ -214,6 +218,11 @@ public class View {
   ImageView editT2 = new ImageView(edit);
   ImageView addV = new ImageView(add);
   ImageView addV2 = new ImageView(add);
+  ImageView UserM = new ImageView(male1);
+  ImageView UserF = new ImageView(female1);
+  ImageView recentV = new ImageView(recent);
+  ImageView recentO = new ImageView(recent);
+  ImageView paymentV = new ImageView(payment);
 
   VBox vertical = new VBox();
   VBox adminPane = new VBox();
@@ -251,6 +260,7 @@ public class View {
   VBox olapMonthPane;
   Text quant;
   Text months;
+  AnchorPane screen;
 
   public View(Controller c, Stage primaryStage) {
 
@@ -1888,14 +1898,260 @@ public class View {
 	  editProductStage.show();
   }
 
+  private void UserGender(String gender){
+	  System.out.println(gender);
+	 if (adminPane.getChildren().size() > 1)
+        adminPane.getChildren().remove(1);
+     if (screen.getChildren().size() > 0)
+        screen.getChildren().clear();
+	
+	  TableView<User> table = new TableView<User>();
+      ObservableList<User> data = FXCollections.observableArrayList(controller.getAllUsersOfGender(gender));
+
+      table.setEditable(true);
+      TableColumn<User, String> name_column = new TableColumn<User, String>("First Name");
+      name_column.setCellValueFactory(new PropertyValueFactory<>("first_name"));
+
+      TableColumn<User, String> last_column = new TableColumn<User, String>("Last Name");
+      last_column.setCellValueFactory(new PropertyValueFactory<>("last_name"));
+      TableColumn<User, String> mail_column = new TableColumn<User, String>("Email");
+      mail_column.setCellValueFactory(new PropertyValueFactory<>("email"));
+      TableColumn<User, String> contact_column = new TableColumn<User, String>("Contact Number");
+      contact_column.setCellValueFactory(new PropertyValueFactory<>("contact_number"));
+      TableColumn<User, String> register_column = new TableColumn<User, String>("Register Date");
+      register_column.setCellValueFactory(new PropertyValueFactory<>("register_date"));
+      TableColumn<User, String> gender_column = new TableColumn<User, String>("Sex");
+      gender_column.setCellValueFactory(new PropertyValueFactory<>("gender"));
+      name_column.setMinWidth(100);
+      last_column.setMinWidth(100);
+      mail_column.setMinWidth(100);
+      contact_column.setMinWidth(100);
+      register_column.setMinWidth(100);
+      gender_column.setMinWidth(100);
+      table.setItems(data);
+      table.getColumns().add(name_column);
+      table.getColumns().add(last_column);
+      table.getColumns().add(mail_column);
+      table.getColumns().add(contact_column);
+      table.getColumns().add(register_column);
+      table.getColumns().add(gender_column);
+	  
+	  screen.getChildren().add(table);
+	  adminPane.getChildren().add(screen);
+	  
+  }
+  
+  private void recentUsers()
+  {
+	  if (adminPane.getChildren().size() > 1)
+        adminPane.getChildren().remove(1);
+
+      if (screen.getChildren().size() > 0)
+        screen.getChildren().clear();
+
+      TableView<User> table = new TableView<User>();
+      ObservableList<User> data = FXCollections.observableArrayList(controller.getAllRecentUsers());
+
+      table.setEditable(true);
+      TableColumn<User, String> name_column = new TableColumn<User, String>("First Name");
+      name_column.setCellValueFactory(new PropertyValueFactory<>("first_name"));
+
+      TableColumn<User, String> last_column = new TableColumn<User, String>("Last Name");
+      last_column.setCellValueFactory(new PropertyValueFactory<>("last_name"));
+      TableColumn<User, String> mail_column = new TableColumn<User, String>("Email");
+      mail_column.setCellValueFactory(new PropertyValueFactory<>("email"));
+      TableColumn<User, String> contact_column = new TableColumn<User, String>("Contact Number");
+      contact_column.setCellValueFactory(new PropertyValueFactory<>("contact_number"));
+      TableColumn<User, String> register_column = new TableColumn<User, String>("Register Date");
+      register_column.setCellValueFactory(new PropertyValueFactory<>("register_date"));
+      TableColumn<User, String> gender_column = new TableColumn<User, String>("Sex");
+      gender_column.setCellValueFactory(new PropertyValueFactory<>("gender"));
+      name_column.setMinWidth(100);
+      last_column.setMinWidth(100);
+      mail_column.setMinWidth(100);
+      contact_column.setMinWidth(100);
+      register_column.setMinWidth(100);
+      gender_column.setMinWidth(100);
+      table.setItems(data);
+      table.getColumns().add(name_column);
+      table.getColumns().add(last_column);
+      table.getColumns().add(mail_column);
+      table.getColumns().add(contact_column);
+      table.getColumns().add(register_column);
+      table.getColumns().add(gender_column);
+	  
+	  screen.getChildren().add(table);
+	  adminPane.getChildren().add(screen);
+  }
+  
+  private void recentOrder(){
+	 if (adminPane.getChildren().size() > 1)
+        adminPane.getChildren().remove(1);
+
+      if (screen.getChildren().size() > 0)
+        screen.getChildren().clear();
+
+      TableView<Order> table = new TableView<Order>();
+      ObservableList<Order> data = FXCollections.observableArrayList(controller.getAllRecentOrders());
+
+      table.setEditable(true);
+      TableColumn<Order, String> order_column = new TableColumn<Order, String>("Order ID");
+      order_column.setCellValueFactory(new PropertyValueFactory<>("order_id"));
+      TableColumn<Order, String> payment_column = new TableColumn<Order, String>("Payment Method");
+      payment_column.setCellValueFactory(new PropertyValueFactory<>("payment_method"));
+      TableColumn<Order, String> date_column = new TableColumn<Order, String>("Order Date");
+      date_column.setCellValueFactory(new PropertyValueFactory<>("order_date"));
+      TableColumn<Order, String> shipping_column = new TableColumn<Order, String>("Shipping Address");
+      shipping_column.setCellValueFactory(new PropertyValueFactory<>("shipping_address"));
+      TableColumn<Order, String> billing_column = new TableColumn<Order, String>("Billing Address");
+      billing_column.setCellValueFactory(new PropertyValueFactory<>("billing_address"));
+      TableColumn<Order, String> total_column = new TableColumn<Order, String>("Total Amount");
+      total_column.setCellValueFactory(new PropertyValueFactory<>("total_amount"));
+      order_column.setMinWidth(100);
+      payment_column.setMinWidth(100);
+      date_column.setMinWidth(100);
+      shipping_column.setMinWidth(100);
+      billing_column.setMinWidth(100);
+      total_column.setMinWidth(100);
+      table.setItems(data);
+      table.getColumns().add(order_column);
+      table.getColumns().add(payment_column);
+      table.getColumns().add(date_column);
+      table.getColumns().add(shipping_column);
+      table.getColumns().add(billing_column);
+      table.getColumns().add(total_column);
+	  
+	  screen.getChildren().add(table);
+	  adminPane.getChildren().add(screen);
+  }
+  
+  private void OrderPayment(String method)
+  {
+	  if (adminPane.getChildren().size() > 1)
+        adminPane.getChildren().remove(1);
+
+      if (screen.getChildren().size() > 0)
+        screen.getChildren().clear();
+
+      TableView<Order> table = new TableView<Order>();
+      ObservableList<Order> data = FXCollections.observableArrayList(controller.getAllOrdersOfPaymentMethod(method));
+
+      table.setEditable(true);
+      TableColumn<Order, String> order_column = new TableColumn<Order, String>("Order ID");
+      order_column.setCellValueFactory(new PropertyValueFactory<>("order_id"));
+      TableColumn<Order, String> payment_column = new TableColumn<Order, String>("Payment Method");
+      payment_column.setCellValueFactory(new PropertyValueFactory<>("payment_method"));
+      TableColumn<Order, String> date_column = new TableColumn<Order, String>("Order Date");
+      date_column.setCellValueFactory(new PropertyValueFactory<>("order_date"));
+      TableColumn<Order, String> shipping_column = new TableColumn<Order, String>("Shipping Address");
+      shipping_column.setCellValueFactory(new PropertyValueFactory<>("shipping_address"));
+      TableColumn<Order, String> billing_column = new TableColumn<Order, String>("Billing Address");
+      billing_column.setCellValueFactory(new PropertyValueFactory<>("billing_address"));
+      TableColumn<Order, String> total_column = new TableColumn<Order, String>("Total Amount");
+      total_column.setCellValueFactory(new PropertyValueFactory<>("total_amount"));
+      order_column.setMinWidth(100);
+      payment_column.setMinWidth(100);
+      date_column.setMinWidth(100);
+      shipping_column.setMinWidth(100);
+      billing_column.setMinWidth(100);
+      total_column.setMinWidth(100);
+      table.setItems(data);
+      table.getColumns().add(order_column);
+      table.getColumns().add(payment_column);
+      table.getColumns().add(date_column);
+      table.getColumns().add(shipping_column);
+      table.getColumns().add(billing_column);
+      table.getColumns().add(total_column);
+	  
+	  screen.getChildren().add(table);
+	  adminPane.getChildren().add(screen);
+  }
+  
+  private void BrandAddress(String address){
+	  if (adminPane.getChildren().size() > 1)
+        adminPane.getChildren().remove(1);
+
+      if (screen.getChildren().size() > 0) {
+        System.out.println("Removed!");
+        screen.getChildren().clear();
+      }
+
+      TableView<Brand> table = new TableView<Brand>();
+      ObservableList<Brand> data = FXCollections.observableArrayList(controller.getAllBrandsInAddress(address));
+
+      table.setEditable(true);
+      TableColumn<Brand, String> brand_column = new TableColumn<Brand, String>("Brand ID");
+      brand_column.setCellValueFactory(new PropertyValueFactory<>("brand_id"));
+      TableColumn<Brand, String> bname_column = new TableColumn<Brand, String>("Name");
+      bname_column.setCellValueFactory(new PropertyValueFactory<>("brand_name"));
+      TableColumn<Brand, String> address_column = new TableColumn<Brand, String>("Address");
+      address_column.setCellValueFactory(new PropertyValueFactory<>("address"));
+      TableColumn<Brand, String> email_column = new TableColumn<Brand, String>("Email");
+      email_column.setCellValueFactory(new PropertyValueFactory<>("email"));
+      TableColumn<Brand, String> contactNum_column = new TableColumn<Brand, String>("Contact Number");
+      contactNum_column.setCellValueFactory(new PropertyValueFactory<>("contact_number"));
+      brand_column.setMinWidth(100);
+      bname_column.setMinWidth(100);
+      address_column.setMinWidth(100);
+      email_column.setMinWidth(100);
+      contactNum_column.setMinWidth(100);
+      table.setItems(data);
+      table.getColumns().add(brand_column);
+      table.getColumns().add(bname_column);
+      table.getColumns().add(address_column);
+      table.getColumns().add(email_column);
+      table.getColumns().add(contactNum_column);
+	  
+	  screen.getChildren().add(table);
+	  adminPane.getChildren().add(screen);
+  }
+  private void BrandLetter(String letter)
+  {
+	  if (adminPane.getChildren().size() > 1)
+        adminPane.getChildren().remove(1);
+
+      if (screen.getChildren().size() > 0) {
+        System.out.println("Removed!");
+        screen.getChildren().clear();
+      }
+
+      TableView<Brand> table = new TableView<Brand>();
+      ObservableList<Brand> data = FXCollections.observableArrayList(controller.getAllBrandsStartingWith(letter));
+
+      table.setEditable(true);
+      TableColumn<Brand, String> brand_column = new TableColumn<Brand, String>("Brand ID");
+      brand_column.setCellValueFactory(new PropertyValueFactory<>("brand_id"));
+      TableColumn<Brand, String> bname_column = new TableColumn<Brand, String>("Name");
+      bname_column.setCellValueFactory(new PropertyValueFactory<>("brand_name"));
+      TableColumn<Brand, String> address_column = new TableColumn<Brand, String>("Address");
+      address_column.setCellValueFactory(new PropertyValueFactory<>("address"));
+      TableColumn<Brand, String> email_column = new TableColumn<Brand, String>("Email");
+      email_column.setCellValueFactory(new PropertyValueFactory<>("email"));
+      TableColumn<Brand, String> contactNum_column = new TableColumn<Brand, String>("Contact Number");
+      contactNum_column.setCellValueFactory(new PropertyValueFactory<>("contact_number"));
+      brand_column.setMinWidth(100);
+      bname_column.setMinWidth(100);
+      address_column.setMinWidth(100);
+      email_column.setMinWidth(100);
+      contactNum_column.setMinWidth(100);
+      table.setItems(data);
+      table.getColumns().add(brand_column);
+      table.getColumns().add(bname_column);
+      table.getColumns().add(address_column);
+      table.getColumns().add(email_column);
+      table.getColumns().add(contactNum_column);
+	  
+	  screen.getChildren().add(table);
+	  adminPane.getChildren().add(screen);
+  }
   private void AdminCall() {
     Scene AdminScene = new Scene(adminPane, 1280, 720);
     primaryStage.setScene(AdminScene);
-
+	
     AnchorPane adminMenu = new AnchorPane();
     olapMonthPane = new VBox();
     olapPane = new VBox();
-    AnchorPane screen = new AnchorPane();
+    screen = new AnchorPane();
     adminMenu.getChildren().add(adminBarV);
     adminMenu.getChildren().add(brandView);
     adminMenu.getChildren().add(userV);
@@ -1966,6 +2222,38 @@ public class View {
 	addV2.setOnMouseExited(e->{
 		addV2.setImage(add);
 	});
+	UserM.setOnMouseEntered(e->{
+		UserM.setImage(male2);
+	});
+	UserM.setOnMouseExited(e->{
+		UserM.setImage(male1);
+	});
+	UserF.setOnMouseEntered(e->{
+		UserF.setImage(female2);
+	});
+	UserF.setOnMouseExited(e->{
+		UserF.setImage(female1);
+	});
+	recentV.setOnMouseEntered(e->{
+		recentV.setImage(recentH);
+	});
+	recentV.setOnMouseExited(e->{
+		recentV.setImage(recent);
+	});
+	recentO.setOnMouseEntered(e->{
+		recentO.setImage(recentH);
+	});
+	recentO.setOnMouseExited(e->{
+		recentO.setImage(recent);
+	});
+	paymentV.setOnMouseEntered(e->{
+		paymentV.setImage(paymentH);
+	});
+	paymentV.setOnMouseExited(e->{
+		paymentV.setImage(payment);
+	});
+	
+	AnchorPane.setRightAnchor(recentV, 50.0);	
 
     adminPane.getChildren().add(adminMenu);
 
@@ -2007,8 +2295,32 @@ public class View {
       table.getColumns().add(contact_column);
       table.getColumns().add(register_column);
       table.getColumns().add(gender_column);
-
+	  
+	  
+	  
+	  UserM.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e)
+		  {
+			UserGender("M");  
+		  }
+	  });
+	  UserF.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e)
+		  {
+			  UserGender("F");
+		  }
+	  });
+	  recentV.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e)
+		  {
+			  recentUsers();
+		  }
+	  });
+	
       screen.getChildren().add(table);
+	  screen.getChildren().add(recentV);
+	  screen.getChildren().add(UserM);
+	  screen.getChildren().add(UserF);
       adminPane.getChildren().add(screen);
     });
 
@@ -2049,8 +2361,32 @@ public class View {
       table.getColumns().add(shipping_column);
       table.getColumns().add(billing_column);
       table.getColumns().add(total_column);
+	  
+	  recentO.setOnMouseClicked(new EventHandler<MouseEvent>(){
+		  public void handle(MouseEvent e){
+			  recentOrder();
+		  }
+	  });
 
+		ComboBox<String> paymentC = new ComboBox<String>();
+		paymentC.getItems().addAll("Cash On Delivery", "Credit Card/Debit Card", "Wallet Credit", "E-Gift Card", "Paypal");
+		paymentC.setPromptText("Select Payment Method");
+		paymentC.setMaxHeight(40);
+		paymentC.setMaxWidth(200);
+		
+		AnchorPane.setLeftAnchor(paymentC, 700.0);
+		AnchorPane.setTopAnchor(paymentC, 500.0);
+		
+		paymentV.setOnMouseClicked(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent e){
+				OrderPayment(paymentC.getValue());
+			}
+		});
+		
       screen.getChildren().add(table);
+	  screen.getChildren().add(recentO);
+	  screen.getChildren().add(paymentV);
+	  screen.getChildren().add(paymentC);
       adminPane.getChildren().add(screen);
     });
 
@@ -2127,6 +2463,41 @@ public class View {
 		  AddBrands();
 		}
 	});
+	
+		TextField address = new TextField();
+		Button byAddress = new Button("By Address");
+		address.setPromptText("Enter Address");
+		TextField letter = new TextField();
+		Button byLetter = new Button("By Letter");
+		letter.setPromptText("Enter Letter");
+		letter.setMaxWidth(100);
+		address.setMaxWidth(100);
+		
+		byAddress.setOnMousePressed(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent e){
+				BrandAddress(address.getText());
+			}
+		});
+		
+		byLetter.setOnMousePressed(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent e){
+				BrandLetter(letter.getText());
+			}
+		});
+		
+		AnchorPane.setLeftAnchor(address, 330.0);
+		AnchorPane.setTopAnchor(address, 500.0);
+		AnchorPane.setLeftAnchor(byAddress, 250.0);
+		AnchorPane.setTopAnchor(byAddress, 500.0);
+		AnchorPane.setLeftAnchor(letter, 320.0);
+		AnchorPane.setTopAnchor(letter, 530.0);
+		AnchorPane.setLeftAnchor(byLetter, 250.0);
+		AnchorPane.setTopAnchor(byLetter, 530.0);
+		
+		screen.getChildren().add(letter);
+		screen.getChildren().add(byLetter);
+		screen.getChildren().add(address);
+		screen.getChildren().add(byAddress);
     });
 
     productV.setOnMouseClicked(e -> {
@@ -2240,12 +2611,6 @@ public class View {
 
       generate.setOnMousePressed(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent e) {
-			/*if(screen.getChildren().size()>0)
-				screen.getChildren().removeAll(olapPane, olapMonthPane);
-			if(olapPane.getChildren().size()>0)
-				olapPane.getChildren().remove(0);
-			if(olapMonthPane.getChildren().size()>0)
-				olapMonthPane.getChildren().remove(0);*/
 			System.out.println("Size: " + olapPane.getChildren().size());
 			int check = olapPane.getChildren().size();
 			if(olapPane.getChildren().size()>0)
@@ -2273,9 +2638,9 @@ public class View {
 				screen.getChildren().removeAll(olapPane, olapMonthPane);
 				
 				
-          int counter = controller.getOlapAllBrandsSales(year.getText()).size();
-          OlapQuantity = new Text[counter];
-          OlapMonth = new Text[counter];
+          int counter = controller.getOlapAllBrandsMonth(year.getText()).size();
+          OlapQuantity = new Text[12];
+          OlapMonth = new Text[12];
 
           quant = new Text("Quantity");
           months = new Text("Month");
@@ -2290,49 +2655,66 @@ public class View {
 		  AnchorPane.setLeftAnchor(months, 350.0);
 		  
 		  int i;
-          for (i = 0; i < counter; i++) {
-            OlapQuantity[i] = new Text(controller.getOlapAllBrandsSales(year.getText()).get(i));
-            if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("1"))
-              OlapMonth[i] = new Text("January");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("2"))
-              OlapMonth[i] = new Text("February");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("3"))
-              OlapMonth[i] = new Text("March");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("4"))
-              OlapMonth[i] = new Text("April");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("5"))
-              OlapMonth[i] = new Text("May");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("6"))
-              OlapMonth[i] = new Text("June");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("7"))
-              OlapMonth[i] = new Text("Julu");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("8"))
-              OlapMonth[i] = new Text("August");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("9"))
-              OlapMonth[i] = new Text("September");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("10"))
-              OlapMonth[i] = new Text("October");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("11"))
-              OlapMonth[i] = new Text("November");
-            else if (controller.getOlapAllBrandsMonth(year.getText()).get(i).equals("12"))
-              OlapMonth[i] = new Text("December");
-
 		  
-			System.out.println("This is i:" + i);
-			OlapQuantity[i].setFont(Font.font("Madeleina Sans", 25));
+		  for(i=0; i<12; i++)
+		  {
+			  if(i==0)
+				  OlapMonth[i] = new Text("January");
+			  else if(i==1)
+				  OlapMonth[i] = new Text("February");
+			  else if(i==2)
+				  OlapMonth[i] = new Text("March");
+			  else if(i==3)
+				  OlapMonth[i] = new Text("April");
+			  else if(i==4)
+				  OlapMonth[i] = new Text("May");
+			  else if(i==5)
+				  OlapMonth[i] = new Text("June");
+			  else if(i==6)
+				  OlapMonth[i] = new Text("July");
+			  else if(i==7)
+				  OlapMonth[i] = new Text("August");
+			  else if(i==8)
+				  OlapMonth[i] = new Text("September");
+			  else if(i==9)
+				  OlapMonth[i] = new Text("October");
+			  else if(i==10)
+				  OlapMonth[i] = new Text("November");
+			  else if(i==11)
+				  OlapMonth[i] = new Text("December");
+			  
+			 OlapQuantity[i] = new Text("0");
+			 OlapQuantity[i].setFont(Font.font("Madeleina Sans", 25));
 			OlapMonth[i].setFont(Font.font("Madeleina Sans", 25));
-            olapPane.getChildren().add(OlapQuantity[i]);
+           
+		  }
+		  
+		  for(i=0; i<counter; i++)
+		  {
+			  OlapQuantity[Integer.parseInt(controller.getOlapAllBrandsMonth(year.getText()).get(i)) - 1] = new Text(controller.getOlapAllBrandsSales(year.getText()).get(i));
+			  OlapQuantity[Integer.parseInt(controller.getOlapAllBrandsMonth(year.getText()).get(i)) - 1].setFont(Font.font("Madeleina Sans", 25));
+		  }
+		  for(i=0; i<12; i++)
+		  {
+			   olapPane.getChildren().add(OlapQuantity[i]);
             olapMonthPane.getChildren().add(OlapMonth[i]);
-
-          }
+		  }
+          
+		  Text netSales = new Text("Net Sales: " + controller.getOlapNetSales(year.getText()));
+		  netSales.setFont(Font.font("Madeleina Sans", 25));
+			
+		  
 
           screen.getChildren().add(olapPane);
           screen.getChildren().add(olapMonthPane);
+		  screen.getChildren().add(netSales);
 		  
 		  AnchorPane.setTopAnchor(olapPane, 120.0);
 		  AnchorPane.setTopAnchor(olapMonthPane, 120.0);
 		  AnchorPane.setLeftAnchor(olapPane, 250.0);
 		  AnchorPane.setLeftAnchor(olapMonthPane, 350.0);
+		  AnchorPane.setTopAnchor(netSales, 500.0);
+		  AnchorPane.setLeftAnchor(netSales, 300.0);
         }
       });
       adminPane.getChildren().add(screen);
