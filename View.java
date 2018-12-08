@@ -249,6 +249,8 @@ public class View {
   String getUserDetails = new String();
   VBox olapPane;
   VBox olapMonthPane;
+  Text quant;
+  Text months;
 
   public View(Controller c, Stage primaryStage) {
 
@@ -2238,13 +2240,30 @@ public class View {
 
       generate.setOnMousePressed(new EventHandler<MouseEvent>() {
         public void handle(MouseEvent e) {
+			if(screen.getChildren().size()>1)
+				screen.getChildren().removeAll(olapPane, olapMonthPane);
+			if(olapPane.getChildren().size()>1)
+			{
+				int i;
+				for(i=0; i <= olapPane.getChildren().size(); i++)
+					olapPane.getChildren().remove(OlapQuantity[i]);
+				olapPane.getChildren().removeAll(quant);
+			}
+			if(olapMonthPane.getChildren().size()>1)
+			{
+				int i;
+				for(i=0; i <= olapMonthPane.getChildren().size(); i++)
+					olapMonthPane.getChildren().remove(OlapMonth[i]);
+				olapMonthPane.getChildren().removeAll(months);
+			}
+				
 				
           int counter = controller.getOlapAllBrandsQuantity(year.getText()).size();
           OlapQuantity = new Text[counter];
           OlapMonth = new Text[counter];
 
-          Text quant = new Text("Quantity");
-          Text months = new Text("Month");
+          quant = new Text("Quantity");
+          months = new Text("Month");
 		  quant.setFont(Font.font("Madeleina Sans", 25));
 		  months. setFont(Font.font("Madeleina Sans", 25));
 		  olapPane.getChildren().add(quant);
