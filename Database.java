@@ -89,7 +89,8 @@ public class Database {
   }
 
   public ArrayList<String> getOlapAllBrandsSales(String year) {
-    String returnResults = "SELECT MONTH(order_date) as 'month', SUM(total_amount) as 'revenue' FROM orderdetails WHERE YEAR(order_date) = '"+year+"' GROUP BY MONTH(order_date)";
+    String returnResults = "SELECT MONTH(order_date) as 'month', SUM(total_amount) as 'revenue' FROM orderdetails WHERE YEAR(order_date) = '"
+        + year + "' GROUP BY MONTH(order_date)";
 
     ArrayList<String> results = new ArrayList<String>();
 
@@ -109,7 +110,8 @@ public class Database {
   }
 
   public ArrayList<String> getOlapAllBrandsMonth(String year) {
-    String returnResults = "SELECT MONTH(order_date) as 'month', SUM(total_amount) as 'revenue' FROM orderdetails WHERE YEAR(order_date) = '"+year+"' GROUP BY MONTH(order_date)";
+    String returnResults = "SELECT MONTH(order_date) as 'month', SUM(total_amount) as 'revenue' FROM orderdetails WHERE YEAR(order_date) = '"
+        + year + "' GROUP BY MONTH(order_date)";
 
     ArrayList<String> results = new ArrayList<String>();
 
@@ -286,6 +288,46 @@ public class Database {
 
   public ArrayList<Brand> getAllBrands() {
     String returnAllBrands = "SELECT * FROM brands";
+
+    ArrayList<Brand> temp = new ArrayList<Brand>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnAllBrands);
+      while (rs.next()) {
+        Brand tbrand = new Brand(rs.getInt("brand_id"), rs.getString("brand_name"), rs.getString("address"),
+            rs.getString("email"), rs.getString("contact_number"));
+        temp.add(tbrand);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public ArrayList<Brand> getAllBrandsInAddress(String address) {
+    String returnAllBrands = "SELECT * FROM brands WHERE address LIKE '%" + address + "%'";
+
+    ArrayList<Brand> temp = new ArrayList<Brand>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnAllBrands);
+      while (rs.next()) {
+        Brand tbrand = new Brand(rs.getInt("brand_id"), rs.getString("brand_name"), rs.getString("address"),
+            rs.getString("email"), rs.getString("contact_number"));
+        temp.add(tbrand);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public ArrayList<Brand> getAllBrandsStartingWith(String letter) {
+    String returnAllBrands = "SELECT * FROM brands WHERE brand_name LIKE '" + letter + "%'";
 
     ArrayList<Brand> temp = new ArrayList<Brand>();
 
@@ -613,8 +655,95 @@ public class Database {
     return temp;
   }
 
+  public ArrayList<User> getAllUsersOfGender(String gender) {
+    String returnAllUsers = "SELECT email, first_name, last_name, contact_number, gender, register_date FROM useraccounts WHERE gender = ‘"
+        + gender + "’";
+    ArrayList<User> temp = new ArrayList<User>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnAllUsers);
+
+      while (rs.next()) {
+        User tuser = new User(rs.getInt("user_id"), rs.getString("email"), rs.getString("password"),
+            rs.getString("first_name"), rs.getString("last_name"), rs.getString("contact_number"),
+            rs.getString("gender"), rs.getString("register_date"));
+
+        temp.add(tuser);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public ArrayList<User> getAllRecentUsers() {
+    String returnAllUsers = "SELECT * FROM useraccounts WHERE register_date > CURRENT_DATE() -7";
+    ArrayList<User> temp = new ArrayList<User>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnAllUsers);
+
+      while (rs.next()) {
+        User tuser = new User(rs.getInt("user_id"), rs.getString("email"), rs.getString("password"),
+            rs.getString("first_name"), rs.getString("last_name"), rs.getString("contact_number"),
+            rs.getString("gender"), rs.getString("register_date"));
+
+        temp.add(tuser);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
   public ArrayList<Order> getAllOrders() {
     String returnAllOrders = "SELECT * FROM orderdetails";
+    ArrayList<Order> temp = new ArrayList<Order>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnAllOrders);
+
+      while (rs.next()) {
+        Order torder = new Order(rs.getInt("order_id"), rs.getString("payment_method"), rs.getString("order_date"),
+            rs.getString("shipping_address"), rs.getString("billing_address"), rs.getFloat("total_amount"),
+            rs.getInt("user_id"));
+        temp.add(torder);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public ArrayList<Order> getAllRecentOrders() {
+    String returnAllOrders = "SELECT orderdetails.* FROM orderdetails WHERE order_date  > CURRENT_DATE() -7";
+    ArrayList<Order> temp = new ArrayList<Order>();
+
+    try {
+      ResultSet rs = stmt.executeQuery(returnAllOrders);
+
+      while (rs.next()) {
+        Order torder = new Order(rs.getInt("order_id"), rs.getString("payment_method"), rs.getString("order_date"),
+            rs.getString("shipping_address"), rs.getString("billing_address"), rs.getFloat("total_amount"),
+            rs.getInt("user_id"));
+        temp.add(torder);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.getMessage());
+      System.out.println("SQLState: " + e.getSQLState());
+      System.out.println("VendorError: " + e.getErrorCode());
+    }
+    return temp;
+  }
+
+  public ArrayList<Order> getAllOrdersOfPaymentMethod(String payment_method) {
+    String returnAllOrders = "SELECT orderdetails.* FROM orderdetails WHERE payment_method = ‘" + payment_method + "’";
     ArrayList<Order> temp = new ArrayList<Order>();
 
     try {
@@ -768,15 +897,15 @@ public class Database {
 
   }
 
-  public String getBrandName(int brand_id){
-	 String returnResults = "SELECT brand_name FROM brands WHERE brand_id = " + brand_id;
+  public String getBrandName(int brand_id) {
+    String returnResults = "SELECT brand_name FROM brands WHERE brand_id = " + brand_id;
 
-		String results = new String("");
+    String results = new String("");
 
     try {
       ResultSet rs = stmt.executeQuery(returnResults);
 
-	  if (rs.next()) {
+      if (rs.next()) {
         return rs.getString("brand_name");
       }
 
@@ -786,6 +915,7 @@ public class Database {
       System.out.println("VendorError: " + e.getErrorCode());
     }
 
-	return results;
+    return results;
   }
+
 }

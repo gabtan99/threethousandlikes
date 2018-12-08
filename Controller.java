@@ -134,9 +134,32 @@ public class Controller {
 
   }
 
-  public String getBrandName(int brand_id)
-  {
-	  return model.getBrandName(brand_id);
+  public String getBrandName(int brand_id) {
+    return model.getBrandName(brand_id);
+  }
+
+  public ArrayList<Brand> getAllBrandsStartingWith(String letter) {
+    return model.getAllBrandsStartingWith(letter);
+  }
+
+  public ArrayList<Brand> getAllBrandsInAddress(String address) {
+    return model.getAllBrandsInAddress(address);
+  }
+
+  public ArrayList<Order> getAllRecentOrders() {
+    return model.getAllRecentOrders();
+  }
+
+  public ArrayList<Order> getAllOrdersOfPaymentMethod(String payment_method) {
+    return model.getAllOrdersOfPaymentMethod(payment_method);
+  }
+
+  public ArrayList<User> getAllUsersOfGender(String gender) {
+    return model.getAllUsersOfGender(gender);
+  }
+
+  public ArrayList<User> getAllRecentUsers() {
+    return model.getAllRecentUsers();
   }
 
 }
