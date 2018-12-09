@@ -95,7 +95,7 @@ public class View {
   Image ShoesIcon = new Image("images/ShoesIcon.png");
   Image beautyIcon = new Image("images/BeautIcon.png");
   Image sportsIcon = new Image("images/SportIcon.png");
-  Image bagIcon = new Image("images/BagsIcon.png");
+  Image bagIcon = new Image("images/bagsIcon.png");
   Image accIcon = new Image("images/AccIcon.png");
   Image apparelbar = new Image("images/ApparelTypeBar.png");
   Image clothingB = new Image("images/ClothingButton.png");
@@ -311,7 +311,7 @@ public class View {
 
         alert.showAndWait();
       }
-	  
+
 	  username.clear();
 	  password.clear();
     });
@@ -389,7 +389,7 @@ public class View {
 
     backV.setOnMouseClicked(e -> {
       primaryStage.setScene(loginScene);
-	  
+
 	  last_name.clear();
 	  first_name.clear();
 	  email.clear();
@@ -416,7 +416,7 @@ public class View {
     sign.setOnMouseClicked(e -> {
       if (!(email.getText().equals("") || password_register.getText().length() < 6 || last_name.getText().equals("")
           || first_name.getText().equals("") || contact.getText().length() != 11 || (selectedgender != "F" && selectedgender != "M"))) {
-			
+
         if (controller.registerUser(email.getText(), password_register.getText(), last_name.getText(),
             first_name.getText(), contact.getText().toString(), selectedgender)){
 				last_name.clear();
@@ -427,14 +427,14 @@ public class View {
 				maleButton.setImage(male1);
 				femaleButton.setImage(female1);
 				selectedgender = "";
-				
+
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Registered!");
 				alert.setHeaderText("Account Successfully Made!");
 				alert.setContentText("Account Registered!");
 
 				alert.showAndWait();
-				
+
 				primaryStage.setScene(loginScene);
 			}
       }
@@ -446,8 +446,8 @@ public class View {
 
 	 	  alert.showAndWait();
 	  }
-	  
-	  
+
+
     });
 
     StackPane.setMargin(last_name, new Insets(0, 30, 135, 0));
@@ -882,7 +882,7 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getAllProducts().get(n).getProduct_id(), q))
             System.out.print("Added");
-		
+
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Add to Cart!");
 			alert.setHeaderText("Item Added!");
@@ -980,14 +980,14 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getProductsWithKeyword(keyword).get(n).getProduct_id(), q))
             System.out.print("Added");
-		
+
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Add to Cart!");
 			alert.setHeaderText("Item Added!");
 			alert.setContentText("Item added to your Cart!");
 
 			alert.showAndWait();
-			
+
 			productquantity[n].clear();
         }
       });
@@ -1078,7 +1078,7 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getProductsUnderAType(AType).get(n).getProduct_id(), q))
             System.out.print("Added");
-		
+
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Add to Cart!");
 			alert.setHeaderText("Item Added!");
@@ -1361,10 +1361,10 @@ public class View {
 		  alert.setTitle("Error!");
 		  alert.setHeaderText("Shipping and Billing Address Needed!");
 	      alert.setContentText("Input the Shipping and Billing Address!");
-		  
+
 		  alert.showAndWait();
 	  }
-	  
+
 	  ShippingAddress.clear();
 	  BillingAddress.clear();
     });
@@ -1436,7 +1436,7 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getProductsUnderGender("Men").get(n).getProduct_id(), q))
             System.out.print("Added");
-		
+
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Add to Cart!");
 			alert.setHeaderText("Item Added!");
@@ -1768,12 +1768,12 @@ public class View {
 
     accountStage.show();
   }
-  
+
   private void AddProducts(){
 	  StackPane editPPane = new StackPane();
 	  Scene editPScene = new Scene(editPPane, 500, 500);
 	  Stage editProductStage = new Stage();
-	  
+
 	  Button okay = new Button("Done");
 	  Text details = new Text("Name:\nBrand Name:\nPrice:\nClassification:\nApparel Type:");
 	  details.setFont(Font.font("Madeleina Sans", 30));
@@ -1782,19 +1782,19 @@ public class View {
 	  TextField price = new TextField();
 	  TextField classification = new TextField();
 	  TextField apparel = new TextField();
-	  
+
 	  p_name.setPromptText("Name");
 	  brand.setPromptText("Brand Name");
 	  price.setPromptText("Price");
 	  classification.setPromptText("Classification");
 	  apparel.setPromptText("Apparel Type");
-	  
+
 	  p_name.setMaxWidth(250);
 	  brand.setMaxWidth(250);
 	  price.setMaxWidth(250);
 	  classification.setMaxWidth(250);
 	  apparel.setMaxWidth(250);
-	  
+
 	  editPPane.getChildren().add(okay);
 	  editPPane.getChildren().add(details);
 	  editPPane.getChildren().add(p_name);
@@ -1802,8 +1802,8 @@ public class View {
 	  editPPane.getChildren().add(price);
 	  editPPane.getChildren().add(classification);
 	  editPPane.getChildren().add(apparel);
-	  
-	  
+
+
 	  StackPane.setMargin(details, new Insets(0, 200, 0, 0));
 	  StackPane.setMargin(okay, new Insets(200, 0, 0, 0));
 	  StackPane.setMargin(p_name, new Insets(0, 0, 130, 200));
@@ -1811,7 +1811,7 @@ public class View {
 	  StackPane.setMargin(price, new Insets(0, 0, 0, 200));
 	  StackPane.setMargin(classification, new Insets(70, 0, 0, 200));
 	  StackPane.setMargin(apparel, new Insets(140, 0, 0, 200));
-	  
+
 	  okay.setOnMousePressed(new EventHandler<MouseEvent>(){
 		  public void handle(MouseEvent e)
 		  {
@@ -1820,16 +1820,16 @@ public class View {
 			  editProductStage.close();
 		  }
 	  });
-	  
+
 	  editProductStage.setScene(editPScene);
 	  editProductStage.show();
   }
-  
+
   private void AddBrands(){
 	  StackPane editBPane = new StackPane();
 	  Scene editBScene = new Scene(editBPane, 500, 500);
 	  Stage editBrandStage = new Stage();
-	  
+
 	  Button okay = new Button("Done");
 	  Text details = new Text("\nBrand Name:\nAddress:\nEmail:\nContact Number:");
 	  details.setFont(Font.font("Madeleina Sans", 30));
@@ -1841,27 +1841,27 @@ public class View {
 	  address.setPromptText("Address");
 	  email.setPromptText("Email");
 	  contact.setPromptText("Contact");
-	  
+
 	  b_name.setMaxWidth(250);
 	  address.setMaxWidth(250);
 	  email.setMaxWidth(250);
 	  contact.setMaxWidth(250);
-	  
+
 	  editBPane.getChildren().add(okay);
 	  editBPane.getChildren().add(details);
 	  editBPane.getChildren().add(b_name);
 	  editBPane.getChildren().add(address);
 	  editBPane.getChildren().add(email);
 	  editBPane.getChildren().add(contact);
-	  
-	  
+
+
 	  StackPane.setMargin(details, new Insets(0, 300, 0, 0));
 	  StackPane.setMargin(okay, new Insets(220, 0, 0, 0));
 	  StackPane.setMargin(b_name, new Insets(0, 0, 70, 220));
 	  StackPane.setMargin(address, new Insets(0, 0, 0, 220));
 	  StackPane.setMargin(email, new Insets(70, 0, 0, 220));
 	  StackPane.setMargin(contact, new Insets(140, 0, 0, 220));
-	  
+
 	  okay.setOnMousePressed(new EventHandler<MouseEvent>(){
 		  public void handle(MouseEvent e)
 		  {
@@ -1869,16 +1869,16 @@ public class View {
 			  editBrandStage.close();
 		  }
 	  });
-	  
+
 	  editBrandStage.setScene(editBScene);
-	  editBrandStage.show();  
+	  editBrandStage.show();
   }
-  
+
   private void EditBrands(String info){
 	  StackPane editBPane = new StackPane();
 	  Scene editBScene = new Scene(editBPane, 500, 500);
 	  Stage editBrandStage = new Stage();
-	  
+
 	  Button okay = new Button("Done");
 	  Text details = new Text("Brand ID:\nBrand Name:\nAddress:\nEmail:\nContact Number:");
 	  details.setFont(Font.font("Madeleina Sans", 30));
@@ -1887,13 +1887,13 @@ public class View {
 	  TextField address = new TextField(""+controller.getAllBrands().get(Integer.parseInt(info)-1).getAddress());
 	  TextField email = new TextField(controller.getAllBrands().get(Integer.parseInt(info)-1).getEmail());
 	  TextField contact = new TextField(controller.getAllBrands().get(Integer.parseInt(info)-1).getContact_number());
-	  
+
 	  b_name.setMaxWidth(250);
 	  brand.setMaxWidth(250);
 	  address.setMaxWidth(250);
 	  email.setMaxWidth(250);
 	  contact.setMaxWidth(250);
-	  
+
 	  editBPane.getChildren().add(okay);
 	  editBPane.getChildren().add(details);
 	  editBPane.getChildren().add(brand);
@@ -1901,8 +1901,8 @@ public class View {
 	  editBPane.getChildren().add(address);
 	  editBPane.getChildren().add(email);
 	  editBPane.getChildren().add(contact);
-	  
-	  
+
+
 	  StackPane.setMargin(details, new Insets(0, 300, 0, 0));
 	  StackPane.setMargin(okay, new Insets(220, 0, 0, 0));
 	  StackPane.setMargin(brand, new Insets(0, 0, 130, 220));
@@ -1910,7 +1910,7 @@ public class View {
 	  StackPane.setMargin(address, new Insets(0, 0, 0, 220));
 	  StackPane.setMargin(email, new Insets(70, 0, 0, 220));
 	  StackPane.setMargin(contact, new Insets(140, 0, 0, 220));
-	  
+
 	  okay.setOnMousePressed(new EventHandler<MouseEvent>(){
 		  public void handle(MouseEvent e)
 		  {
@@ -1918,17 +1918,17 @@ public class View {
 			  editBrandStage.close();
 		  }
 	  });
-	  
+
 	  editBrandStage.setScene(editBScene);
 	  editBrandStage.show();
-	  
+
   }
-  
+
   private void EditProduct(String info){
 	  StackPane editPPane = new StackPane();
 	  Scene editPScene = new Scene(editPPane, 500, 500);
 	  Stage editProductStage = new Stage();
-	  
+
 	  Button okay = new Button("Done");
 	  Text details = new Text("Name:\nBrand Name:\nPrice:\nClassification:\nApparel Type:");
 	  details.setFont(Font.font("Madeleina Sans", 30));
@@ -1937,13 +1937,13 @@ public class View {
 	  TextField price = new TextField(""+controller.getAllProducts().get(Integer.parseInt(info)-1).getPrice());
 	  TextField classification = new TextField(controller.getAllProducts().get(Integer.parseInt(info)-1).getClassification());
 	  TextField apparel = new TextField(controller.getAllProducts().get(Integer.parseInt(info)-1).getApparel_type());
-	  
+
 	  p_name.setMaxWidth(250);
 	  brand.setMaxWidth(250);
 	  price.setMaxWidth(250);
 	  classification.setMaxWidth(250);
 	  apparel.setMaxWidth(250);
-	  
+
 	  editPPane.getChildren().add(okay);
 	  editPPane.getChildren().add(details);
 	  editPPane.getChildren().add(p_name);
@@ -1951,8 +1951,8 @@ public class View {
 	  editPPane.getChildren().add(price);
 	  editPPane.getChildren().add(classification);
 	  editPPane.getChildren().add(apparel);
-	  
-	  
+
+
 	  StackPane.setMargin(details, new Insets(0, 200, 0, 0));
 	  StackPane.setMargin(okay, new Insets(200, 0, 0, 0));
 	  StackPane.setMargin(p_name, new Insets(0, 0, 130, 200));
@@ -1960,7 +1960,7 @@ public class View {
 	  StackPane.setMargin(price, new Insets(0, 0, 0, 200));
 	  StackPane.setMargin(classification, new Insets(70, 0, 0, 200));
 	  StackPane.setMargin(apparel, new Insets(140, 0, 0, 200));
-	  
+
 	  okay.setOnMousePressed(new EventHandler<MouseEvent>(){
 		  public void handle(MouseEvent e)
 		  {
@@ -1970,7 +1970,7 @@ public class View {
 			  editProductStage.close();
 		  }
 	  });
-	  
+
 	  editProductStage.setScene(editPScene);
 	  editProductStage.show();
   }
@@ -1981,7 +1981,7 @@ public class View {
         adminPane.getChildren().remove(1);
      if (screen.getChildren().size() > 0)
         screen.getChildren().clear();
-	
+
 	  TableView<User> table = new TableView<User>();
       ObservableList<User> data = FXCollections.observableArrayList(controller.getAllUsersOfGender(gender));
 
@@ -2012,12 +2012,12 @@ public class View {
       table.getColumns().add(contact_column);
       table.getColumns().add(register_column);
       table.getColumns().add(gender_column);
-	  
+
 	  screen.getChildren().add(table);
 	  adminPane.getChildren().add(screen);
-	  
+
   }
-  
+
   private void recentUsers()
   {
 	  if (adminPane.getChildren().size() > 1)
@@ -2056,11 +2056,11 @@ public class View {
       table.getColumns().add(contact_column);
       table.getColumns().add(register_column);
       table.getColumns().add(gender_column);
-	  
+
 	  screen.getChildren().add(table);
 	  adminPane.getChildren().add(screen);
   }
-  
+
   private void recentOrder(){
 	 if (adminPane.getChildren().size() > 1)
         adminPane.getChildren().remove(1);
@@ -2097,11 +2097,11 @@ public class View {
       table.getColumns().add(shipping_column);
       table.getColumns().add(billing_column);
       table.getColumns().add(total_column);
-	  
+
 	  screen.getChildren().add(table);
 	  adminPane.getChildren().add(screen);
   }
-  
+
   private void OrderPayment(String method)
   {
 	  if (adminPane.getChildren().size() > 1)
@@ -2139,11 +2139,11 @@ public class View {
       table.getColumns().add(shipping_column);
       table.getColumns().add(billing_column);
       table.getColumns().add(total_column);
-	  
+
 	  screen.getChildren().add(table);
 	  adminPane.getChildren().add(screen);
   }
-  
+
   private void BrandAddress(String address){
 	  if (adminPane.getChildren().size() > 1)
         adminPane.getChildren().remove(1);
@@ -2178,7 +2178,7 @@ public class View {
       table.getColumns().add(address_column);
       table.getColumns().add(email_column);
       table.getColumns().add(contactNum_column);
-	  
+
 	  screen.getChildren().add(table);
 	  adminPane.getChildren().add(screen);
   }
@@ -2217,14 +2217,14 @@ public class View {
       table.getColumns().add(address_column);
       table.getColumns().add(email_column);
       table.getColumns().add(contactNum_column);
-	  
+
 	  screen.getChildren().add(table);
 	  adminPane.getChildren().add(screen);
   }
   private void AdminCall() {
     Scene AdminScene = new Scene(adminPane, 1280, 720);
     primaryStage.setScene(AdminScene);
-	
+
     AnchorPane adminMenu = new AnchorPane();
     olapMonthPane = new VBox();
     olapPane = new VBox();
@@ -2243,7 +2243,7 @@ public class View {
 	addV2.setFitWidth(146);
 	addV.setFitHeight(32);
 	addV2.setFitHeight(32);
-	
+
 
     brandView.setOnMouseEntered(e -> {
       brandView.setImage(brandH);
@@ -2329,8 +2329,8 @@ public class View {
 	paymentV.setOnMouseExited(e->{
 		paymentV.setImage(payment);
 	});
-	
-	AnchorPane.setRightAnchor(recentV, 50.0);	
+
+	AnchorPane.setRightAnchor(recentV, 50.0);
 
     adminPane.getChildren().add(adminMenu);
 
@@ -2372,13 +2372,13 @@ public class View {
       table.getColumns().add(contact_column);
       table.getColumns().add(register_column);
       table.getColumns().add(gender_column);
-	  
-	  
-	  
+
+
+
 	  UserM.setOnMouseClicked(new EventHandler<MouseEvent>(){
 		  public void handle(MouseEvent e)
 		  {
-			UserGender("M");  
+			UserGender("M");
 		  }
 	  });
 	  UserF.setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -2393,7 +2393,7 @@ public class View {
 			  recentUsers();
 		  }
 	  });
-	
+
       screen.getChildren().add(table);
 	  screen.getChildren().add(recentV);
 	  screen.getChildren().add(UserM);
@@ -2438,7 +2438,7 @@ public class View {
       table.getColumns().add(shipping_column);
       table.getColumns().add(billing_column);
       table.getColumns().add(total_column);
-	  
+
 	  recentO.setOnMouseClicked(new EventHandler<MouseEvent>(){
 		  public void handle(MouseEvent e){
 			  recentOrder();
@@ -2450,16 +2450,16 @@ public class View {
 		paymentC.setPromptText("Select Payment Method");
 		paymentC.setMaxHeight(40);
 		paymentC.setMaxWidth(200);
-		
+
 		AnchorPane.setLeftAnchor(paymentC, 700.0);
 		AnchorPane.setTopAnchor(paymentC, 500.0);
-		
+
 		paymentV.setOnMouseClicked(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent e){
 				OrderPayment(paymentC.getValue());
 			}
 		});
-		
+
       screen.getChildren().add(table);
 	  screen.getChildren().add(recentO);
 	  screen.getChildren().add(paymentV);
@@ -2507,12 +2507,12 @@ public class View {
 	  screen.getChildren().add(editT2);
 	  screen.getChildren().add(addV2);
       adminPane.getChildren().add(screen);
-	  
+
 	  AnchorPane.setTopAnchor(editT2, 420.0);
 	  AnchorPane.setLeftAnchor(editT2, 200.0);
 	  AnchorPane.setTopAnchor(addV2, 420.0);
 	  AnchorPane.setLeftAnchor(addV2, 400.0);
-	  
+
 	  editT2.setOnMouseClicked(new EventHandler<MouseEvent>(){
 		  public void handle(MouseEvent e)
 		  {
@@ -2520,27 +2520,27 @@ public class View {
 			  dialog.setTitle("Edit Product");
 			  dialog.setHeaderText("Edit Product");
 			  dialog.setContentText("Enter Product ID: ");
-				
+
 			  Optional<String> result = dialog.showAndWait();
 			  if(result.isPresent())
 			  {
-				  
+
 				result.ifPresent(name->{
 					EditBrands(name);
 				});
 			  }
-				
-			
+
+
 		  }
 	  });
-	  
+
 	  addV2.setOnMouseClicked(new EventHandler<MouseEvent>(){
 		public void handle (MouseEvent e)
 		{
 		  AddBrands();
 		}
 	});
-	
+
 		TextField address = new TextField();
 		Button byAddress = new Button("By Address");
 		address.setPromptText("Enter Address");
@@ -2549,19 +2549,19 @@ public class View {
 		letter.setPromptText("Enter Letter");
 		letter.setMaxWidth(100);
 		address.setMaxWidth(100);
-		
+
 		byAddress.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent e){
 				BrandAddress(address.getText());
 			}
 		});
-		
+
 		byLetter.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent e){
 				BrandLetter(letter.getText());
 			}
 		});
-		
+
 		AnchorPane.setLeftAnchor(address, 330.0);
 		AnchorPane.setTopAnchor(address, 500.0);
 		AnchorPane.setLeftAnchor(byAddress, 250.0);
@@ -2570,7 +2570,7 @@ public class View {
 		AnchorPane.setTopAnchor(letter, 530.0);
 		AnchorPane.setLeftAnchor(byLetter, 250.0);
 		AnchorPane.setTopAnchor(byLetter, 530.0);
-		
+
 		screen.getChildren().add(letter);
 		screen.getChildren().add(byLetter);
 		screen.getChildren().add(address);
@@ -2621,12 +2621,12 @@ public class View {
 	  screen.getChildren().add(editT);
 	  screen.getChildren().add(addV);
       adminPane.getChildren().add(screen);
-	  
+
 	  AnchorPane.setTopAnchor(editT, 420.0);
 	  AnchorPane.setLeftAnchor(editT, 200.0);
 	  AnchorPane.setTopAnchor(addV, 420.0);
 	  AnchorPane.setLeftAnchor(addV, 400.0);
-	  
+
 	  editT.setOnMouseClicked(new EventHandler<MouseEvent>(){
 		  public void handle(MouseEvent e)
 		  {
@@ -2634,27 +2634,27 @@ public class View {
 			  dialog.setTitle("Edit Product");
 			  dialog.setHeaderText("Edit Product");
 			  dialog.setContentText("Enter Product ID: ");
-				
+
 			  Optional<String> result = dialog.showAndWait();
 			  if(result.isPresent())
 			  {
-				  
+
 				result.ifPresent(name->{
 					EditProduct(name);
 				});
 			  }
-				
-			
+
+
 		  }
 	  });
-	  
+
 	  addV.setOnMouseClicked(new EventHandler<MouseEvent>(){
 		  public void handle(MouseEvent e)
 		  {
 			  AddProducts();
 		  }
 	  });
-	  
+
     });
 
     summaryV.setOnMouseClicked(e -> {
@@ -2673,11 +2673,11 @@ public class View {
       year.setPromptText("Year");
       year.setMaxWidth(200);
       year.setMaxHeight(30);
-	  
+
 	  screen.getChildren().add(words);
 	  screen.getChildren().add(year);
       screen.getChildren().add(generate);
-	  
+
 	  AnchorPane.setTopAnchor(words, 50.0);
 	  AnchorPane.setLeftAnchor(words, 200.0 );
 	  AnchorPane.setTopAnchor(year, 50.0);
@@ -2713,8 +2713,8 @@ public class View {
 			}
 			if(screen.getChildren().size()>0)
 				screen.getChildren().removeAll(olapPane, olapMonthPane);
-				
-				
+
+
           int counter = controller.getOlapAllBrandsMonth(year.getText()).size();
           OlapQuantity = new Text[12];
           OlapMonth = new Text[12];
@@ -2725,14 +2725,14 @@ public class View {
 		  months. setFont(Font.font("Madeleina Sans", 25));
 		  olapPane.getChildren().add(quant);
 		  olapMonthPane.getChildren().add(months);
-		   
+
 		  AnchorPane.setTopAnchor(quant, 100.0);
 		  AnchorPane.setTopAnchor(months, 100.0);
 		  AnchorPane.setLeftAnchor(quant, 250.0);
 		  AnchorPane.setLeftAnchor(months, 350.0);
-		  
+
 		  int i;
-		  
+
 		  for(i=0; i<12; i++)
 		  {
 			  if(i==0)
@@ -2759,13 +2759,13 @@ public class View {
 				  OlapMonth[i] = new Text("November");
 			  else if(i==11)
 				  OlapMonth[i] = new Text("December");
-			  
+
 			 OlapQuantity[i] = new Text("0");
 			 OlapQuantity[i].setFont(Font.font("Madeleina Sans", 25));
 			OlapMonth[i].setFont(Font.font("Madeleina Sans", 25));
-           
+
 		  }
-		  
+
 		  for(i=0; i<counter; i++)
 		  {
 			  OlapQuantity[Integer.parseInt(controller.getOlapAllBrandsMonth(year.getText()).get(i)) - 1] = new Text(controller.getOlapAllBrandsSales(year.getText()).get(i));
@@ -2776,16 +2776,16 @@ public class View {
 			   olapPane.getChildren().add(OlapQuantity[i]);
             olapMonthPane.getChildren().add(OlapMonth[i]);
 		  }
-          
+
 		  Text netSales = new Text("Net Sales: " + controller.getOlapNetSales(Integer.parseInt(year.getText())));
 		  netSales.setFont(Font.font("Madeleina Sans", 25));
-			
-		  
+
+
 
           screen.getChildren().add(olapPane);
           screen.getChildren().add(olapMonthPane);
 		  screen.getChildren().add(netSales);
-		  
+
 		  AnchorPane.setTopAnchor(olapPane, 120.0);
 		  AnchorPane.setTopAnchor(olapMonthPane, 120.0);
 		  AnchorPane.setLeftAnchor(olapPane, 250.0);
