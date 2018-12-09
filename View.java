@@ -311,6 +311,9 @@ public class View {
 
         alert.showAndWait();
       }
+	  
+	  username.clear();
+	  password.clear();
     });
 
     registerV.setOnMouseClicked(e -> {
@@ -386,6 +389,14 @@ public class View {
 
     backV.setOnMouseClicked(e -> {
       primaryStage.setScene(loginScene);
+	  
+	  last_name.clear();
+	  first_name.clear();
+	  email.clear();
+	  password_register.clear();
+	  contact.clear();
+	  maleButton.setImage(male1);
+	  femaleButton.setImage(female1);
     });
 
     maleButton.setOnMouseClicked(e -> {
@@ -409,6 +420,14 @@ public class View {
             first_name.getText(), contact.getText().toString(), selectedgender))
           primaryStage.setScene(loginScene);
       }
+	  
+	  last_name.clear();
+	  first_name.clear();
+	  email.clear();
+	  password_register.clear();
+	  contact.clear();
+	  maleButton.setImage(male1);
+	  femaleButton.setImage(female1);
     });
 
     StackPane.setMargin(last_name, new Insets(0, 30, 135, 0));
@@ -457,6 +476,7 @@ public class View {
     search.setOnMouseClicked(e -> {
       clearPage();
       viewProductsWithKeyword(searchText.getText());
+	  searchText.clear();
     });
 
     account.setOnMouseClicked(e -> {
@@ -849,6 +869,7 @@ public class View {
 			alert.setContentText("Item added to your Cart!");
 
 			alert.showAndWait();
+			productquantity[n].clear();
         }
       });
 
@@ -946,6 +967,8 @@ public class View {
 			alert.setContentText("Item added to your Cart!");
 
 			alert.showAndWait();
+			
+			productquantity[n].clear();
         }
       });
 
@@ -1042,6 +1065,7 @@ public class View {
 			alert.setContentText("Item added to your Cart!");
 
 			alert.showAndWait();
+			productquantity[n].clear();
 
         }
       });
@@ -1312,6 +1336,9 @@ public class View {
           viewMyCart();
         }
       }
+	  
+	  ShippingAddress.clear();
+	  BillingAddress.clear();
     });
 
     AnchorPane.setLeftAnchor(checkOutV, 700.0);
@@ -1381,6 +1408,14 @@ public class View {
           int q = Integer.parseInt(productquantity[n].getText());
           if (controller.addToCart(controller.getProductsUnderGender("Men").get(n).getProduct_id(), q))
             System.out.print("Added");
+		
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Add to Cart!");
+			alert.setHeaderText("Item Added!");
+			alert.setContentText("Item added to your Cart!");
+
+			alert.showAndWait();
+			productquantity[n].clear();
 
         }
       });
@@ -1472,6 +1507,13 @@ public class View {
           if (controller.addToCart(controller.getProductsUnderGender("Women").get(n).getProduct_id(), q))
             System.out.print("Added");
 
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Add to Cart!");
+			alert.setHeaderText("Item Added!");
+			alert.setContentText("Item added to your Cart!");
+
+			alert.showAndWait();
+			productquantity[n].clear();
         }
       });
 
@@ -1603,6 +1645,13 @@ public class View {
           if (controller.addToCart(controller.getProductsOfBrand(brand_id).get(n).getProduct_id(), q))
             System.out.print("Added");
 
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Add to Cart!");
+			alert.setHeaderText("Item Added!");
+			alert.setContentText("Item added to your Cart!");
+
+			alert.showAndWait();
+			productquantity[n].clear();
         }
       });
 
