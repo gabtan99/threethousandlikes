@@ -743,7 +743,7 @@ public class Database {
   }
 
   public ArrayList<Order> getAllOrdersOfPaymentMethod(String payment_method) {
-    String returnAllOrders = "SELECT order_id, payment_method, order_date, shipping_address, billing_address, total_amount, user_id FROM orderdetails WHERE payment_method = ‘" + payment_method + "’";
+    String returnAllOrders = "SELECT order_id, payment_method, order_date, shipping_address, billing_address, total_amount, user_id FROM orderdetails WHERE payment_method = '" + payment_method + "'";
     ArrayList<Order> temp = new ArrayList<Order>();
 
     try {
