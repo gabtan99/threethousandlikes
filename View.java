@@ -2111,7 +2111,7 @@ public class View {
         screen.getChildren().clear();
 
       TableView<Order> table = new TableView<Order>();
-      ObservableList<Order> data = FXCollections.observableArrayList(controller.getAllOrdersOfPaymentMethod(method));
+      ObservableList<Order> data = FXCollections.observableArrayList(controller.getAllOrdersOfPaymentMethod("Cash On Delivery"));
 
       table.setEditable(true);
       TableColumn<Order, String> order_column = new TableColumn<Order, String>("Order ID");
