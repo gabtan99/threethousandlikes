@@ -1356,6 +1356,14 @@ public class View {
           viewMyCart();
         }
       }
+	  else{
+		  Alert alert = new Alert(AlertType.ERROR);
+		  alert.setTitle("Error!");
+		  alert.setHeaderText("Shipping and Billing Address Needed!");
+	      alert.setContentText("Input the Shipping and Billing Address!");
+		  
+		  alert.showAndWait();
+	  }
 	  
 	  ShippingAddress.clear();
 	  BillingAddress.clear();
