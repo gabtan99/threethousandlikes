@@ -415,19 +415,39 @@ public class View {
 
     sign.setOnMouseClicked(e -> {
       if (!(email.getText().equals("") || password_register.getText().length() < 6 || last_name.getText().equals("")
-          || first_name.getText().equals("") || contact.getText().length() != 11)) {
+          || first_name.getText().equals("") || contact.getText().length() != 11 || (selectedgender != "F" && selectedgender != "M"))) {
+			
         if (controller.registerUser(email.getText(), password_register.getText(), last_name.getText(),
-            first_name.getText(), contact.getText().toString(), selectedgender))
-          primaryStage.setScene(loginScene);
+            first_name.getText(), contact.getText().toString(), selectedgender)){
+				last_name.clear();
+				first_name.clear();
+				email.clear();
+				password_register.clear();
+				contact.clear();
+				maleButton.setImage(male1);
+				femaleButton.setImage(female1);
+				selectedgender = "";
+				
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Registered!");
+				alert.setHeaderText("Account Successfully Made!");
+				alert.setContentText("Account Registered!");
+
+				alert.showAndWait();
+				
+				primaryStage.setScene(loginScene);
+			}
       }
+	  else{
+		  Alert alert = new Alert(AlertType.ERROR);
+		  alert.setTitle("Register!");
+		  alert.setHeaderText("Account Can't be Made!");
+	   	  alert.setContentText("Don't leave Email and Mail Blank!\nPassword should be at least 6 characters. \nContact Number shouls be 11 characters only.\nSelect your sex!");
+
+	 	  alert.showAndWait();
+	  }
 	  
-	  last_name.clear();
-	  first_name.clear();
-	  email.clear();
-	  password_register.clear();
-	  contact.clear();
-	  maleButton.setImage(male1);
-	  femaleButton.setImage(female1);
+	  
     });
 
     StackPane.setMargin(last_name, new Insets(0, 30, 135, 0));
