@@ -168,4 +168,5 @@ public class Controller {
     return model.getOlapNetSales(year);
   }
 
+}
 
